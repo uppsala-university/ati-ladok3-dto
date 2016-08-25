@@ -1,0 +1,88 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>se.sunet.ati.ladok</groupId>
+		<artifactId>ladok</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ladok3-dto</artifactId>
+	<packaging>bundle</packaging>
+
+	<name>Ladok 3 Data Transfer Objects</name>
+	<description>Ladok 3 Data Transfer Objects, generated from schemas provided by the Ladok 3 project</description>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>${basedir}/target/generated/src/main/java</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-xjc-plugin</artifactId>
+				<version>3.0.5</version>
+				<configuration>
+					<extensions>
+						<!-- Getters with default values if given in schema -->
+						<extension>org.apache.cxf.xjcplugins:cxf-xjc-dv:3.0.5</extension>
+					</extensions>
+				</configuration>
+				<executions>
+					<execution>
+						<id>generate-sources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>xsdtojava</goal>
+						</goals>
+						<configuration>
+							<sourceRoot>${basedir}/target/generated/src/main/java</sourceRoot>
+							<xsdOptions>
+								<xsdOption>
+									<!-- Schemas and doc found @ https://www.mit.ladok.se/restdoc/ -->
+									<xsdDir>${basedir}/src/main/resources/xsd-rest/</xsdDir>
+									<extensionArgs>
+										<!-- No header, easier to diff -->
+										<extensionArg>-no-header</extensionArg>
+									</extensionArgs>
+								</xsdOption>
+								<xsdOption>
+									<!-- Schemas and doc found @ https://www.mit.ladok.se/restdoc/ -->
+									<xsdDir>${basedir}/src/main/resources/xsd-atom/</xsdDir>
+									<extensionArgs>
+										<!-- No header, easier to diff -->
+										<extensionArg>-no-header</extensionArg>
+									</extensionArgs>
+								</xsdOption>
+							</xsdOptions>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Description>${project.description}</Bundle-Description>
+						<Export-package>se.ladok.schemas.*</Export-package>
+					</instructions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
