@@ -378,46 +378,46 @@
 
   <xs:simpleType name="AntagningsforfarandeNyckel">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="LADOKEXTERN_ANTAGNING"/>
-      <xs:enumeration value="LADOKINTERN_ANTAGNING_ACCEPTANS_KRAVS_EJ"/>
-      <xs:enumeration value="LADOKINTERN_ANTAGNING_ACCEPTANS_KRAVS"/>
+      <xs:enumeration value="UTANANMALAN"/>
+      <xs:enumeration value="ANMALAN"/>
+      <xs:enumeration value="EXTERNANSOKAN"/>
     </xs:restriction>
   </xs:simpleType>
 
   <xs:simpleType name="Valregel">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="VALJ_OMFATTNING"/>
       <xs:enumeration value="VALJ_X"/>
+      <xs:enumeration value="VALJ_OMFATTNING"/>
     </xs:restriction>
   </xs:simpleType>
 
   <xs:simpleType name="Datatyp">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="datumperiod"/>
-      <xs:enumeration value="integer"/>
       <xs:enumeration value="boolean"/>
-      <xs:enumeration value="period_i_ordning"/>
-      <xs:enumeration value="kurstillfallen"/>
-      <xs:enumeration value="personnummer"/>
-      <xs:enumeration value="date"/>
-      <xs:enumeration value="string"/>
       <xs:enumeration value="katalogdata"/>
+      <xs:enumeration value="personnummer"/>
+      <xs:enumeration value="string"/>
+      <xs:enumeration value="integer"/>
+      <xs:enumeration value="datumperiod"/>
+      <xs:enumeration value="kurstillfallen"/>
+      <xs:enumeration value="period_i_ordning"/>
+      <xs:enumeration value="date"/>
     </xs:restriction>
   </xs:simpleType>
 
   <xs:simpleType name="Utbildningsgrundtyp">
     <xs:restriction base="xs:string">
       <xs:enumeration value="KURSPAKETERING"/>
-      <xs:enumeration value="KURS"/>
       <xs:enumeration value="MODUL"/>
+      <xs:enumeration value="KURS"/>
     </xs:restriction>
   </xs:simpleType>
 
   <xs:simpleType name="Handelsetyp">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="UPPDATERAD"/>
       <xs:enumeration value="BORTTAGEN"/>
       <xs:enumeration value="SKAPAD"/>
+      <xs:enumeration value="UPPDATERAD"/>
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>

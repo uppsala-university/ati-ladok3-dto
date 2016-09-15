@@ -27,6 +27,18 @@
 
   <xs:element name="Amnesklasser" type="ki:Amnesklasser"/>
 
+  <xs:element name="Amnesord" type="ki:Amnesord"/>
+
+  <xs:element name="AmnesordEvent" type="ki:AmnesordEvent"/>
+
+  <xs:element name="AmnesordLista" type="ki:AmnesordLista"/>
+
+  <xs:element name="Antagningsomgang" type="ki:Antagningsomgang"/>
+
+  <xs:element name="AntagningsomgangEvent" type="ki:AntagningsomgangEvent"/>
+
+  <xs:element name="Antagningsomgangar" type="ki:Antagningsomgangar"/>
+
   <xs:element name="Anvandarbehorighet" type="ki:Anvandarbehorighet"/>
 
   <xs:element name="AnvandarbehorighetLista" type="ki:AnvandarbehorighetLista"/>
@@ -68,6 +80,10 @@
   <xs:element name="BeviskategoriEvent" type="ki:BeviskategoriEvent"/>
 
   <xs:element name="BeviskategoriLista" type="ki:BeviskategoriLista"/>
+
+  <xs:element name="DefinitionAvAntagningsomgang" type="ki:DefinitionAvAngtagningsomgang"/>
+
+  <xs:element name="DefintionerAvAntagningsomgang" type="ki:DefinitionerAvAntagningsomgang"/>
 
   <xs:element name="Dokumentkonfiguration" type="ki:Dokumentkonfiguration"/>
 
@@ -137,6 +153,8 @@
 
   <xs:element name="KonfigurationsobjektEvent" type="ki:KonfigurationsobjektEvent"/>
 
+  <xs:element name="LadokOTP" type="ki:LadokOTP"/>
+
   <xs:element name="Lan" type="ki:Lan"/>
 
   <xs:element name="LanEvent" type="ki:LanEvent"/>
@@ -162,6 +180,8 @@
   <xs:element name="LokalText" type="ki:LokalText"/>
 
   <xs:element name="LokalaTexter" type="ki:LokalaTexter"/>
+
+  <xs:element name="MFAOTP" type="ki:MFAOTP"/>
 
   <xs:element name="Markningsnyckel" type="ki:Markningsnyckel"/>
 
@@ -244,6 +264,10 @@
   <xs:element name="OrsakerAvstangning" type="ki:OrsakerAvstangning"/>
 
   <xs:element name="OrsakerEjAvgiftsskyldig" type="ki:OrsakerEjAvgiftsskyldig"/>
+
+  <xs:element name="OuthTokenInit" type="ki:OuthTokenInit"/>
+
+  <xs:element name="OuthTokenStatus" type="ki:OuthTokenStatus"/>
 
   <xs:element name="Period" type="ki:Period"/>
 
@@ -603,6 +627,29 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="DefinitionerAvAntagningsomgang">
+    <xs:complexContent>
+      <xs:extension base="base:Grunddatavardelista">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="DefintionAvAntagningsomgang" type="ki:DefinitionAvAngtagningsomgang"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="DefinitionAvAngtagningsomgang">
+    <xs:complexContent>
+      <xs:extension base="base:EnkeltGrunddatavarde">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="SistaAnmalningsdatum" type="xs:date"/>
+          <xs:element name="StudieavgiftKravs" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="UtgangsdatumUtbildningsinformation" type="xs:date"/>
+          <xs:element minOccurs="0" name="UtgangsdatumUtbildningstillfallesinformation" type="xs:date"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="NationellaMallarForPeriod">
     <xs:complexContent>
       <xs:extension base="base:Grunddatavardelista">
@@ -731,10 +778,20 @@
     <xs:complexContent>
       <xs:extension base="base:BaseEntitet">
         <xs:sequence>
-          <xs:element maxOccurs="unbounded" minOccurs="0" ref="base:Benamning"/>
+          <xs:element minOccurs="0" name="Benamningar" type="base:Benamningar"/>
           <xs:element minOccurs="0" name="Giltighetsperiod" type="base:Datumperiod"/>
           <xs:element minOccurs="0" name="Organisationskod" type="xs:string"/>
           <xs:element minOccurs="0" name="Organisationsenhetstyp" type="xs:int"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="MFAOTP">
+    <xs:complexContent>
+      <xs:extension base="base:BaseEntitet">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="OTP" type="xs:string"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -793,7 +850,7 @@
     <xs:complexContent>
       <xs:extension base="base:BaseEntitet">
         <xs:sequence>
-          <xs:element maxOccurs="unbounded" minOccurs="0" ref="base:Benamning"/>
+          <xs:element minOccurs="0" name="Benamningar" type="base:Benamningar"/>
           <xs:element minOccurs="0" name="Rattighetsniva" type="ki:Rattighetsniva"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="Systemaktiviteter" type="ki:Systemaktivitet"/>
         </xs:sequence>
@@ -810,14 +867,6 @@
           <xs:element name="KlarForProduktion" type="xs:boolean"/>
           <xs:element minOccurs="0" name="Rattighetsniva" type="ki:Rattighetsniva"/>
         </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="AmnesklassEvent">
-    <xs:complexContent>
-      <xs:extension base="events:grunddataBaseEvent">
-        <xs:sequence/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -858,6 +907,14 @@
   </xs:complexType>
 
   <xs:complexType name="UtbildningsomradeEvent">
+    <xs:complexContent>
+      <xs:extension base="events:grunddataBaseEvent">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AmnesklassEvent">
     <xs:complexContent>
       <xs:extension base="events:grunddataBaseEvent">
         <xs:sequence/>
@@ -1078,6 +1135,18 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="OuthTokenStatus">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="anvandareUid" type="xs:string"/>
+          <xs:element name="initierad" type="xs:boolean"/>
+          <xs:element name="kopplad" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="NivaInomStudieordning">
     <xs:complexContent>
       <xs:extension base="base:EnkeltGrunddatavarde">
@@ -1190,20 +1259,20 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="OrganisationsenhetstypEvent">
+    <xs:complexContent>
+      <xs:extension base="events:grunddataBaseEvent">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="StudietaktEvent">
     <xs:complexContent>
       <xs:extension base="events:grunddataBaseEvent">
         <xs:sequence>
           <xs:element minOccurs="0" name="Takt" type="xs:int"/>
         </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="OrganisationsenhetstypEvent">
-    <xs:complexContent>
-      <xs:extension base="events:grunddataBaseEvent">
-        <xs:sequence/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -1257,7 +1326,7 @@
 
   <xs:complexType name="NyLinjeorganisationsenhet">
     <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" ref="base:Benamning"/>
+      <xs:element minOccurs="0" name="Benamningar" type="base:Benamningar"/>
       <xs:element minOccurs="0" name="Giltighetsperiod" type="base:Datumperiod"/>
       <xs:element minOccurs="0" name="Organisationskod" type="xs:string"/>
       <xs:element minOccurs="0" name="Organisationsenhetstyp" type="xs:int"/>
@@ -1507,6 +1576,17 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="LadokOTP">
+    <xs:complexContent>
+      <xs:extension base="base:BaseEntitet">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="OTP" type="xs:string"/>
+          <xs:element minOccurs="0" name="GiltigtTill" type="xs:dateTime"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="SokresultatAnvBehorighetKataloginformation">
     <xs:complexContent>
       <xs:extension base="base:Sokresultat">
@@ -1606,6 +1686,14 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="TilltradesnivaEvent">
+    <xs:complexContent>
+      <xs:extension base="events:grunddataBaseEvent">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="LanEvent">
     <xs:complexContent>
       <xs:extension base="events:grunddataBaseEvent">
@@ -1614,10 +1702,15 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="TilltradesnivaEvent">
+  <xs:complexType name="Antagningsomgang">
     <xs:complexContent>
-      <xs:extension base="events:grunddataBaseEvent">
-        <xs:sequence/>
+      <xs:extension base="base:EnkeltGrunddatavarde">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="SistaAnmalningsdatum" type="xs:date"/>
+          <xs:element name="StudieavgiftKravs" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="UtgangsdatumUtbildningsinformation" type="xs:date"/>
+          <xs:element minOccurs="0" name="UtgangsdatumUtbildningstillfallesinformation" type="xs:date"/>
+        </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -1656,6 +1749,16 @@
       <xs:extension base="base:Grunddatavardelista">
         <xs:sequence>
           <xs:element maxOccurs="unbounded" minOccurs="0" ref="ki:Fordjupningsniva"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="OuthTokenInit">
+    <xs:complexContent>
+      <xs:extension base="base:BaseEntitet">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="QrPngBase64" type="xs:string"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1807,6 +1910,16 @@
       <xs:extension base="base:Grunddatavardelista">
         <xs:sequence>
           <xs:element maxOccurs="unbounded" minOccurs="0" ref="ki:Dokumentkonfiguration"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Antagningsomgangar">
+    <xs:complexContent>
+      <xs:extension base="base:Grunddatavardelista">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" ref="ki:Antagningsomgang"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1978,6 +2091,19 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="AntagningsomgangEvent">
+    <xs:complexContent>
+      <xs:extension base="events:grunddataBaseEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="SistaAnmalningsdatum" type="xs:date"/>
+          <xs:element name="StudieavgiftKravs" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="UtgangsDatumUtbildningsinformation" type="xs:date"/>
+          <xs:element minOccurs="0" name="UtgangsDatumUtbildningstillfallesinformation" type="xs:date"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="PeriodtypLista">
     <xs:complexContent>
       <xs:extension base="base:Grunddatavardelista">
@@ -2019,7 +2145,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="AktivitetSomKraverAterautentiseringEvent">
+  <xs:complexType name="MarkningsnyckelEvent">
     <xs:complexContent>
       <xs:extension base="events:grunddataBaseEvent">
         <xs:sequence/>
@@ -2027,7 +2153,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="MarkningsnyckelEvent">
+  <xs:complexType name="AktivitetSomKraverAterautentiseringEvent">
     <xs:complexContent>
       <xs:extension base="events:grunddataBaseEvent">
         <xs:sequence/>
@@ -2090,6 +2216,14 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="AmnesordEvent">
+    <xs:complexContent>
+      <xs:extension base="events:grunddataBaseEvent">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="Enheter">
     <xs:complexContent>
       <xs:extension base="base:Grunddatavardelista">
@@ -2111,6 +2245,14 @@
   <xs:complexType name="NationellExamensgruppEvent">
     <xs:complexContent>
       <xs:extension base="events:grunddataBaseEvent">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Amnesord">
+    <xs:complexContent>
+      <xs:extension base="base:EnkeltGrunddatavarde">
         <xs:sequence/>
       </xs:extension>
     </xs:complexContent>
@@ -2192,6 +2334,16 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="AmnesordLista">
+    <xs:complexContent>
+      <xs:extension base="base:Grunddatavardelista">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="AmnesordLista" type="ki:Amnesord"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="UndervisningssprakLista">
     <xs:complexContent>
       <xs:extension base="base:Grunddatavardelista">
@@ -2224,36 +2376,36 @@
 
   <xs:simpleType name="Rattighetsniva">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="rattighetsniva.nationell"/>
-      <xs:enumeration value="rattighetsniva.las"/>
       <xs:enumeration value="rattighetsniva.student"/>
       <xs:enumeration value="rattighetsniva.lokal"/>
+      <xs:enumeration value="rattighetsniva.las"/>
+      <xs:enumeration value="rattighetsniva.nationell"/>
     </xs:restriction>
   </xs:simpleType>
 
   <xs:simpleType name="Anvandarbehorighetsstatus">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="AKTIV"/>
       <xs:enumeration value="INAKTIV"/>
       <xs:enumeration value="OBEHANDLAD"/>
+      <xs:enumeration value="AKTIV"/>
     </xs:restriction>
   </xs:simpleType>
 
   <xs:simpleType name="InloggningStatus">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="anvandare.far.inte.agera.student"/>
       <xs:enumeration value="lyckades"/>
-      <xs:enumeration value="anvandare.saknas"/>
       <xs:enumeration value="anvandare.saknas.och.har.skapats"/>
       <xs:enumeration value="larosatet.inte.konfigurerat"/>
+      <xs:enumeration value="anvandare.far.inte.agera.student"/>
+      <xs:enumeration value="anvandare.saknas"/>
     </xs:restriction>
   </xs:simpleType>
 
   <xs:simpleType name="PeriodtypKategori">
     <xs:restriction base="xs:string">
+      <xs:enumeration value="NationelltBaseradPeriod"/>
       <xs:enumeration value="NationelltFastställdPeriod"/>
       <xs:enumeration value="Lärosätesperiod"/>
-      <xs:enumeration value="NationelltBaseradPeriod"/>
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>

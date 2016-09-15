@@ -47,9 +47,9 @@
 
   <xs:element name="Bevisrad" type="ex:Bevisrad"/>
 
-  <xs:element name="BevisradProjekttitel" type="ex:BevisradProjekttitel"/>
+  <xs:element name="BevisradGiltigMeritForBevis" type="ex:BevisradGiltigMeritForBevis"/>
 
-  <xs:element name="BevisradResultatPaUtbildning" type="ex:BevisradResultatPaUtbildning"/>
+  <xs:element name="BevisradProjekttitel" type="ex:BevisradProjekttitel"/>
 
   <xs:element name="BevisradRubrik" type="ex:BevisradRubrik"/>
 
@@ -80,6 +80,10 @@
   <xs:element name="Fotnot" type="ex:Fotnot"/>
 
   <xs:element name="Fotnoter" type="ex:Fotnoter"/>
+
+  <xs:element name="GiltigAnnanMeritForBevis" type="ex:GiltigAnnanMeritForBevis"/>
+
+  <xs:element name="GiltigaMeriterForBevis" type="ex:GiltigaMeriterForBevis"/>
 
   <xs:element name="Historikpost" type="ex:Historikpost"/>
 
@@ -137,6 +141,14 @@
 
   <xs:element name="StudieordningRepresentation" type="ex:StudieordningRepresentation"/>
 
+  <xs:element name="TillgodoraknandeForBevis" type="ex:TillgodoraknandeForBevis"/>
+
+  <xs:element name="TillgodoraknandegrunderForBevis" type="ex:TillgodoraknandegrunderForBevis"/>
+
+  <xs:element name="TillgodoraknandemalFritext" type="ex:TillgodoraknandemalFritext"/>
+
+  <xs:element name="TillgodoraknandemalKurs" type="ex:TillgodoraknandemalKurs"/>
+
   <xs:element name="UnderlagIngaendeKurs" type="ex:UnderlagIngaendeKurs"/>
 
   <xs:element name="UnderlagIngaendeKurslista" type="ex:UnderlagIngaendeKurslista"/>
@@ -166,6 +178,50 @@
   <xs:element name="UtfardatBevisInrapportering" type="ex:UtfardatBevisInrapportering"/>
 
   <xs:element name="UtfardatBevisLista" type="ex:UtfardatBevisLista"/>
+
+  <xs:complexType name="TillgodoraknandemalKurs">
+    <xs:complexContent>
+      <xs:extension base="ex:TillgodoraknandemalBas">
+        <xs:sequence>
+          <xs:element minOccurs="0" ref="ex:Utbildningsinstans"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType abstract="true" name="TillgodoraknandemalBas">
+    <xs:complexContent>
+      <xs:extension base="base:BaseEntitet">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Typ" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Utbildningsinstans">
+    <xs:complexContent>
+      <xs:extension base="base:BaseEntitet">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Benamningar" type="base:Benamningar"/>
+          <xs:element minOccurs="0" ref="ex:Enhet"/>
+          <xs:element minOccurs="0" name="Omfattning" type="xs:decimal"/>
+          <xs:element name="SjalvstandigUtbildningstyp" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="UtbildningUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="Utbildningskod" type="xs:string"/>
+          <xs:element minOccurs="0" name="UtbildningstypID" type="xs:int"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Enhet">
+    <xs:complexContent>
+      <xs:extension base="base:EnkeltGrunddatavarde">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
 
   <xs:complexType name="PreciseringsInfo">
     <xs:sequence>
@@ -219,22 +275,101 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ResultatPaUtbildningar">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="ResultatPaUtbildningar" type="ex:ResultatPaUtbildning"/>
-    </xs:sequence>
+  <xs:complexType name="GiltigMeritForBevis">
+    <xs:complexContent>
+      <xs:extension base="base:BaseEntitet">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Typ" type="ex:GiltigMeritForExamenTyp"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GiltigAnnanMeritForBevis">
+    <xs:complexContent>
+      <xs:extension base="ex:GiltigMeritForBevis">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AlternativBenamning" type="xs:string"/>
+          <xs:element minOccurs="0" name="Benamning" type="xs:string"/>
+          <xs:element minOccurs="0" name="Beskrivning" type="xs:string"/>
+          <xs:element minOccurs="0" name="Betygsskala" type="xs:string"/>
+          <xs:element minOccurs="0" ref="ex:Enhet"/>
+          <xs:element minOccurs="0" name="Examinationsdatum" type="xs:date"/>
+          <xs:element minOccurs="0" name="Examinator" type="xs:string"/>
+          <xs:element minOccurs="0" name="ExternPartBenamning" type="base:Benamningar"/>
+          <xs:element minOccurs="0" name="Omfattningsvarde" type="xs:decimal"/>
+          <xs:element minOccurs="0" name="Resultat" type="xs:string"/>
+          <xs:element minOccurs="0" name="Utbildningskod" type="xs:string"/>
+          <xs:element minOccurs="0" ref="ex:Utbildningstyp"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Utbildningstyp">
+    <xs:complexContent>
+      <xs:extension base="base:EnkeltGrunddatavarde">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="TillgodoraknandeForBevis">
+    <xs:complexContent>
+      <xs:extension base="ex:GiltigMeritForBevis">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Benamning" type="xs:string"/>
+          <xs:element minOccurs="0" name="Beslutsdatum" type="xs:date"/>
+          <xs:element minOccurs="0" name="Beslutsfattare" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Malrepresentation" type="ex:TillgodoraknandemalBas"/>
+          <xs:element minOccurs="0" name="Tillgodogrunder" type="ex:TillgodoraknandegrunderForBevis"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="TillgodoraknandegrunderForBevis">
+    <xs:complexContent>
+      <xs:extension base="ex:GiltigMeritForBevis">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="GrundAndraMeriter" type="ex:AnnanMerit"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="GrundAndraResultat" type="ex:GiltigAnnanMeritForBevis"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="GrundResultatPaUtbildning" type="ex:ResultatPaUtbildning"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AnnanMerit">
+    <xs:complexContent>
+      <xs:extension base="base:BaseEntitet">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AlternativBenamning" type="xs:string"/>
+          <xs:element minOccurs="0" name="Benamning" type="xs:string"/>
+          <xs:element minOccurs="0" name="Beskrivning" type="xs:string"/>
+          <xs:element minOccurs="0" name="Betygsskala" type="xs:string"/>
+          <xs:element minOccurs="0" name="Examinationsdatum" type="xs:date"/>
+          <xs:element minOccurs="0" name="Examinator" type="xs:string"/>
+          <xs:element minOccurs="0" name="Omfattning" type="xs:string"/>
+          <xs:element minOccurs="0" name="Resultat" type="xs:string"/>
+          <xs:element minOccurs="0" name="Ursprung" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
   </xs:complexType>
 
   <xs:complexType name="ResultatPaUtbildning">
     <xs:complexContent>
-      <xs:extension base="base:BaseEntitet">
+      <xs:extension base="ex:GiltigMeritForBevis">
         <xs:sequence>
           <xs:element minOccurs="0" name="AlternativProjekttitel" type="xs:string"/>
           <xs:element minOccurs="0" name="Benamningar" type="base:Benamningar"/>
           <xs:element minOccurs="0" name="BetygsgradBenamningar" type="base:Benamningar"/>
           <xs:element minOccurs="0" name="Examinationsdatum" type="xs:date"/>
           <xs:element minOccurs="0" name="Examinator" type="xs:string"/>
+          <xs:element minOccurs="0" name="Kursbenamning" type="base:Benamningar"/>
           <xs:element minOccurs="0" name="Kurskod" type="xs:string"/>
+          <xs:element minOccurs="0" name="Kursomfattning" type="xs:decimal"/>
           <xs:element minOccurs="0" name="Larosatesbenamningar" type="base:Benamningar"/>
           <xs:element name="Makulerat" type="xs:boolean"/>
           <xs:element minOccurs="0" name="Omfattning" type="xs:decimal"/>
@@ -259,18 +394,30 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="Enhet">
+  <xs:complexType name="TillgodoraknandemalFritext">
     <xs:complexContent>
-      <xs:extension base="base:EnkeltGrunddatavarde">
-        <xs:sequence/>
+      <xs:extension base="ex:TillgodoraknandemalBas">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Benamningar" type="base:Benamningar"/>
+          <xs:element minOccurs="0" name="Beskrivningar" type="base:Benamningar"/>
+          <xs:element minOccurs="0" name="Enhetskod" type="xs:string"/>
+          <xs:element minOccurs="0" name="Omfattning" type="xs:decimal"/>
+        </xs:sequence>
       </xs:extension>
     </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ResultatPaUtbildningar">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ResultatPaUtbildningar" type="ex:ResultatPaUtbildning"/>
+    </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="UtfardatBevisEvent">
     <xs:complexContent>
       <xs:extension base="events:BaseEvent">
         <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="AndraResultat" type="xs:string"/>
           <xs:element minOccurs="0" name="BevisbenamningUID" type="xs:string"/>
           <xs:element minOccurs="0" name="Bevisgrundtyp" type="ex:BevisgrundtypRepresentation"/>
           <xs:element minOccurs="0" name="DatumForSlutfordUtbildning" type="xs:date"/>
@@ -281,6 +428,7 @@
           <xs:element maxOccurs="unbounded" minOccurs="0" name="Preciseringar" type="ex:PreciseringsInfo"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="ResultatPaHelKursLista" type="xs:string"/>
           <xs:element minOccurs="0" name="StudentUID" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Tillgodoraknanden" type="xs:string"/>
           <xs:element minOccurs="0" name="UnderliggandeKurspaketeringsinstansUID" type="xs:string"/>
           <xs:element minOccurs="0" name="UtfardandeLarosate" type="xs:int"/>
           <xs:element minOccurs="0" name="UtfardatBevisUID" type="xs:string"/>
@@ -295,7 +443,7 @@
         <xs:sequence>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="Bevisrader" type="ex:Bevisrad"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="Fotnoter" type="ex:ResultatFotnot"/>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="Resultat" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="GiltigaMeriter" type="xs:string"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="ValdaResultatAvStudent" type="xs:string"/>
         </xs:sequence>
       </xs:extension>
@@ -322,11 +470,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="BevisradResultatPaUtbildning">
+  <xs:complexType name="BevisradGiltigMeritForBevis">
     <xs:complexContent>
       <xs:extension base="ex:Bevisrad">
         <xs:sequence>
-          <xs:element minOccurs="0" name="ResultatPaUtbildningUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="GiltigMeritForBevisUID" type="xs:string"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -384,10 +532,10 @@
           <xs:element minOccurs="0" name="BevisbenamningUID" type="xs:string"/>
           <xs:element minOccurs="0" name="BevismetadataUID" type="xs:string"/>
           <xs:element minOccurs="0" name="DatumForAvslutadeStudier" type="xs:date"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="AndraMeriterUID" type="xs:string"/>
           <xs:element minOccurs="0" name="HuvudsakligKurspaketeringsinstansUID" type="xs:string"/>
           <xs:element minOccurs="0" name="Omfattning" type="xs:string"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="Preciseringar" type="ex:Precisering"/>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="ResultatPaUtbildningUID" type="xs:string"/>
           <xs:element minOccurs="0" name="StudentUID" type="xs:string"/>
           <xs:element minOccurs="0" name="UnderliggandeKurspaketeringsinstansUID" type="xs:string"/>
           <xs:element minOccurs="0" name="UtfardandeLarosateID" type="xs:int"/>
@@ -462,20 +610,6 @@
         <xs:sequence>
           <xs:element minOccurs="0" ref="base:Benamning"/>
           <xs:element minOccurs="0" name="BevisbenamningUID" type="xs:string"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="AnnanMerit">
-    <xs:complexContent>
-      <xs:extension base="base:BaseEntitet">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="AlternativBenamning" type="xs:string"/>
-          <xs:element minOccurs="0" name="Benamning" type="xs:string"/>
-          <xs:element minOccurs="0" name="Omfattning" type="xs:string"/>
-          <xs:element minOccurs="0" name="Ursprung" type="xs:string"/>
-          <xs:element minOccurs="0" ref="ex:Utbildningsform"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -704,10 +838,10 @@
           <xs:element name="Borttaget" type="xs:boolean"/>
           <xs:element minOccurs="0" name="DatumForAvslutadeStudier" type="xs:date"/>
           <xs:element minOccurs="0" ref="ex:Enhet"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="GiltigaMeriterForBevis" type="ex:GiltigMeritForBevis"/>
           <xs:element minOccurs="0" name="HuvudsakligKurspaketeringsinstansUID" type="xs:string"/>
           <xs:element minOccurs="0" name="Omfattning" type="xs:string"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="Preciseringar" type="ex:Precisering"/>
-          <xs:element maxOccurs="unbounded" minOccurs="0" ref="ex:ResultatPaUtbildning"/>
           <xs:element minOccurs="0" name="StudentUID" type="xs:string"/>
           <xs:element minOccurs="0" name="UnderliggandeKurspaketeringsinstansUID" type="xs:string"/>
           <xs:element minOccurs="0" name="UtfardandeLarosateID" type="xs:int"/>
@@ -806,8 +940,8 @@
       <xs:extension base="dap:Base">
         <xs:sequence>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="AutomatiskaResultatFotnoter" type="ex:ResultatFotnot"/>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="ResultatForStudent" type="ex:ResultatPaUtbildning"/>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="ResultatPaUtbildningstyper" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="GiltigaMeriterForStudent" type="ex:GiltigMeritForBevis"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="GiltigaMeriterPaUtbildningstyper" type="xs:string"/>
           <xs:element minOccurs="0" name="Studieordning" type="ex:StudieordningRepresentation"/>
         </xs:sequence>
       </xs:extension>
@@ -868,8 +1002,18 @@
     <xs:complexContent>
       <xs:extension base="events:grunddataBaseEvent">
         <xs:sequence>
-          <xs:element name="PreciseringsgrupperingID" type="xs:int"/>
+          <xs:element minOccurs="0" name="PreciseringsgrupperingID" type="xs:int"/>
           <xs:element minOccurs="0" name="Preciseringstyp" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GiltigaMeriterForBevis">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="GiltigaMeriterForBevis" type="ex:GiltigMeritForBevis"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -881,14 +1025,6 @@
         <xs:sequence>
           <xs:element maxOccurs="unbounded" minOccurs="0" ref="ex:Utbildningstyp"/>
         </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="Utbildningstyp">
-    <xs:complexContent>
-      <xs:extension base="base:EnkeltGrunddatavarde">
-        <xs:sequence/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -958,21 +1094,6 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="Utbildningsinstans">
-    <xs:complexContent>
-      <xs:extension base="base:BaseEntitet">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Benamningar" type="base:Benamningar"/>
-          <xs:element minOccurs="0" name="Omfattning" type="xs:decimal"/>
-          <xs:element name="SjalvstandigUtbildningstyp" type="xs:boolean"/>
-          <xs:element minOccurs="0" name="UtbildningUID" type="xs:string"/>
-          <xs:element minOccurs="0" name="Utbildningskod" type="xs:string"/>
-          <xs:element minOccurs="0" name="UtbildningstypID" type="xs:int"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
   <xs:complexType name="BevisDokumentunderlagRepresentation">
     <xs:complexContent>
       <xs:extension base="base:BaseEntitet">
@@ -1005,12 +1126,6 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="BevisgrundtypLista">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="Bevisgrundtyp" type="ex:BevisgrundtypRepresentation"/>
-    </xs:sequence>
-  </xs:complexType>
-
   <xs:complexType name="Utbildningsinstanser">
     <xs:complexContent>
       <xs:extension base="dap:Base">
@@ -1019,6 +1134,12 @@
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="BevisgrundtypLista">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="Bevisgrundtyp" type="ex:BevisgrundtypRepresentation"/>
+    </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="BeviskombinationLista">
@@ -1080,6 +1201,14 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:simpleType name="GiltigMeritForExamenTyp">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TILLGODORAKNANDE"/>
+      <xs:enumeration value="ANNAT_RESULTAT"/>
+      <xs:enumeration value="RESULTAT_PA_UTBILDNING"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="BevisgrundtypRepresentation">
     <xs:restriction base="xs:string">
       <xs:enumeration value="bevisovergenomfordutbildning"/>
@@ -1089,16 +1218,16 @@
 
   <xs:simpleType name="Bevisradstyp">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="RESULTAT"/>
       <xs:enumeration value="RUBRIK"/>
+      <xs:enumeration value="RESULTAT"/>
       <xs:enumeration value="PROJEKTTITEL"/>
     </xs:restriction>
   </xs:simpleType>
 
   <xs:simpleType name="Markningstyp">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="nationellexamensgrupp"/>
       <xs:enumeration value="nivainomstudieordning"/>
+      <xs:enumeration value="nationellexamensgrupp"/>
       <xs:enumeration value="beviskategori"/>
     </xs:restriction>
   </xs:simpleType>
@@ -1106,9 +1235,9 @@
   <xs:simpleType name="Bevistextagartyp">
     <xs:restriction base="xs:string">
       <xs:enumeration value="BEVISKOMBINATION"/>
+      <xs:enumeration value="NATIONELL_BEVISTYP"/>
       <xs:enumeration value="BEVISUNDERLAG"/>
       <xs:enumeration value="BEVISBENAMNING"/>
-      <xs:enumeration value="NATIONELL_BEVISTYP"/>
     </xs:restriction>
   </xs:simpleType>
 
