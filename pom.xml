@@ -47,6 +47,10 @@
 										<!-- No header, easier to diff -->
 										<extensionArg>-no-header</extensionArg>
 									</extensionArgs>
+									<extensionArgs>
+										<arg>-encoding</arg>
+										<arg>UTF-8</arg>
+									</extensionArgs>
 								</xsdOption>
 								<xsdOption>
 									<!-- Schemas and doc found @ https://www.mit.ladok.se/restdoc/ -->
@@ -54,6 +58,10 @@
 									<extensionArgs>
 										<!-- No header, easier to diff -->
 										<extensionArg>-no-header</extensionArg>
+									</extensionArgs>
+									<extensionArgs>
+										<arg>-encoding</arg>
+										<arg>UTF-8</arg>
 									</extensionArgs>
 								</xsdOption>
 							</xsdOptions>
