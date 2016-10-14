@@ -9,6 +9,7 @@
   </parent>
 
   <artifactId>ladok3-dto</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
 
   <name>Ladok 3 Data Transfer Objects</name>
