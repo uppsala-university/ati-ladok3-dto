@@ -52,6 +52,7 @@
                   <extensionArgs>
                     <arg>-encoding</arg>
                     <arg>UTF-8</arg>
+                    <arg>-npa</arg>
                   </extensionArgs>
                 </xsdOption>
                 <xsdOption>
@@ -64,6 +65,7 @@
                   <extensionArgs>
                     <arg>-encoding</arg>
                     <arg>UTF-8</arg>
+                    <arg>-npa</arg>
                   </extensionArgs>
                 </xsdOption>
               </xsdOptions>
