@@ -43,7 +43,6 @@
               <sourceRoot>${basedir}/target/generated/src/main/java</sourceRoot>
               <xsdOptions>
                 <xsdOption>
-                  <extension>true</extension>
                   <!-- Schemas and doc found @ https://www.mit.ladok.se/restdoc/ -->
                   <xsdDir>${basedir}/src/main/resources/xsd-rest/</xsdDir>
                   <bindingFile>${basedir}/src/main/resources/bindings.xml</bindingFile>
@@ -55,10 +54,10 @@
                     <arg>-encoding</arg>
                     <arg>UTF-8</arg>
                     <arg>-npa</arg>
+                    <arg>-extension</arg>
                   </extensionArgs>
                 </xsdOption>
                 <xsdOption>
-                  <extension>true</extension>
                   <!-- Schemas and doc found @ https://www.mit.ladok.se/restdoc/ -->
                   <xsdDir>${basedir}/src/main/resources/xsd-atom/</xsdDir>
                   <bindingFile>${basedir}/src/main/resources/bindings.xml</bindingFile>
@@ -70,6 +69,7 @@
                     <arg>-encoding</arg>
                     <arg>UTF-8</arg>
                     <arg>-npa</arg>
+                    <arg>-extension</arg>
                   </extensionArgs>
                 </xsdOption>
               </xsdOptions>
