@@ -3,16 +3,17 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>se.sunet.ati.ladok</groupId>
-    <artifactId>ladok</artifactId>
+    <groupId>se.sunet.ati</groupId>
+    <artifactId>ati-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>ladok3-dto</artifactId>
+  <groupId>se.sunet.ati.ladok</groupId>
+  <artifactId>ati-ladok3-dto</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
 
-  <name>Ladok 3 Data Transfer Objects</name>
+  <name>ATI Ladok 3 Data Transfer Objects</name>
   <description>Ladok 3 Data Transfer Objects, generated from schemas provided by the Ladok 3 project</description>
 
   <build>
