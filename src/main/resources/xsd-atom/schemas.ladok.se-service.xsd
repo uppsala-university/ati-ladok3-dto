@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:base="http://schemas.ladok.se" xmlns:dap="http://schemas.ladok.se/dap" xmlns:service="http://schemas.ladok.se/service" elementFormDefault="qualified" targetNamespace="http://schemas.ladok.se/service" version="1.0">
 
-  <xs:import namespace="http://schemas.ladok.se/dap" schemaLocation="schemas.ladok.se-dap.xsd"/>
-
   <xs:import namespace="http://schemas.ladok.se" schemaLocation="schemas.ladok.se.xsd"/>
+
+  <xs:import namespace="http://schemas.ladok.se/dap" schemaLocation="schemas.ladok.se-dap.xsd"/>
 
   <xs:element name="ErrorEventEnvelope" type="service:ErrorEventEnvelope"/>
 
@@ -33,6 +33,16 @@
 
   <xs:element name="Tjanstestatus" type="service:Tjanstestatus"/>
 
+  <xs:complexType name="PendingEventLista">
+    <xs:complexContent>
+      <xs:extension base="base:BaseEntitet">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="PendingEvents" type="service:PendingEventEnvelope"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="PendingEventEnvelope">
     <xs:complexContent>
       <xs:extension base="service:EventEnvelope">
@@ -59,21 +69,20 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="PendingEventLista">
-    <xs:complexContent>
-      <xs:extension base="base:BaseEntitet">
-        <xs:sequence>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="PendingEvents" type="service:PendingEventEnvelope"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
+  <xs:complexType name="Feedlasningsstatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FeedUrl" type="xs:string"/>
+      <xs:element minOccurs="0" name="HttpStatus" type="xs:int"/>
+      <xs:element minOccurs="0" name="Lasbar" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="PublicerareID" type="xs:int"/>
+    </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="NumberOfProducedEventsByTypeList">
+  <xs:complexType name="SequenceNumber">
     <xs:complexContent>
       <xs:extension base="dap:Base">
         <xs:sequence>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="ListOfNumberOfProducedEventsByType" type="service:NumberOfProducedEventsByType"/>
+          <xs:element minOccurs="0" name="SequenceNumber" type="xs:long"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -90,21 +99,41 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ErrorEventLista">
-    <xs:complexContent>
-      <xs:extension base="base:BaseEntitet">
-        <xs:sequence>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="ErrorEvents" type="service:ErrorEventEnvelope"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
   <xs:complexType name="ErrorEventEnvelope">
     <xs:complexContent>
       <xs:extension base="service:EventEnvelope">
         <xs:sequence>
           <xs:element name="LarosatesId" type="xs:int"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EventCount">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="EventCount" type="xs:int"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EventTypesSubscribedOn">
+    <xs:complexContent>
+      <xs:extension base="base:BaseEntitet">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Subscriptions" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PublisherSequenceNumberList">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="PublisherSekvensnummerLista" type="service:PublisherSekvensnummer"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -121,50 +150,21 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="Feedlasningsstatus">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="FeedUrl" type="xs:string"/>
-      <xs:element minOccurs="0" name="HttpStatus" type="xs:int"/>
-      <xs:element minOccurs="0" name="Lasbar" type="xs:boolean"/>
-      <xs:element minOccurs="0" name="PublicerareID" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="PublisherSequenceNumberList">
+  <xs:complexType name="NumberOfProducedEventsByTypeList">
     <xs:complexContent>
       <xs:extension base="dap:Base">
         <xs:sequence>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="PublisherSekvensnummerLista" type="service:PublisherSekvensnummer"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="ListOfNumberOfProducedEventsByType" type="service:NumberOfProducedEventsByType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="EventTypesSubscribedOn">
+  <xs:complexType name="ErrorEventLista">
     <xs:complexContent>
       <xs:extension base="base:BaseEntitet">
         <xs:sequence>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="Subscriptions" type="xs:string"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="EventCount">
-    <xs:complexContent>
-      <xs:extension base="dap:Base">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="EventCount" type="xs:int"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SequenceNumber">
-    <xs:complexContent>
-      <xs:extension base="dap:Base">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="SequenceNumber" type="xs:long"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="ErrorEvents" type="service:ErrorEventEnvelope"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
