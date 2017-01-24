@@ -17,6 +17,10 @@
   <name>ATI Ladok 3 Data Transfer Objects</name>
   <description>Ladok 3 Data Transfer Objects, generated from schemas provided by the Ladok 3 project</description>
 
+  <properties>
+    <cxf.version>3.0.5</cxf.version>
+  </properties>
+
   <build>
     <resources>
       <resource>
@@ -27,11 +31,11 @@
       <plugin>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-xjc-plugin</artifactId>
-        <version>3.0.5</version>
+        <version>${cxf.version}</version>
         <configuration>
           <extensions>
             <!-- Getters with default values if given in schema -->
-            <extension>org.apache.cxf.xjcplugins:cxf-xjc-dv:3.0.5</extension>
+            <extension>org.apache.cxf.xjcplugins:cxf-xjc-dv:${cxf.version}</extension>
           </extensions>
         </configuration>
         <executions>
@@ -54,7 +58,7 @@
                   </extensionArgs>
                   <extensionArgs>
                     <arg>-encoding</arg>
-                    <arg>UTF-8</arg>
+                    <arg>${project.build.sourceEncoding}</arg>
                     <arg>-npa</arg>
                     <arg>-extension</arg>
                   </extensionArgs>
@@ -69,7 +73,7 @@
                   </extensionArgs>
                   <extensionArgs>
                     <arg>-encoding</arg>
-                    <arg>UTF-8</arg>
+                    <arg>${project.build.sourceEncoding}</arg>
                     <arg>-npa</arg>
                     <arg>-extension</arg>
                   </extensionArgs>
