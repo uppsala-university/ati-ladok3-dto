@@ -15,7 +15,8 @@
   <packaging>bundle</packaging>
 
   <name>ATI Ladok 3 Data Transfer Objects</name>
-  <description>Ladok 3 Data Transfer Objects, generated from schemas provided by the Ladok 3 project</description>
+  <description>Ladok 3 Data Transfer Objects as an OSGi-bundle. Generated from schemas provided by the Ladok 3 project.</description>
+  <url>https://github.com/uppsala-university/ati-ladok3-dto</url>
 
   <scm>
     <connection>scm:git:https://github.com/uppsala-university/ati-ladok3-dto.git</connection>
