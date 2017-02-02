@@ -17,6 +17,12 @@
   <name>ATI Ladok 3 Data Transfer Objects</name>
   <description>Ladok 3 Data Transfer Objects, generated from schemas provided by the Ladok 3 project</description>
 
+  <scm>
+    <connection>scm:git:https://github.com/uppsala-university/ati-ladok3-dto.git</connection>
+    <developerConnection>scm:git:https://github.com/uppsala-university/ati-ladok3-dto.git</developerConnection>
+    <url>https://github.com/uppsala-university/ati-ladok3-dto</url>
+  </scm>
+
   <properties>
     <cxf.version>3.0.5</cxf.version>
   </properties>
