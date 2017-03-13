@@ -58,22 +58,7 @@
               <xsdOptions>
                 <xsdOption>
                   <!-- Schemas and doc found @ https://www.mit.ladok.se/restdoc/ -->
-                  <xsdDir>${basedir}/src/main/resources/xsd-rest/</xsdDir>
-                  <bindingFile>${basedir}/src/main/resources/bindings.xml</bindingFile>
-                  <extensionArgs>
-                    <!-- No header, easier to diff -->
-                    <extensionArg>-no-header</extensionArg>
-                  </extensionArgs>
-                  <extensionArgs>
-                    <arg>-encoding</arg>
-                    <arg>${project.build.sourceEncoding}</arg>
-                    <arg>-npa</arg>
-                    <arg>-extension</arg>
-                  </extensionArgs>
-                </xsdOption>
-                <xsdOption>
-                  <!-- Schemas and doc found @ https://www.mit.ladok.se/restdoc/ -->
-                  <xsdDir>${basedir}/src/main/resources/xsd-atom/</xsdDir>
+                  <xsdDir>${basedir}/src/main/resources/xsd/</xsdDir>
                   <bindingFile>${basedir}/src/main/resources/bindings.xml</bindingFile>
                   <extensionArgs>
                     <!-- No header, easier to diff -->
