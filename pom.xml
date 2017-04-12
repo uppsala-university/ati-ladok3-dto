@@ -44,9 +44,9 @@
           <extensions>
             <!-- Getters with default values if given in schema -->
             <extension>org.apache.cxf.xjcplugins:cxf-xjc-dv:${cxf.version}</extension>
-            
+
             <!-- Insert toString method for DTOs -->
-			<extension>org.apache.cxf.xjcplugins:cxf-xjc-ts:${cxf.version}</extension>
+            <extension>org.apache.cxf.xjcplugins:cxf-xjc-ts:${cxf.version}</extension>
           </extensions>
         </configuration>
         <executions>
@@ -74,11 +74,11 @@
                     <arg>-extension</arg>
                   </extensionArgs>
                   <extensionArgs>
-                  	<arg>-encoding</arg>
-                  	<arg>${project.build.sourceEncoding}</arg>
-                  	<arg>-npa</arg>
-                  	<arg>-extension</arg>
-                  	<arg>-Xts:style:multiline</arg>
+                    <arg>-encoding</arg>
+                    <arg>${project.build.sourceEncoding}</arg>
+                    <arg>-npa</arg>
+                    <arg>-extension</arg>
+                    <arg>-Xts:style:multiline</arg>
                   </extensionArgs>
                 </xsdOption>
               </xsdOptions>
@@ -99,22 +99,21 @@
     </plugins>
   </build>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.cxf.xjc-utils</groupId>
-			<artifactId>cxf-xjc-runtime</artifactId>
-			<version>3.0.5</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf.xjcplugins</groupId>
-			<artifactId>cxf-xjc-ts</artifactId>
-			<version>3.0.5</version>
-		</dependency>
-	</dependencies>
-		  
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.cxf.xjc-utils</groupId>
+      <artifactId>cxf-xjc-runtime</artifactId>
+      <version>3.0.5</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.cxf.xjcplugins</groupId>
+      <artifactId>cxf-xjc-ts</artifactId>
+      <version>3.0.5</version>
+    </dependency>
+  </dependencies>
 </project>
