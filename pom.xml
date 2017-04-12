@@ -101,14 +101,14 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.cxf.xjc-utils</groupId>
-      <artifactId>cxf-xjc-runtime</artifactId>
-      <version>${cxf.version}</version>
-    </dependency>
-    <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>2.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.cxf.xjc-utils</groupId>
+      <artifactId>cxf-xjc-runtime</artifactId>
+      <version>${cxf.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.cxf.xjcplugins</groupId>
