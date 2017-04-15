@@ -2,6 +2,9 @@
 <jaxb:bindings
         xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:base="http://schemas.ladok.se"
+        xmlns:ci="http://jaxb.dev.java.net/plugin/code-injector"
         jaxb:version="2.1">
     <jaxb:globalBindings>
         <!-- We want the generated Java code to use Date objects for xs:date, instead of XMLGregorianCalendar objects -->
@@ -10,4 +13,18 @@
                        printMethod="se.sunet.ati.ladok.DateAdapter.printDate"/>
         <xjc:serializable uid="-1"/>
     </jaxb:globalBindings>
+
+    <jaxb:bindings schemaLocation="xsd/schemas.ladok.se.xsd" node="/xs:schema/xs:complexType[@name='Benamningar']">
+<!-- Convenience method for getting text representation of Benamning through a map, with language code as key -->
+        <ci:code>
+            public String getText(final String sprakkod) {
+                for(Benamning b: getBenamning()) {
+                    if(b.getSprakkod().equalsIgnoreCase(sprakkod)) {
+                        return b.getText();
+                    }
+                }
+                return null;
+            }
+        </ci:code>
+    </jaxb:bindings>
 </jaxb:bindings>

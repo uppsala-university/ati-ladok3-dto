@@ -79,6 +79,7 @@
                     <arg>-npa</arg>
                     <arg>-extension</arg>
                     <arg>-Xts:style:multiline</arg>
+                    <arg>-Xinject-code</arg>
                   </extensionArgs>
                 </xsdOption>
               </xsdOptions>
