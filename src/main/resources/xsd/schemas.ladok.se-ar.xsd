@@ -25,31 +25,6 @@
 
   <xs:element name="Underlag" type="ar:Underlag"/>
 
-  <xs:complexType name="Underlag">
-    <xs:complexContent>
-      <xs:extension base="base:BaseEntitet">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="ArendeUID" type="xs:string"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType final="extension restriction" name="Arendeparametrar">
-    <xs:complexContent>
-      <xs:extension base="base:BaseEntitet">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Fritext" type="xs:string"/>
-          <xs:element minOccurs="0" ref="ar:Handlaggare"/>
-          <xs:element minOccurs="0" name="Inkommet" type="xs:date"/>
-          <xs:element minOccurs="0" ref="ar:Referens"/>
-          <xs:element minOccurs="0" name="Student" type="base:Student"/>
-          <xs:element minOccurs="0" ref="ar:Arendetyp"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
   <xs:complexType name="Handlaggare">
     <xs:complexContent>
       <xs:extension base="base:BaseEntitet">
@@ -61,22 +36,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="Referens">
+  <xs:complexType name="SokresultatArendehantering">
     <xs:complexContent>
-      <xs:extension base="dap:Base">
+      <xs:extension base="base:Sokresultat">
         <xs:sequence>
-          <xs:element minOccurs="0" name="Referens" type="xs:string"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="Arendetyp">
-    <xs:complexContent>
-      <xs:extension base="dap:Base">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Benamningar" type="base:Benamningar"/>
-          <xs:element minOccurs="0" name="I18n" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Resultat" type="ar:Arende"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -114,6 +78,16 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="Referens">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Referens" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="Arendestatus">
     <xs:complexContent>
       <xs:extension base="dap:Base">
@@ -125,21 +99,47 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="Arendetyper">
+  <xs:complexType name="Arendetyp">
     <xs:complexContent>
       <xs:extension base="dap:Base">
         <xs:sequence>
-          <xs:element maxOccurs="unbounded" minOccurs="0" ref="ar:Arendetyp"/>
+          <xs:element minOccurs="0" name="Benamningar" type="base:Benamningar"/>
+          <xs:element minOccurs="0" name="I18n" type="xs:string"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SokresultatArendehantering">
+  <xs:complexType final="extension restriction" name="Arendeparametrar">
     <xs:complexContent>
-      <xs:extension base="base:Sokresultat">
+      <xs:extension base="base:BaseEntitet">
         <xs:sequence>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="Resultat" type="ar:Arende"/>
+          <xs:element minOccurs="0" name="Fritext" type="xs:string"/>
+          <xs:element minOccurs="0" ref="ar:Handlaggare"/>
+          <xs:element minOccurs="0" name="Inkommet" type="xs:date"/>
+          <xs:element minOccurs="0" ref="ar:Referens"/>
+          <xs:element minOccurs="0" name="Student" type="base:Student"/>
+          <xs:element minOccurs="0" ref="ar:Arendetyp"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Underlag">
+    <xs:complexContent>
+      <xs:extension base="base:BaseEntitet">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ArendeUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Arendetyper">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" ref="ar:Arendetyp"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
