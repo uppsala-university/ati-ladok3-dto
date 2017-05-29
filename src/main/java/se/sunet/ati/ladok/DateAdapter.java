@@ -23,4 +23,12 @@ public class DateAdapter {
     cal.setTime(date);
     return DatatypeConverter.printDate(cal);
   }
+  public static Date parseDateTime(final String dateTime) {
+    return DatatypeConverter.parseDateTime(dateTime).getTime();
+  }
+  public static String printDateTime(final Date dateTime) {
+    Calendar cal = new GregorianCalendar();
+    cal.setTime(dateTime);
+    return DatatypeConverter.printDateTime(cal);
+  }
 }

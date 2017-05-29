@@ -10,6 +10,10 @@
         <jaxb:javaType name="java.util.Date" xmlType="xs:date"
                        parseMethod="se.sunet.ati.ladok.DateAdapter.parseDate"
                        printMethod="se.sunet.ati.ladok.DateAdapter.printDate"/>
+        <!-- We want the generated Java code to use Date objects for xs:dateTime, instead of XMLGregorianCalendar objects -->
+        <jaxb:javaType name="java.util.Date" xmlType="xs:dateTime"
+                       parseMethod="se.sunet.ati.ladok.DateAdapter.parseDateTime"
+                       printMethod="se.sunet.ati.ladok.DateAdapter.printDateTime"/>
         <xjc:serializable uid="-1"/>
     </jaxb:globalBindings>
 
