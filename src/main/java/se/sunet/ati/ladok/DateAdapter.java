@@ -1,9 +1,8 @@
 package se.sunet.ati.ladok;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import javax.xml.bind.DatatypeConverter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * A class that is used by JAXB when it converts an XML date into a Java type.
@@ -15,20 +14,23 @@ import javax.xml.bind.DatatypeConverter;
  * @author Dennis Lundberg
  */
 public class DateAdapter {
-  public static Date parseDate(final String date) {
-    return DatatypeConverter.parseDate(date).getTime();
-  }
-  public static String printDate(final Date date) {
-    Calendar cal = new GregorianCalendar();
-    cal.setTime(date);
-    return DatatypeConverter.printDate(cal);
-  }
-  public static Date parseDateTime(final String dateTime) {
-    return DatatypeConverter.parseDateTime(dateTime).getTime();
-  }
-  public static String printDateTime(final Date dateTime) {
-    Calendar cal = new GregorianCalendar();
-    cal.setTime(dateTime);
-    return DatatypeConverter.printDateTime(cal);
-  }
+    //The use of SimpleDateFormat is because L3 expects the date to be passed without any timezone reference (black box tested)
+    //Previously this was solved by suppressing the TZ from XMLGregorianCalendar but now needs to be handled by this adapter
+    private static final SimpleDateFormat formatterDateTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+    private static final SimpleDateFormat formatterDate = new SimpleDateFormat("yyyy-MM-dd");
+    public static Date parseDate(final String date) {
+        return DatatypeConverter.parseDate(date).getTime();
+    }
+
+    public static Date parseDateTime(final String dateTime) {
+        return DatatypeConverter.parseDateTime(dateTime).getTime();
+    }
+
+    public static String printDate(final Date date) {
+        return formatterDate.format(date);
+    }
+
+    public static String printDateTime(final Date dateTime) {
+        return formatterDateTime.format(dateTime);
+    }
 }
