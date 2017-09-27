@@ -68,3 +68,28 @@ enklast att lägga till en profil i ```settings.xml``` som ser ut så här:
 När du sedan bygger din egen produkt med Maven så behöver du aktivera profilen:
 
     mvn clean verify -Possrh-snapshots
+
+## Att göra en release
+
+För att göra en release behöver du lägga till nedanstående inställningar i din ```settings.xml```.
+
+```
+    <!-- OSSRH -->
+    <server>
+      <id>ossrh</id>
+      <username>ATI:s användarnamn hos OSSRH</username>
+      <password>Tillhörande lösenord</password>
+    </server>
+    ...
+    <profile>
+      <id>ati-release</id>
+      <properties>
+        <gpg.passphrase>Din GPG passphrase</gpg.passphrase>
+      </properties>
+    </profile>
+```
+
+För att göra releasen använder du dig av Maven Release Plugin:
+
+    mvn clean release:prepare
+    mvn release:perform
