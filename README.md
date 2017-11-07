@@ -35,6 +35,15 @@ Anledningen till att du behöver lägga till ```maven-bundle-plugin``` är att
 denna produkt är av typen ```bundle``` (OSGi-bundle), vilket är en typ som
 normalt inte stöds av Maven. Detta stöd tillhandahålls istället av ```maven-bundle-plugin```.
 
+## Policy för versionsnummer 
+
+Detta projekt använder versionsnummer som motsvarar den version av Ladok3 vars
+XSD:er projektet använder.
+
+När man gör en release ska man sätta nästa SNAPSHOT-versionsnummer till
+1.0.0-SNAPSHOT, så att projekt som vill ha den senaste SNAPSHOT-versionen inte
+behöver byta versionsnummer i sin dependency.
+
 ### Använda releaser
 
 Om du vill använda en relase av denna produkt behöver du inte lägga till något
@@ -74,7 +83,11 @@ När du sedan bygger din egen produkt med Maven så behöver du aktivera profile
 För att göra en release behöver du lägga till nedanstående inställningar i din ```settings.xml```.
 
 ```
-    <!-- OSSRH -->
+    <server>
+      <id>github</id>
+      <username>ditt-github-användarnamn</username>
+      <password>ditt-github-lösenord</password>
+    </server>
     <server>
       <id>ossrh</id>
       <username>ATI:s användarnamn hos OSSRH</username>
@@ -93,3 +106,6 @@ För att göra releasen använder du dig av Maven Release Plugin:
 
     mvn clean release:prepare
     mvn release:perform
+
+Slutligen behöver du gå till OSSRH för att avsluta jobbet genom att följa
+[deras instrutioner](http://central.sonatype.org/pages/releasing-the-deployment.html).
