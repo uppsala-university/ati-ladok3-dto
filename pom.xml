@@ -30,11 +30,6 @@
   </properties>
 
   <build>
-    <resources>
-      <resource>
-        <directory>${basedir}/target/generated/src/main/java</directory>
-      </resource>
-    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.cxf</groupId>
