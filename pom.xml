@@ -36,14 +36,43 @@
         <artifactId>cxf-xjc-plugin</artifactId>
         <version>${cxf-xjc.version}</version>
         <configuration>
-          <extensions>
-            <!-- Getters with default values if given in schema -->
-            <extension>org.apache.cxf.xjcplugins:cxf-xjc-dv:${cxf-xjc.version}</extension>
-
-            <!-- Insert toString method for DTOs -->
-            <extension>org.apache.cxf.xjcplugins:cxf-xjc-ts:${cxf-xjc.version}</extension>
-          </extensions>
+          <sourceRoot>${basedir}/target/generated/src/main/java</sourceRoot>
+          <xsdOptions>
+            <xsdOption>
+              <!-- Schemas and doc found @ https://www.mit.ladok.se/restdoc/ -->
+              <xsdDir>${basedir}/src/main/resources/xsd/</xsdDir>
+              <bindingFile>${basedir}/src/main/resources/bindings.xml</bindingFile>
+              <extension>true</extension>
+              <extensionArgs>
+                <!-- Use the correct encoding -->
+                <extensionArg>-encoding</extensionArg>
+                <extensionArg>${project.build.sourceEncoding}</extensionArg>
+                <!-- No header, easier to diff -->
+                <extensionArg>-no-header</extensionArg>
+                <!-- No package-info.java files -->
+                <extensionArg>-npa</extensionArg>
+                <!-- Inject code -->
+                <extensionArg>-Xinject-code</extensionArg>
+                <!-- Insert toString method for DTOs -->
+                <extensionArg>-Xts:style:multiline</extensionArg>
+              </extensionArgs>
+            </xsdOption>
+          </xsdOptions>
         </configuration>
+        <dependencies>
+          <!-- Getters with default values if given in schema -->
+          <dependency>
+            <groupId>org.apache.cxf.xjcplugins</groupId>
+            <artifactId>cxf-xjc-dv</artifactId>
+            <version>${cxf-xjc.version}</version>
+          </dependency>
+          <!-- Insert toString method for DTOs -->
+          <dependency>
+            <groupId>org.apache.cxf.xjcplugins</groupId>
+            <artifactId>cxf-xjc-ts</artifactId>
+            <version>${cxf-xjc.version}</version>
+          </dependency>
+        </dependencies>
         <executions>
           <execution>
             <id>generate-sources</id>
@@ -51,34 +80,6 @@
             <goals>
               <goal>xsdtojava</goal>
             </goals>
-            <configuration>
-              <sourceRoot>${basedir}/target/generated/src/main/java</sourceRoot>
-              <xsdOptions>
-                <xsdOption>
-                  <!-- Schemas and doc found @ https://www.mit.ladok.se/restdoc/ -->
-                  <xsdDir>${basedir}/src/main/resources/xsd/</xsdDir>
-                  <bindingFile>${basedir}/src/main/resources/bindings.xml</bindingFile>
-                  <extensionArgs>
-                    <!-- No header, easier to diff -->
-                    <extensionArg>-no-header</extensionArg>
-                  </extensionArgs>
-                  <extensionArgs>
-                    <arg>-encoding</arg>
-                    <arg>${project.build.sourceEncoding}</arg>
-                    <arg>-npa</arg>
-                    <arg>-extension</arg>
-                  </extensionArgs>
-                  <extensionArgs>
-                    <arg>-encoding</arg>
-                    <arg>${project.build.sourceEncoding}</arg>
-                    <arg>-npa</arg>
-                    <arg>-extension</arg>
-                    <arg>-Xts:style:multiline</arg>
-                    <arg>-Xinject-code</arg>
-                  </extensionArgs>
-                </xsdOption>
-              </xsdOptions>
-            </configuration>
           </execution>
         </executions>
       </plugin>
