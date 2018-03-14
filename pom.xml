@@ -29,6 +29,19 @@
     <cxf-xjc.version>3.1.0</cxf-xjc.version>
   </properties>
 
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.cxf.xjc-utils</groupId>
+      <artifactId>cxf-xjc-runtime</artifactId>
+      <version>${cxf-xjc.version}</version>
+    </dependency>
+  </dependencies>
+
   <build>
     <plugins>
       <plugin>
@@ -95,17 +108,4 @@
       </plugin>
     </plugins>
   </build>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.7</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.cxf.xjc-utils</groupId>
-      <artifactId>cxf-xjc-runtime</artifactId>
-      <version>${cxf-xjc.version}</version>
-    </dependency>
-  </dependencies>
 </project>
