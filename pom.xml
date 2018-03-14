@@ -49,7 +49,6 @@
         <artifactId>cxf-xjc-plugin</artifactId>
         <version>${cxf-xjc.version}</version>
         <configuration>
-          <sourceRoot>${basedir}/target/generated/src/main/java</sourceRoot>
           <xsdOptions>
             <xsdOption>
               <!-- Schemas and doc found @ https://www.mit.ladok.se/restdoc/ -->
@@ -89,7 +88,6 @@
         <executions>
           <execution>
             <id>generate-sources</id>
-            <phase>generate-sources</phase>
             <goals>
               <goal>xsdtojava</goal>
             </goals>
