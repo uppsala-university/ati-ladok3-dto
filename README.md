@@ -40,10 +40,6 @@ normalt inte stöds av Maven. Detta stöd tillhandahålls istället av ```maven-
 Detta projekt använder versionsnummer som motsvarar den version av Ladok3 vars
 XSD:er projektet använder.
 
-När man gör en release ska man sätta nästa SNAPSHOT-versionsnummer till
-1.0.0-SNAPSHOT, så att projekt som vill ha den senaste SNAPSHOT-versionen inte
-behöver byta versionsnummer i sin dependency.
-
 ### Använda releaser
 
 Om du vill använda en relase av denna produkt behöver du inte lägga till något
