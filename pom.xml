@@ -11,7 +11,7 @@
 
   <groupId>se.sunet.ati.ladok</groupId>
   <artifactId>ati-ladok3-dto</artifactId>
-  <version>1.8.1-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
 
   <name>ATI Ladok 3 Data Transfer Objects</name>
