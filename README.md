@@ -75,7 +75,12 @@ När du sedan bygger din egen produkt med Maven så behöver du aktivera profile
     mvn clean verify -Possrh-snapshots
 
 ## Att göra en release
+Man kan göra en release via Jenkins eller via sin egen dator (som i så fall behöver inställningar i ```settings.xml```, ```toolchains.xml``` samt ha stöd för gpg)
+### Jenkins
+Gå till  projektet ```ati-ladok3-dto``` och kör ```Perform Maven Release```, ange versionsnummer för den release som ska göras och 
+den snapshot-versionen som ska användas efter att release är gjord (inga inloggningsuppgifter behöver anges)
 
+### Lokalt via egen dator
 För att göra en release behöver du lägga till nedanstående inställningar i din ```settings.xml```.
 
 ```
@@ -103,5 +108,10 @@ För att göra releasen använder du dig av Maven Release Plugin:
     mvn clean release:prepare
     mvn release:perform
 
+## Publicera releasen externt via OSSRH
 Slutligen behöver du gå till OSSRH för att avsluta jobbet genom att följa
 [deras instrutioner](http://central.sonatype.org/pages/releasing-the-deployment.html).
+
+I korthet, logga in på [OSSRH] (https://oss.sonatype.org/#welcome), gå till ```Staging Repositories``` (i vänstermenyn),
+markera artifakten i listan (kolla att det är rätt artefakt) och klicka på ```Close``` (då sker en kvalitetskontroll av OSSRH)
+och klicka sedan på ```Release```.
