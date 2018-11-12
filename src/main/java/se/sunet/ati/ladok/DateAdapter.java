@@ -20,18 +20,18 @@ public class DateAdapter {
   private static final SimpleDateFormat formatterDateTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
   public static Date parseDate(final String date) {
-    return DatatypeConverter.parseDate(date).getTime();
+    return date == null ? null : DatatypeConverter.parseDate(date).getTime();
   }
 
   public static String printDate(final Date date) {
-    return formatterDate.format(date);
+    return date == null ? null : formatterDate.format(date);
   }
 
   public static Date parseDateTime(final String dateTime) {
-    return DatatypeConverter.parseDateTime(dateTime).getTime();
+    return dateTime == null ? null : DatatypeConverter.parseDateTime(dateTime).getTime();
   }
 
   public static String printDateTime(final Date dateTime) {
-    return formatterDateTime.format(dateTime);
+    return dateTime == null ? null : formatterDateTime.format(dateTime);
   }
 }
