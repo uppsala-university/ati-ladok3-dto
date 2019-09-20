@@ -11,7 +11,7 @@
 
   <groupId>se.sunet.ati.ladok</groupId>
   <artifactId>ati-ladok3-dto</artifactId>
-  <version>1.26.1-SNAPSHOT</version>
+  <version>1.33.0</version>
   <packaging>bundle</packaging>
 
   <name>ATI Ladok 3 Data Transfer Objects</name>
@@ -22,7 +22,7 @@
     <connection>scm:git:https://github.com/uppsala-university/ati-ladok3-dto.git</connection>
     <developerConnection>scm:git:https://github.com/uppsala-university/ati-ladok3-dto.git</developerConnection>
     <url>https://github.com/uppsala-university/ati-ladok3-dto</url>
-    <tag>HEAD</tag>
+    <tag>ati-ladok3-dto-1.33.0</tag>
   </scm>
 
   <properties>
