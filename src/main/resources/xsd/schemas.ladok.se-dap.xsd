@@ -32,4 +32,14 @@ diff av de utdumpade json-filerna som innehåller grunddata.
     <xs:attribute name="mediaType" type="xs:string"/>
     <xs:attribute name="method" type="xs:string"/>
   </xs:complexType>
+
+  <xs:complexType name="ServiceIndex">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ServiceName" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
 </xs:schema>

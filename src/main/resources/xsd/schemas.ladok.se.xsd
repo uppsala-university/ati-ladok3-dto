@@ -79,6 +79,8 @@
 
   <xs:element name="SCBRapporttyp" type="base:SCBRapporttyp"/>
 
+  <xs:element name="ServiceIndex" type="dap:ServiceIndex"/>
+
   <xs:element name="SokresultatHandelsefelResultat" type="base:SokresultatHandelsefelResultat"/>
 
   <xs:element name="Statuspost" type="base:Statuspost"/>
@@ -382,6 +384,7 @@ kunna ha länkar till de refererade entiteterna.
       <xs:element minOccurs="0" name="Uid" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
+
 
   <xs:complexType name="Typ">
 <xs:annotation>

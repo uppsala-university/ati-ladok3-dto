@@ -79,6 +79,8 @@
 
   <xs:element name="AttGoraPaKurstillfalle" type="rr:AttGoraPaKurstillfalle"/>
 
+  <xs:element name="AttGoraUtanforAktuellVersion" type="rr:AttGoraUtanforAktuellVersion"/>
+
   <xs:element name="AttesteratResultatMakuleratEvent" type="rr:AttesteratResultatMakuleratEvent"/>
 
   <xs:element name="AttesteringsbeslutForResultatUppdateratEvent" type="rr:AttesteringsbeslutForResultatUppdateratEvent"/>
@@ -195,6 +197,16 @@
 
   <xs:element name="MalPart" type="rr:MalPart"/>
 
+  <xs:element name="Massinlaggningskandidater" type="rr:Massinlaggningskandidater"/>
+
+  <xs:element name="Massinlaggningsrad" type="rr:Massinlaggningsrad"/>
+
+  <xs:element name="Massinlaggningsrader" type="rr:Massinlaggningsrader"/>
+
+  <xs:element name="Massinlaggningsutkast" type="rr:Massinlaggningsutkast"/>
+
+  <xs:element name="MassinlaggningsutkastLista" type="rr:MassinlaggningsutkastLista"/>
+
   <xs:element name="Medarbetarekoppling" type="rr:Medarbetarekoppling"/>
 
   <xs:element name="Moduldetalj" type="rr:Moduldetalj"/>
@@ -292,6 +304,10 @@
   <xs:element name="ResultatPaUtbildning" type="rr:ResultatPaUtbildning"/>
 
   <xs:element name="ResultatPaUtbildningTillStatusEvent" type="rr:ResultatPaUtbildningTillStatusEvent"/>
+
+  <xs:element name="ResultatStartsidaKurstillfalleMedKlarmarkeradeEllerFlaggadeRepresentation" type="rr:ResultatStartsidaKurstillfalleMedKlarmarkeradeEllerFlaggadeRepresentation"/>
+
+  <xs:element name="ResultatStartsidaKurstillfalleMedKlarmarkeradeEllerListaFlaggadeRepresentation" type="rr:ResultatStartsidaKurstillfalleMedKlarmarkeradeEllerFlaggadeListaRepresentation"/>
 
   <xs:element name="ResultatStartsideaktivitetstillfalle" type="rr:ResultatStartsideaktivitetstillfalle"/>
 
@@ -3269,6 +3285,72 @@ student-översikten i Studiedeltagande.]]></xs:documentation>
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="Massinlaggningsrad">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AktivitetstillfallesmojlighetUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="BetygsgradID" type="xs:int"/>
+          <xs:element minOccurs="0" name="Examinationsdatum" type="xs:date"/>
+          <xs:element minOccurs="0" name="Identifierare" type="xs:string"/>
+          <xs:element minOccurs="0" name="IdentifierareSaknas" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="Korrupt" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="ResultatUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="SenasteResultatandring" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="Status" type="xs:int"/>
+          <xs:element minOccurs="0" name="Student" type="base:Student"/>
+          <xs:element minOccurs="0" name="StudieresultatUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Massinlaggningskandidater">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Identifierare" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Massinlaggningsrader">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" ref="rr:Betygsskala"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Massinlaggningsrader" type="rr:Massinlaggningsrad"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="MassinlaggningsutkastLista">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Utkastlista" type="rr:Massinlaggningsutkast"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Massinlaggningsutkast">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AktivitetstillfallesmojlighetUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="BetygsgradID" type="xs:int"/>
+          <xs:element minOccurs="0" name="Examinationsdatum" type="xs:date"/>
+          <xs:element minOccurs="0" name="ResultatUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="SenasteResultatandring" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="StudieresultatUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="MomentPerKurstillfalleLista">
 <xs:annotation>
 <xs:documentation><![CDATA[Representation som innehåller lista av MomentPerKurstillfälleRepresentation.]]></xs:documentation>
@@ -3663,6 +3745,16 @@ student-översikten i Studiedeltagande.]]></xs:documentation>
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="AttGoraUtanforAktuellVersion">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Student" type="base:Student"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="Kursstruktur">
     <xs:sequence>
       <xs:element minOccurs="0" name="AktuellKursversion" type="xs:int"/>
@@ -3675,6 +3767,7 @@ student-översikten i Studiedeltagande.]]></xs:documentation>
     <xs:complexContent>
       <xs:extension base="dap:Base">
         <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="AttGoraUtanforVersion" type="rr:AttGoraUtanforAktuellVersion"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" ref="rr:AttGoraPaKurstillfalle"/>
           <xs:element minOccurs="0" name="Benamning" type="base:Benamningar"/>
           <xs:element minOccurs="0" name="Enhet" type="xs:string"/>
@@ -3716,6 +3809,28 @@ student-översikten i Studiedeltagande.]]></xs:documentation>
           <xs:element minOccurs="0" name="Utbildningskod" type="xs:string"/>
           <xs:element minOccurs="0" name="Omfattning" type="xs:decimal"/>
           <xs:element minOccurs="0" name="UtbildningsinstansUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ResultatStartsidaKurstillfalleMedKlarmarkeradeEllerFlaggadeListaRepresentation">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="KurstillfallenMedKlarmarkeradeEllerFlaggade" type="rr:ResultatStartsidaKurstillfalleMedKlarmarkeradeEllerFlaggadeRepresentation"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ResultatStartsidaKurstillfalleMedKlarmarkeradeEllerFlaggadeRepresentation">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element name="HarFlaggadeResultat" type="xs:boolean"/>
+          <xs:element name="HarKlarmarkeradeResultat" type="xs:boolean"/>
+          <xs:element minOccurs="0" ref="rr:Kurstillfalle"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -3848,8 +3963,8 @@ student-översikten i Studiedeltagande.]]></xs:documentation>
     <xs:complexContent>
       <xs:extension base="base:BaseEntitet">
         <xs:sequence>
-          <xs:element minOccurs="0" name="KursversionMedOvergivnaModulresultat" type="rr:StudentensKurserKursversion"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="Kursversioner" type="rr:StudentensKurserKursversion"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="ResultatUtanKopplingTillKursversion" type="rr:StudentensKurserUtbildningsinstans"/>
           <xs:element minOccurs="0" name="StudentUID" type="xs:string"/>
           <xs:element minOccurs="0" name="UtbildningUID" type="xs:string"/>
         </xs:sequence>
