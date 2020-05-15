@@ -342,6 +342,7 @@ länk betyder det att innehållet inte kan laddas ned.]]></xs:documentation>
       <xs:enumeration value="ORGANISATION"/>
       <xs:enumeration value="BEVISTYP"/>
       <xs:enumeration value="PRECISERING"/>
+      <xs:enumeration value="UTBILDNINGSKOD"/>
     </xs:restriction>
   </xs:simpleType>
 
