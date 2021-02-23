@@ -100,10 +100,10 @@
   <xs:element name="Valregler" type="base:Valregler"/>
 
   <xs:complexType name="Benamningar">
-<xs:annotation>
-<xs:documentation><![CDATA[Representation av flera benämningar på olika språk BenamningarElement finns för att inte krocka med en deklaration i den
+    <xs:annotation>
+      <xs:documentation><![CDATA[Representation av flera benämningar på olika språk BenamningarElement finns för att inte krocka med en deklaration i den
 representation som har SpråktexterRepresentation. BenamningarElement definieras också i schemas.ladok.se.xsd]]></xs:documentation>
-</xs:annotation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="dap:Base">
         <xs:sequence>
@@ -125,9 +125,9 @@ representation som har SpråktexterRepresentation. BenamningarElement definieras
   </xs:complexType>
 
   <xs:complexType name="Datumperiod">
-<xs:annotation>
-<xs:documentation><![CDATA[Enkel representation som innehåller två datum - från och till.]]></xs:documentation>
-</xs:annotation>
+    <xs:annotation>
+      <xs:documentation><![CDATA[Enkel representation som innehåller två datum - från och till.]]></xs:documentation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="dap:Base">
         <xs:sequence>
@@ -157,9 +157,9 @@ representation som har SpråktexterRepresentation. BenamningarElement definieras
   </xs:complexType>
 
   <xs:complexType abstract="true" name="BaseEntitet">
-<xs:annotation>
-<xs:documentation><![CDATA[(param): <T> Typ som ärver {@link BaseEntitetRepresentation}]]></xs:documentation>
-</xs:annotation>
+    <xs:annotation>
+      <xs:documentation><![CDATA[(param): <T> Typ som ärver {@link BaseEntitetRepresentation}]]></xs:documentation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="dap:Base">
         <xs:sequence>
@@ -172,11 +172,11 @@ representation som har SpråktexterRepresentation. BenamningarElement definieras
   </xs:complexType>
 
   <xs:complexType abstract="true" name="BaseKatalogI18nEntitet">
-<xs:annotation>
-<xs:documentation><![CDATA[Basklass för REST-representationer som representerar katalogdata med ett ID som är ett heltal. Innehåller det metadata som krävs för
+    <xs:annotation>
+      <xs:documentation><![CDATA[Basklass för REST-representationer som representerar katalogdata med ett ID som är ett heltal. Innehåller det metadata som krävs för
 att identifiera anroparen av REST-tjänsten samt lite generell funktionalitet för att serialisera och deserialisera instanser av
 representationerna.]]></xs:documentation>
-</xs:annotation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="base:BaseKatalogEntitet">
         <xs:sequence>
@@ -187,11 +187,11 @@ representationerna.]]></xs:documentation>
   </xs:complexType>
 
   <xs:complexType abstract="true" name="BaseKatalogEntitet">
-<xs:annotation>
-<xs:documentation><![CDATA[Basklass för REST-representationer som representerar katalogdata med ett ID som är ett heltal. Innehåller det metadata som krävs för
+    <xs:annotation>
+      <xs:documentation><![CDATA[Basklass för REST-representationer som representerar katalogdata med ett ID som är ett heltal. Innehåller det metadata som krävs för
 att identifiera anroparen av REST-tjänsten samt lite generell funktionalitet för att serialisera och deserialisera instanser av
 representationerna.]]></xs:documentation>
-</xs:annotation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="dap:Base">
         <xs:sequence>
@@ -203,10 +203,10 @@ representationerna.]]></xs:documentation>
   </xs:complexType>
 
   <xs:complexType abstract="true" name="EnumDummy">
-<xs:annotation>
-<xs:documentation><![CDATA[Representation som samlar upp enum-representationer bara för att det skall komma med vid XML-schema genreringen. Detta då
+    <xs:annotation>
+      <xs:documentation><![CDATA[Representation som samlar upp enum-representationer bara för att det skall komma med vid XML-schema genreringen. Detta då
 enum-representationer endast kommer med i xml-schemat vid generering via schemagen om enum'en ingår i en annan representation.]]></xs:documentation>
-</xs:annotation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="DatatypElement" type="base:Datatyp"/>
       <xs:element minOccurs="0" name="GrundtypElement" type="base:Utbildningsgrundtyp"/>
@@ -255,12 +255,12 @@ enum-representationer endast kommer med i xml-schemat vid generering via schemag
   </xs:complexType>
 
   <xs:complexType name="Identitet">
-<xs:annotation>
-<xs:documentation><![CDATA[Basklass för identitet i REST-representationer. {@link se.ladok.commons.interfaces.rest.representations.BaseEntitetRepresentation}
+    <xs:annotation>
+      <xs:documentation><![CDATA[Basklass för identitet i REST-representationer. {@link se.ladok.commons.interfaces.rest.representations.BaseEntitetRepresentation}
 använder sig av denna klass (composition).
 
 (param): <T>]]></xs:documentation>
-</xs:annotation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element name="Uid" type="xs:string"/>
     </xs:sequence>
@@ -317,17 +317,17 @@ använder sig av denna klass (composition).
           <xs:element minOccurs="0" name="Felkategori" type="xs:string"/>
           <xs:element minOccurs="0" name="FelkategoriText" type="xs:string"/>
           <xs:element minOccurs="0" name="FelkallaAttributID" type="xs:string">
-<xs:annotation>
-<xs:documentation><![CDATA[Identifierar det attribut som har orsakat felet. Detta kan vara bra att ha om man vill veta exakt vilket attribut på ett objekt
+            <xs:annotation>
+              <xs:documentation><![CDATA[Identifierar det attribut som har orsakat felet. Detta kan vara bra att ha om man vill veta exakt vilket attribut på ett objekt
 som orsakat felet.]]></xs:documentation>
-</xs:annotation>
-</xs:element>
+            </xs:annotation>
+          </xs:element>
           <xs:element minOccurs="0" name="FelkallaObjektID" type="xs:string">
-<xs:annotation>
-<xs:documentation><![CDATA[Identifierar det objekt som har orsakat felet. Detta kan vara bra att ha om man har många objekt som valideras samtidigt, t.ex.
+            <xs:annotation>
+              <xs:documentation><![CDATA[Identifierar det objekt som har orsakat felet. Detta kan vara bra att ha om man har många objekt som valideras samtidigt, t.ex.
 en lista av entiteter och man som anropare vill veta vilket av objekten i listan som orsakat felet.]]></xs:documentation>
-</xs:annotation>
-</xs:element>
+            </xs:annotation>
+          </xs:element>
           <xs:element minOccurs="0" name="Meddelande" type="xs:string"/>
         </xs:sequence>
       </xs:extension>
@@ -335,9 +335,9 @@ en lista av entiteter och man som anropare vill veta vilket av objekten i listan
   </xs:complexType>
 
   <xs:complexType name="Links">
-<xs:annotation>
-<xs:documentation><![CDATA[Generell representation för länkar med rel's]]></xs:documentation>
-</xs:annotation>
+    <xs:annotation>
+      <xs:documentation><![CDATA[Generell representation för länkar med rel's]]></xs:documentation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="dap:Base">
         <xs:sequence/>
@@ -371,11 +371,11 @@ en lista av entiteter och man som anropare vill veta vilket av objekten i listan
   </xs:complexType>
 
   <xs:complexType name="RESTRef">
-<xs:annotation>
-<xs:documentation><![CDATA[Representerar en referens till en entitet med tillhörande UID/ID och länk. Syftet är att vid lösa kopplingar mellan entiteter ändå
+    <xs:annotation>
+      <xs:documentation><![CDATA[Representerar en referens till en entitet med tillhörande UID/ID och länk. Syftet är att vid lösa kopplingar mellan entiteter ändå
 kunna ha länkar till de refererade entiteterna.
 2014-08-21: uppdaterad så att även KatalogEntitet kan använda RESTRef /Markus]]></xs:documentation>
-</xs:annotation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element maxOccurs="unbounded" minOccurs="0" ref="base:Benamning"/>
       <xs:element minOccurs="0" name="link" type="dap:RelationLink"/>
@@ -384,9 +384,9 @@ kunna ha länkar till de refererade entiteterna.
   </xs:complexType>
 
   <xs:complexType name="Typ">
-<xs:annotation>
-<xs:documentation><![CDATA[Representation som kan användas för resurser som enbart returnerar primitiva eller enklare typer (String, Long etc...)]]></xs:documentation>
-</xs:annotation>
+    <xs:annotation>
+      <xs:documentation><![CDATA[Representation som kan användas för resurser som enbart returnerar primitiva eller enklare typer (String, Long etc...)]]></xs:documentation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="dap:Base">
         <xs:sequence>
@@ -397,9 +397,9 @@ kunna ha länkar till de refererade entiteterna.
   </xs:complexType>
 
   <xs:complexType name="Statuspost">
-<xs:annotation>
-<xs:documentation><![CDATA[Enkel status-post som kan returneras tillsammans med ett ManagementResponseRepresentation]]></xs:documentation>
-</xs:annotation>
+    <xs:annotation>
+      <xs:documentation><![CDATA[Enkel status-post som kan returneras tillsammans med ett ManagementResponseRepresentation]]></xs:documentation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="status" type="xs:string"/>
       <xs:element minOccurs="0" name="text" type="xs:string"/>
@@ -419,9 +419,9 @@ kunna ha länkar till de refererade entiteterna.
   </xs:complexType>
 
   <xs:complexType name="PermissionToData">
-<xs:annotation>
-<xs:documentation><![CDATA[Serialiserar PermissionToData.]]></xs:documentation>
-</xs:annotation>
+    <xs:annotation>
+      <xs:documentation><![CDATA[Serialiserar PermissionToData.]]></xs:documentation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element maxOccurs="unbounded" minOccurs="0" name="DataIdentiteter" type="xs:string"/>
       <xs:element minOccurs="0" name="LarosateID" type="xs:int"/>
@@ -429,10 +429,10 @@ kunna ha länkar till de refererade entiteterna.
   </xs:complexType>
 
   <xs:complexType name="UserPermission">
-<xs:annotation>
-<xs:documentation><![CDATA[Används som ett kontrakt mellan Kataloginformation och de andra tjänsterna via commons för att hämta en användares behörigheter vid
+    <xs:annotation>
+      <xs:documentation><![CDATA[Används som ett kontrakt mellan Kataloginformation och de andra tjänsterna via commons för att hämta en användares behörigheter vid
 tjänsteanrop]]></xs:documentation>
-</xs:annotation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="base:BaseEntitet">
         <xs:sequence>
@@ -444,10 +444,10 @@ tjänsteanrop]]></xs:documentation>
   </xs:complexType>
 
   <xs:complexType name="UserPermissions">
-<xs:annotation>
-<xs:documentation><![CDATA[Används som ett kontrakt mellan Kataloginformation och de andra tjänsterna via commons för att hämta en användares behörigheter vid
+    <xs:annotation>
+      <xs:documentation><![CDATA[Används som ett kontrakt mellan Kataloginformation och de andra tjänsterna via commons för att hämta en användares behörigheter vid
 tjänsteanrop. Serialiserar behörighetsrelaterade informationen i UserContext.]]></xs:documentation>
-</xs:annotation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="base:BaseEntitet">
         <xs:sequence>
@@ -459,30 +459,30 @@ tjänsteanrop. Serialiserar behörighetsrelaterade informationen i UserContext.]
   </xs:complexType>
 
   <xs:complexType abstract="true" name="Sokresultat">
-<xs:annotation>
-<xs:documentation><![CDATA[Wrapper-klass för ett sökresultat. Denna klass måste subklassas i respektive tjänst och förses med följande:
+    <xs:annotation>
+      <xs:documentation><![CDATA[Wrapper-klass för ett sökresultat. Denna klass måste subklassas i respektive tjänst och förses med följande:
 
 (XmlRootElement(name): = "MinDomanSokresultat")
 (XmlType(name): = "MinDomanSokresultat", namespace = BaseRepresentation.LADOK_NAMESPACE)
 (com.fasterxml.jackson.annotation.JsonRootName(value): = "MinDomanSokresultat")]]></xs:documentation>
-</xs:annotation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="dap:Base">
         <xs:sequence>
           <xs:element name="TotaltAntalPoster" type="xs:int">
-<xs:annotation>
-<xs:documentation><![CDATA[Det totala antalet poster som resultatet innehåller (oberoende av paginering)]]></xs:documentation>
-</xs:annotation>
-</xs:element>
+            <xs:annotation>
+              <xs:documentation><![CDATA[Det totala antalet poster som resultatet innehåller (oberoende av paginering)]]></xs:documentation>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
   <xs:complexType abstract="true" name="EnkeltGrunddatavarde">
-<xs:annotation>
-<xs:documentation><![CDATA[Representerar ett administrerbart grunddatavarde (f.d. katalogdatavärde). Ett grunddatavarde hör alltid till en grunddatastyp.]]></xs:documentation>
-</xs:annotation>
+    <xs:annotation>
+      <xs:documentation><![CDATA[Representerar ett administrerbart grunddatavarde (f.d. katalogdatavärde). Ett grunddatavarde hör alltid till en grunddatastyp.]]></xs:documentation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="base:Grunddatavarde">
         <xs:sequence>
@@ -505,19 +505,19 @@ tjänsteanrop. Serialiserar behörighetsrelaterade informationen i UserContext.]
   </xs:complexType>
 
   <xs:complexType name="Grunddatakategorilista">
-<xs:annotation>
-<xs:documentation><![CDATA[Lista av grunddatatyper]]></xs:documentation>
-</xs:annotation>
+    <xs:annotation>
+      <xs:documentation><![CDATA[Lista av grunddatatyper]]></xs:documentation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element maxOccurs="unbounded" minOccurs="0" name="Grunddatakategorier" type="base:Grunddatatyp"/>
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="Grunddatatyp">
-<xs:annotation>
-<xs:documentation><![CDATA[Representerar en administrerbar grundinformationstyp, t.ex. "Ort", "Huvudområde" eller "Betygsskala". Grundinformationstypen har
+    <xs:annotation>
+      <xs:documentation><![CDATA[Representerar en administrerbar grundinformationstyp, t.ex. "Ort", "Huvudområde" eller "Betygsskala". Grundinformationstypen har
 alltid en länk till de värden som ingår i den.]]></xs:documentation>
-</xs:annotation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="dap:Base">
         <xs:sequence>
@@ -599,19 +599,19 @@ alltid en länk till de värden som ingår i den.]]></xs:documentation>
       <xs:extension base="base:Sokresultat">
         <xs:sequence>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="Resultat" type="base:Handelsefel">
-<xs:annotation>
-<xs:documentation><![CDATA[Lista med poster som kan vara en delmängd av det totala resultatet, givet paginering]]></xs:documentation>
-</xs:annotation>
-</xs:element>
+            <xs:annotation>
+              <xs:documentation><![CDATA[Lista med poster som kan vara en delmängd av det totala resultatet, givet paginering]]></xs:documentation>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
   <xs:complexType name="HandelseOversikter">
-<xs:annotation>
-<xs:documentation><![CDATA[Lista av Händelseöversikt-representationer. En per integration.]]></xs:documentation>
-</xs:annotation>
+    <xs:annotation>
+      <xs:documentation><![CDATA[Lista av Händelseöversikt-representationer. En per integration.]]></xs:documentation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="OversiktKonsumeradeHandelser">
         <xs:complexType>
@@ -631,9 +631,9 @@ alltid en länk till de värden som ingår i den.]]></xs:documentation>
   </xs:complexType>
 
   <xs:complexType name="TillstandForKonsumeradeHandelser">
-<xs:annotation>
-<xs:documentation><![CDATA[Representationsklass som innehåller en ögonblicksbild av hur läget ser ut på en av tjänstens konsumerade feeds]]></xs:documentation>
-</xs:annotation>
+    <xs:annotation>
+      <xs:documentation><![CDATA[Representationsklass som innehåller en ögonblicksbild av hur läget ser ut på en av tjänstens konsumerade feeds]]></xs:documentation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="FeedConsumerStatus" type="xs:string"/>
       <xs:element minOccurs="0" name="FeedUrl" type="xs:string"/>
@@ -648,9 +648,9 @@ alltid en länk till de värden som ingår i den.]]></xs:documentation>
   </xs:complexType>
 
   <xs:complexType name="TillstandForPubliceradeHandelser">
-<xs:annotation>
-<xs:documentation><![CDATA[Representationsklass som innehåller en ögonblicksbild av hur läget ser ut på en av tjänstens producerade feeds]]></xs:documentation>
-</xs:annotation>
+    <xs:annotation>
+      <xs:documentation><![CDATA[Representationsklass som innehåller en ögonblicksbild av hur läget ser ut på en av tjänstens producerade feeds]]></xs:documentation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="Producent" type="xs:string"/>
       <xs:element minOccurs="0" name="SenastPubliceradeHandelseUID" type="xs:string"/>
@@ -660,9 +660,9 @@ alltid en länk till de värden som ingår i den.]]></xs:documentation>
   </xs:complexType>
 
   <xs:complexType name="ManagementResponse">
-<xs:annotation>
-<xs:documentation><![CDATA[Klass vars JSON-struktur mappar väl in i driftens standardformat för övervakning med Ansible och Nagios]]></xs:documentation>
-</xs:annotation>
+    <xs:annotation>
+      <xs:documentation><![CDATA[Klass vars JSON-struktur mappar väl in i driftens standardformat för övervakning med Ansible och Nagios]]></xs:documentation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element name="failed" type="xs:boolean"/>
       <xs:element minOccurs="0" name="msg" type="xs:string"/>
@@ -690,12 +690,12 @@ alltid en länk till de värden som ingår i den.]]></xs:documentation>
   </xs:complexType>
 
   <xs:complexType name="Antagningsforfarande">
-<xs:annotation>
-<xs:documentation><![CDATA[Ett antagningsförfarande. Eftersom enum:en serialiseras till ett sträng-värde så används den här "wrapper"-representationen för att
+    <xs:annotation>
+      <xs:documentation><![CDATA[Ett antagningsförfarande. Eftersom enum:en serialiseras till ett sträng-värde så används den här "wrapper"-representationen för att
 beskriva ytterligare egenskaper, till exempel om acceptans krävs.
 Observera att de "oanvända" getter och setter-metoderna är till för att på klientsidan få med den extra-information som finns i
 enumen, dvs. "acceptans krävs" och i18n-nyckeln.]]></xs:documentation>
-</xs:annotation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="dap:Base">
         <xs:sequence>
@@ -708,9 +708,9 @@ enumen, dvs. "acceptans krävs" och i18n-nyckeln.]]></xs:documentation>
   </xs:complexType>
 
   <xs:complexType name="Antagningsforfaranden">
-<xs:annotation>
-<xs:documentation><![CDATA[En uppsättning med antagningsförfaranden.]]></xs:documentation>
-</xs:annotation>
+    <xs:annotation>
+      <xs:documentation><![CDATA[En uppsättning med antagningsförfaranden.]]></xs:documentation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="base:BaseEntitet">
         <xs:sequence>
@@ -721,9 +721,9 @@ enumen, dvs. "acceptans krävs" och i18n-nyckeln.]]></xs:documentation>
   </xs:complexType>
 
   <xs:complexType name="Valregler">
-<xs:annotation>
-<xs:documentation><![CDATA[Struktur-rot för valregler]]></xs:documentation>
-</xs:annotation>
+    <xs:annotation>
+      <xs:documentation><![CDATA[Struktur-rot för valregler]]></xs:documentation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="base:BaseEntitet">
         <xs:sequence>
@@ -734,12 +734,12 @@ enumen, dvs. "acceptans krävs" och i18n-nyckeln.]]></xs:documentation>
   </xs:complexType>
 
   <xs:simpleType name="Handelsetyp">
-<xs:annotation>
-<xs:documentation><![CDATA[Händelser som är generella i sin natur kan förses med en händelsetyp för att undvika en massa onödig duplicering av händelseklasser.
+    <xs:annotation>
+      <xs:documentation><![CDATA[Händelser som är generella i sin natur kan förses med en händelsetyp för att undvika en massa onödig duplicering av händelseklasser.
 Tanken är att är konsumenten som lyssnar på händelserna är intresserad oavsett om objektet som händelsen avser har skapats,
 uppdaterats eller tagits bort. I det fall där semantiken avsevärt skiljer sig, dvs. där man inte kan säga att mottagaren alltid är
 intresserad oavsett händelsetyp så bör man istället överväga att använda explicita händelsetyper.]]></xs:documentation>
-</xs:annotation>
+    </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:enumeration value="SKAPAD"/>
       <xs:enumeration value="UPPDATERAD"/>
@@ -748,10 +748,10 @@ intresserad oavsett händelsetyp så bör man istället överväga att använda 
   </xs:simpleType>
 
   <xs:simpleType name="Datatyp">
-<xs:annotation>
-<xs:documentation><![CDATA[Representerar de datatyper som ett attribut i domänen kan avse, t.ex. ett attribut för fritextsökning, datum, heltal, flyttal,
+    <xs:annotation>
+      <xs:documentation><![CDATA[Representerar de datatyper som ett attribut i domänen kan avse, t.ex. ett attribut för fritextsökning, datum, heltal, flyttal,
 sökning mot olika typer av katalogdata etc.]]></xs:documentation>
-</xs:annotation>
+    </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:enumeration value="boolean"/>
       <xs:enumeration value="integer"/>
@@ -767,11 +767,11 @@ sökning mot olika typer av katalogdata etc.]]></xs:documentation>
   </xs:simpleType>
 
   <xs:simpleType name="Utbildningsgrundtyp">
-<xs:annotation>
-<xs:documentation><![CDATA[Dessa fyra grundtyper är grundpelare för utbildningar i Ladok3. Det kan förekomma varianter eller specialiseringar av dessa
+    <xs:annotation>
+      <xs:documentation><![CDATA[Dessa fyra grundtyper är grundpelare för utbildningar i Ladok3. Det kan förekomma varianter eller specialiseringar av dessa
 grundtyper i form av konkreta utbildningstyper. Denna värdemängd kan inte förändras med mindre än att anpassningar av koden görs i
 flera domäner.]]></xs:documentation>
-</xs:annotation>
+    </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:enumeration value="KURS"/>
       <xs:enumeration value="KURSPAKETERING"/>
@@ -780,9 +780,9 @@ flera domäner.]]></xs:documentation>
   </xs:simpleType>
 
   <xs:simpleType name="SCBRapporttyp">
-<xs:annotation>
-<xs:documentation><![CDATA[Definition av rapporttyper som Ladok kan ta fram för att senare överföra till SCB]]></xs:documentation>
-</xs:annotation>
+    <xs:annotation>
+      <xs:documentation><![CDATA[Definition av rapporttyper som Ladok kan ta fram för att senare överföra till SCB]]></xs:documentation>
+    </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:enumeration value="REGISTRERING_GRUND_OCH_AVANCERAD_NIVA"/>
       <xs:enumeration value="AKTIVITET_FORSKARNIVA"/>
@@ -830,11 +830,11 @@ flera domäner.]]></xs:documentation>
   </xs:simpleType>
 
   <xs:simpleType name="AntagningsforfarandeNyckel">
-<xs:annotation>
-<xs:documentation><![CDATA[Beskriver de olika antagningsförfaranden som finns för utbildningsstrukturer och utbildningstillfällesstrukturer.
+    <xs:annotation>
+      <xs:documentation><![CDATA[Beskriver de olika antagningsförfaranden som finns för utbildningsstrukturer och utbildningstillfällesstrukturer.
 Har AntagningsforfarandeNyckel som XmlType eftersom den serialiseras som en sträng utan övriga egenskaper (id och acceptansKrävs
 saknas till exempel).]]></xs:documentation>
-</xs:annotation>
+    </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:enumeration value="ANMALAN"/>
       <xs:enumeration value="UTANANMALAN"/>
@@ -843,9 +843,9 @@ saknas till exempel).]]></xs:documentation>
   </xs:simpleType>
 
   <xs:simpleType name="Valregel">
-<xs:annotation>
-<xs:documentation><![CDATA[Beskriver de olika valregler som finns för utbildningsstrukturer och utbildningstillfällesstrukturer.]]></xs:documentation>
-</xs:annotation>
+    <xs:annotation>
+      <xs:documentation><![CDATA[Beskriver de olika valregler som finns för utbildningsstrukturer och utbildningstillfällesstrukturer.]]></xs:documentation>
+    </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:enumeration value="VALJ_X"/>
       <xs:enumeration value="VALJ_OMFATTNING"/>

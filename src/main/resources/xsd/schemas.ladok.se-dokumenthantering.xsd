@@ -8,9 +8,9 @@
   <xs:element name="DokumentmallParameter" type="dok:DokumentmallParameter"/>
 
   <xs:complexType name="DokumentmallEvent">
-<xs:annotation>
-<xs:documentation><![CDATA[Event för en skapad eller uppdaterad Dokumentmall]]></xs:documentation>
-</xs:annotation>
+    <xs:annotation>
+      <xs:documentation><![CDATA[Event för en skapad eller uppdaterad Dokumentmall]]></xs:documentation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="events:grunddataBaseEvent">
         <xs:sequence>
@@ -23,9 +23,9 @@
   </xs:complexType>
 
   <xs:complexType name="DokumentmallParameter">
-<xs:annotation>
-<xs:documentation><![CDATA[Del av event som innehåller information om en dokumentparameter]]></xs:documentation>
-</xs:annotation>
+    <xs:annotation>
+      <xs:documentation><![CDATA[Del av event som innehåller information om en dokumentparameter]]></xs:documentation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="Nyckel" type="xs:string"/>
       <xs:element minOccurs="0" name="Varde" type="xs:string"/>
