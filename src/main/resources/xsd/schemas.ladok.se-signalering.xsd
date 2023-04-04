@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:base="http://schemas.ladok.se"
+        xmlns:dap="http://schemas.ladok.se/dap"
+        xmlns:sl="http://schemas.ladok.se/signalering" elementFormDefault="qualified" targetNamespace="http://schemas.ladok.se/signalering" version="1.0">
+    <xs:import namespace="http://schemas.ladok.se" schemaLocation="schemas.ladok.se.xsd"/>
+    <xs:element name="Signaldefinition" type="sl:Signaldefinition"/>
+    <xs:element name="SignaldefinitionLista" type="sl:SignaldefinitionLista"/>
+    <xs:complexType name="SignaldefinitionLista">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Signaldefinitioner">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="Signaldefinitioner" type="sl:Signaldefinition"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Signaldefinition">
+        <xs:complexContent>
+            <xs:extension base="base:BaseEntitet">
+                <xs:sequence>
+                    <xs:element name="Kod" type="xs:string"/>
+                    <xs:element name="Namn" type="base:Benamningar"/>
+                    <xs:element name="Signaltyp" type="sl:Signaltyp"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:simpleType name="Signaltyp">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="KURS"/>
+            <xs:enumeration value="KURSPAKETERING"/>
+            <xs:enumeration value="KURSTILLFALLE"/>
+            <xs:enumeration value="KURSPAKETERINGSTILLFALLE"/>
+            <xs:enumeration value="PLAN_FOR_UTBILDNING"/>
+            <xs:enumeration value="LITTERATURLISTA"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
