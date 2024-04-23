@@ -35,11 +35,6 @@
       <artifactId>commons-lang3</artifactId>
       <version>3.7</version>
     </dependency>
-    <dependency>
-      <groupId>org.apache.cxf.xjc-utils</groupId>
-      <artifactId>cxf-xjc-runtime</artifactId>
-      <version>${cxf-xjc.version}</version>
-    </dependency>
   </dependencies>
 
   <build>
@@ -66,7 +61,7 @@
                 <!-- Inject code -->
                 <extensionArg>-Xinject-code</extensionArg>
                 <!-- Insert toString method for DTOs -->
-                <extensionArg>-Xts:style:multiline</extensionArg>
+                <extensionArg>-Xts:style:org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE</extensionArg>
               </extensionArgs>
             </xsdOption>
           </xsdOptions>
