@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xs:schema
-        xmlns:xs="http://www.w3.org/2001/XMLSchema"
-        xmlns:atom="http://www.w3.org/2005/Atom" targetNamespace="http://www.w3.org/2005/Atom" version="1.0">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:atom="http://www.w3.org/2005/Atom" targetNamespace="http://www.w3.org/2005/Atom" version="1.0">
   <xs:complexType name="benamningar">
     <xs:sequence>
       <xs:element form="qualified" maxOccurs="unbounded" minOccurs="0" name="entry" type="atom:entry"/>

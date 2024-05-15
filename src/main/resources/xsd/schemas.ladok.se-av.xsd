@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xs:schema
-        xmlns:xs="http://www.w3.org/2001/XMLSchema"
-        xmlns:av="http://schemas.ladok.se/avisering"
-        xmlns:base="http://schemas.ladok.se"
-        xmlns:dap="http://schemas.ladok.se/dap" elementFormDefault="qualified" targetNamespace="http://schemas.ladok.se/avisering" version="1.0">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:av="http://schemas.ladok.se/avisering" xmlns:base="http://schemas.ladok.se" xmlns:dap="http://schemas.ladok.se/dap" elementFormDefault="qualified" targetNamespace="http://schemas.ladok.se/avisering" version="1.0">
   <xs:import namespace="http://schemas.ladok.se" schemaLocation="schemas.ladok.se.xsd"/>
   <xs:element name="Leveranspreferens" type="av:Leveranspreferens"/>
   <xs:complexType name="Leveranspreferens">
@@ -25,6 +21,10 @@
       <xs:enumeration value="TILLDELA_ARENDE"/>
       <xs:enumeration value="FAKTURAHANTERING"/>
       <xs:enumeration value="AKTIVITETSTILLFALLE"/>
+      <xs:enumeration value="BEVISINFORMATION_UTFARDANDE"/>
+      <xs:enumeration value="BEVISINFORMATION_RATTNING_ANDRING"/>
+      <xs:enumeration value="TILLGODORAKNANDE_BESLUT"/>
+      <xs:enumeration value="ARENDEMEDDELANDE_TILLGODORAKNANDE"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="Leveransalternativ">

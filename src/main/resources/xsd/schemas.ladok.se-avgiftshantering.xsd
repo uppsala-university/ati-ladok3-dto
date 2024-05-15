@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ah="http://schemas.ladok.se/avgiftshantering" xmlns:base="http://schemas.ladok.se" xmlns:dap="http://schemas.ladok.se/dap" xmlns:events="http://schemas.ladok.se/events" elementFormDefault="qualified" targetNamespace="http://schemas.ladok.se/avgiftshantering" version="1.0">
+  <xs:import namespace="http://schemas.ladok.se/events" schemaLocation="schemas.ladok.se-events.xsd"/>
+  <xs:import namespace="http://schemas.ladok.se" schemaLocation="schemas.ladok.se.xsd"/>
+  <xs:import namespace="http://schemas.ladok.se/dap" schemaLocation="schemas.ladok.se-dap.xsd"/>
+  <xs:element name="AndraBetalningsreferens" type="ah:AndraBetalningsreferens"/>
+  <xs:element name="AndraOmfattning" type="ah:AndraOmfattning"/>
+  <xs:element name="AndraSistaBetalningsdag" type="ah:AndraSistaBetalningsdag"/>
+  <xs:element name="AndraStudieavgift" type="ah:AndraStudieavgift"/>
+  <xs:element name="Anteckning" type="ah:Anteckning"/>
+  <xs:element name="Faktura" type="ah:Faktura"/>
+  <xs:element name="FakturaAteraktiveradEvent" type="ah:FakturaAteraktiveradEvent"/>
+  <xs:element name="FakturaBeslutEvent" type="ah:FakturaBeslutEvent"/>
+  <xs:element name="FakturaBorttagenEvent" type="ah:FakturaBorttagenEvent"/>
+  <xs:element name="FakturaEjRegleradEvent" type="ah:FakturaEjRegleradEvent"/>
+  <xs:element name="FakturaInaktiveradEvent" type="ah:FakturaInaktiveradEvent"/>
+  <xs:element name="FakturaLista" type="ah:FakturaLista"/>
+  <xs:element name="FakturaOmfattningUppdateradEvent" type="ah:FakturaOmfattningUppdateradEvent"/>
+  <xs:element name="FakturaReferensnummerUppdateratEvent" type="ah:FakturaReferensnummerUppdateratEvent"/>
+  <xs:element name="FakturaRegleradEvent" type="ah:FakturaRegleradEvent"/>
+  <xs:element name="FakturaSistaBetalningsdagUppdateradEvent" type="ah:FakturaSistaBetalningsdagUppdateradEvent"/>
+  <xs:element name="FakturaSkapadEvent" type="ah:FakturaSkapadEvent"/>
+  <xs:element name="FakturaSkickadEvent" type="ah:FakturaSkickadEvent"/>
+  <xs:element name="FakturaStudieavgiftUppdateradEvent" type="ah:FakturaStudieavgiftUppdateradEvent"/>
+  <xs:element name="FakturaTransaktionEvent" type="ah:FakturaTransaktionEvent"/>
+  <xs:element name="Grunddata" type="ah:Grunddata"/>
+  <xs:element name="StudieavgifterViaAvgiftshanteringEvent" type="ah:StudieavgifterViaAvgiftshanteringEvent"/>
+  <xs:element name="StudieavgifterViaAvgiftshanteringFromEvent" type="ah:StudieavgifterViaAvgiftshanteringFromEvent"/>
+  <xs:element name="Transaktion" type="ah:Transaktion"/>
+  <xs:element name="TransaktionAndring" type="ah:TransaktionAndring"/>
+  <xs:complexType name="FakturaBeslutEvent">
+    <xs:annotation>
+      <xs:documentation><![CDATA[Händelse som publiceras när ett beslut tas på en faktura. Alla beslut leder till att
+en faktura regleras, och då kommer också ett FakturaRegleradEvent.
+-
+Händelsen kommer med en specificering om Händelsetyp: SKAPAD, UPPDATERAD, BORTTAGEN.
+-
+Beslutstyperna UNDANTAG och ENSKILT_UNDANTAG heter i det svenska administrationsgränsnittet "Undantag på utbildning"
+och "Undantag på faktura"]]></xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEventRepresentationMedHandelsetyp">
+        <xs:sequence>
+          <xs:element name="Beslutstyp" type="ah:FakturaBeslutstyp"/>
+          <xs:element name="FakturaUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FakturaBorttagenEvent">
+    <xs:annotation>
+      <xs:documentation><![CDATA[Händelse som publiceras när en faktura tas bort.
+En faktura kan dels tas bort via gränssnittet, men oftast tas en faktura bort när domänen
+fått nya uppgifter om att en student ej längre är betalningsskyldig på en utbildning, t ex
+om nya uppgifter kring studieavgiftsskyldigheter läggs till. En faktura tas också bort när en tidigare faktura inom samma
+utbildningstillfälle harfått beslutet Undantag på utbildning (beslutstyp UNDANTAG)
+-
+Borttagna fakturor går för tillfället inte att söka ut]]></xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element name="FakturaUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FakturaEjRegleradEvent">
+    <xs:annotation>
+      <xs:documentation><![CDATA[Händelse som publiceras när en faktura som har varit reglerad blir Ej reglerad.
+-
+Innehåller information om vilken faktura (FakturaUID) det gäller, även referens till StudentUID, UtbildningstillfälleUID
+och fakturans studieavgiftsperiod följer med i händelsen.]]></xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element name="Datumintervall" type="base:Datumperiod"/>
+          <xs:element name="FakturaUID" type="xs:string"/>
+          <xs:element name="StudentUID" type="xs:string"/>
+          <xs:element name="UtbildningstillfalleUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FakturaInaktiveradEvent">
+    <xs:annotation>
+      <xs:documentation><![CDATA[Händelse som publiceras när en faktura blir inaktiverad
+-
+Innehåller information om vilken faktura (FakturaUID) det gäller, även referens till StudentUID, UtbildningstillfälleUID]]></xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element name="FakturaUID" type="xs:string"/>
+          <xs:element name="StudentUID" type="xs:string"/>
+          <xs:element name="UtbildningstillfalleUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FakturaOmfattningUppdateradEvent">
+    <xs:annotation>
+      <xs:documentation><![CDATA[Händelse som publiceras när en fakturas omfattning uppdateras
+-
+Innehåller information om vilken faktura (FakturaUID) det gäller och den nya omfattningen]]></xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element name="FakturaUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="Omfattning" type="xs:decimal"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FakturaReferensnummerUppdateratEvent">
+    <xs:annotation>
+      <xs:documentation><![CDATA[Händelse som publiceras när en fakturas referensnummer uppdateras
+-
+Innehåller information om vilken faktura (FakturaUID) det gäller och det nya referensnumret.]]></xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element name="FakturaUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="Referensnummer" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FakturaRegleradEvent">
+    <xs:annotation>
+      <xs:documentation><![CDATA[Händelse som publiceras när en faktura regleras. Innehåller information om vilken
+datum som fakturan reglerades, en referens till fakturan och studentens UID.
+Övrigt:
+Fakturan kan bli reglerad via antingen inbetalda transaktioner, se FakturaTransaktionEvent,
+eller genom olika beslut, se FakturaBeslutEvent.]]></xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element name="FakturaUID" type="xs:string"/>
+          <xs:element name="RegleradDatum" type="xs:date"/>
+          <xs:element name="StudentUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FakturaSistaBetalningsdagUppdateradEvent">
+    <xs:annotation>
+      <xs:documentation><![CDATA[Händelse som publiceras när en fakturas sista betalningsdag uppdateras. Innehåller
+endast information om vilken faktura det gäller och den nya sista betalningsdagen.]]></xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element name="FakturaUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="SistaBetalningsdag" type="xs:date"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FakturaSkapadEvent">
+    <xs:annotation>
+      <xs:documentation><![CDATA[Händelse som publiceras när en faktura skapas utifrån en students antagning
+och betalningsskyldighet på antagningens utbildningstillfälle
+-
+Innehåller bland annat information om:
+- Vilket belopp fakturan har, fakturans betalningsreferens, vilken student det gäller, vilken den yttersta kurspaketeringen är, studieavgiftsperiod som
+fakturan avser, när sista betalningsdag infaller och omfattning.]]></xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AndraPaminnelsedatum" type="xs:date"/>
+          <xs:element minOccurs="0" name="Referensnummer" type="xs:string"/>
+          <xs:element name="Datumintervall" type="base:Datumperiod"/>
+          <xs:element name="FakturaUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="ForstaPaminnelsedatum" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="Inaktiv" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="Omfattning" type="xs:decimal"/>
+          <xs:element name="SistaBetalningsdag" type="xs:date"/>
+          <xs:element minOccurs="0" name="SkickadDatum" type="xs:date"/>
+          <xs:element name="StudentUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="Studieavgift" type="xs:decimal"/>
+          <xs:element name="UtbildningstillfalleUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="Aterskapad" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FakturaSkickadEvent">
+    <xs:annotation>
+      <xs:documentation><![CDATA[Händelse som publiceras när en faktura skickas, alltså görs tillgänglig
+för nedladdning för student via Ladok för studenter.]]></xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element name="FakturaUID" type="xs:string"/>
+          <xs:element name="SkickadDatum" type="xs:date"/>
+          <xs:element name="StudentUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FakturaStudieavgiftUppdateradEvent">
+    <xs:annotation>
+      <xs:documentation><![CDATA[Händelse som publiceras när en fakturas studieavgift ändras. Innehåller
+endast information om den nya studieavgiften och en referens till vilken faktura det gäller.]]></xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element name="FakturaUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="Studieavgift" type="xs:decimal"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FakturaTransaktionEvent">
+    <xs:annotation>
+      <xs:documentation><![CDATA[Händelse som publiceras när en transaktion läggs till.
+-
+Transaktionstyperna STIPENDIUM och INBETALNING påverkar om en faktura blir reglerad.
+Om transaktionerna kommer upp till en fakturas studieavgift kommer ett FakturaRegleradEvent att publiceras.
+Transaktionstypen ATERBETALNING påverkar INTE en fakturas reglerad-status.
+-
+Innehåller information om vilken faktura (FakturaUID) det gäller och information om transaktionen:
+Ett UID för transaktionen (TransaktionUID), beloppet som transaktionen avsåg, händelsetyp (BORTTAGEN, UPPDATERAD, SKAPAD)
+och vid STIPENDIUM skickas också vilken typ av stipendium, StipendiumID, som refererar till ett grunddata.
+-
+Om det finns angivet skickas också ett Transaktionsdatum med.]]></xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEventRepresentationMedHandelsetyp">
+        <xs:sequence>
+          <xs:element name="Belopp" type="xs:decimal"/>
+          <xs:element name="Transaktionstyp" type="ah:FakturaTransaktionstyp"/>
+          <xs:element name="FakturaUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="StipendiumID" type="xs:int"/>
+          <xs:element name="TransaktionUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="Transaktionsdatum" type="xs:date"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FakturaAteraktiveradEvent">
+    <xs:annotation>
+      <xs:documentation><![CDATA[Händelse som publiceras när en faktura blir återaktiverad
+-
+Innehåller information om vilken faktura (FakturaUID) det gäller, även referens till StudentUID, UtbildningstillfälleUID,
+studieavgiftsperiod, referensnummer och reglerad datum om faktura var reglerad sedan tidigare.]]></xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Referensnummer" type="xs:string"/>
+          <xs:element name="Datumintervall" type="base:Datumperiod"/>
+          <xs:element name="FakturaUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="RegleradDatum" type="xs:date"/>
+          <xs:element name="SistaBetalningsdag" type="xs:date"/>
+          <xs:element name="StudentUID" type="xs:string"/>
+          <xs:element name="UtbildningstillfalleUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="StudieavgifterViaAvgiftshanteringEvent">
+    <xs:annotation>
+      <xs:documentation><![CDATA[Händelse som publiceras när ett utbildningstillfälle aktiveras för den nya studieavgiftshantering.
+Ett utbildningstillfälle kan också inaktiveras för ny studieavgiftshantering så länge det inte finns
+några antagningar på utbildningstillfället.
+-
+Innehåller information om vilket utbildningstillfälle som ska aktiveras för ny studieavgiftshantering,
+eller inaktiveras (då är StudieavgifterViaAvgiftshantering satt till false).]]></xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element name="StudieavgifterViaAvgiftshantering" type="xs:boolean"/>
+          <xs:element name="UtbildningstillfalleUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="StudieavgifterViaAvgiftshanteringFromEvent">
+    <xs:annotation>
+      <xs:documentation><![CDATA[Ett utbildningstillfälle kan aktiveras för ny hantering under en pågående period.
+StudieavgifterViaAvgiftshanteringFrom anger från och med när den nya hantering via avgiftshanteringen ska gälla.
+Det går inte att ta bort en StudieavgifterViaAvgiftshanteringFrom.]]></xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element name="StudieavgifterViaAvgiftshanteringFrom" type="xs:string"/>
+          <xs:element name="UtbildningstillfalleUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Anteckning">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Anteckning" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FakturaLista">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="Fakturor" type="ah:Faktura"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Faktura">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Anmalningsnummer" type="xs:string"/>
+          <xs:element name="BeslutEnskiltUndantagFinns" type="xs:boolean"/>
+          <xs:element name="BeslutHelInbetalningFinns" type="xs:boolean"/>
+          <xs:element name="BeslutUndantagFinns" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="Betalningsreferens" type="xs:string"/>
+          <xs:element name="Datumintervall" type="ah:Datumintervall"/>
+          <xs:element name="Inaktiv" type="xs:boolean"/>
+          <xs:element name="KvarAttBetala" type="xs:decimal"/>
+          <xs:element name="Omfattning" type="xs:decimal"/>
+          <xs:element minOccurs="0" name="Period" type="ah:Grunddata"/>
+          <xs:element name="Periodindex" type="xs:int"/>
+          <xs:element minOccurs="0" name="RegleradDatum" type="xs:string"/>
+          <xs:element minOccurs="0" name="SistaBetalningsdag" type="xs:string"/>
+          <xs:element minOccurs="0" name="SkickadDatum" type="xs:string"/>
+          <xs:element name="StudentUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="Studieavgift" type="xs:decimal"/>
+          <xs:element name="SummaInbetalningar" type="xs:decimal"/>
+          <xs:element name="SummaStipendier" type="xs:decimal"/>
+          <xs:element name="SummaAterbetalningar" type="xs:decimal"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Transaktioner" type="ah:Transaktion"/>
+          <xs:element name="Uid" type="xs:string"/>
+          <xs:element name="UtbildningUID" type="xs:string"/>
+          <xs:element name="UtbildningsinstansUID" type="xs:string"/>
+          <xs:element name="UtbildningstillfalleUID" type="xs:string"/>
+          <xs:element name="OverskjutandeBelopp" type="xs:decimal"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Datumintervall">
+    <xs:sequence>
+      <xs:element name="Slutdatum" type="xs:string"/>
+      <xs:element name="Startdatum" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Grunddata">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element name="Benamning" type="base:Benamningar"/>
+          <xs:element name="Dolt" type="xs:boolean"/>
+          <xs:element name="Id" type="xs:int"/>
+          <xs:element name="Kod" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Transaktion">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Anteckning" type="xs:string"/>
+          <xs:element name="Belopp" type="xs:decimal"/>
+          <xs:element name="FakturaUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="Stipendietyp" type="ah:Grunddata"/>
+          <xs:element minOccurs="0" name="Transaktionsdatum" type="xs:date"/>
+          <xs:element name="Transaktionstyp" type="ah:Transaktionstyp"/>
+          <xs:element name="Uid" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="TransaktionAndring">
+    <xs:sequence>
+      <xs:element name="Belopp" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="Notering" type="xs:string"/>
+      <xs:element minOccurs="0" name="StipendietypID" type="xs:int"/>
+      <xs:element minOccurs="0" name="Transaktionsdatum" type="xs:date"/>
+      <xs:element name="Transaktionstyp" type="ah:Transaktionstyp"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AndraBetalningsreferens">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Anteckning" type="xs:string"/>
+      <xs:element name="Betalningsreferens" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AndraOmfattning">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Anteckning" type="xs:string"/>
+      <xs:element name="Omfattning" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AndraSistaBetalningsdag">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Anteckning" type="xs:string"/>
+      <xs:element name="SistaBetalningsdag" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AndraStudieavgift">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Anteckning" type="xs:string"/>
+      <xs:element name="Belopp" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="FakturaBeslutstyp">
+    <xs:annotation>
+      <xs:documentation><![CDATA[Beslutstyperna UNDANTAG och ENSKILT_UNDANTAG heter i det svenska administrationsgränsnittet "Undantag på utbildning"
+och "Undantag på faktura"]]></xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="HEL_INBETALNING"/>
+      <xs:enumeration value="UNDANTAG"/>
+      <xs:enumeration value="ENSKILT_UNDANTAG"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="FakturaTransaktionstyp">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INBETALNING"/>
+      <xs:enumeration value="STIPENDIUM"/>
+      <xs:enumeration value="ATERBETALNING"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Transaktionstyp">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BETALNING"/>
+      <xs:enumeration value="STIPENDIUM"/>
+      <xs:enumeration value="ATERBETALNING"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
