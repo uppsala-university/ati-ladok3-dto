@@ -48,14 +48,9 @@
   </xs:complexType>
   <xs:complexType name="BilagaDatareferens">
     <xs:annotation>
-      <xs:documentation><![CDATA[Referens till en bilagas underliggande data som lagras i Fileservice. Eftersom en bilaga kan vara virussmittad måste man först hämta
-en säker referens till bilagans data för att vara säker på att man ska kunna ladda ner datat. Om man inte gör detta kommer man att
-kunna få ett exception vid nedladdning av byte-strömmen vilket klienterna inte betraktar som ett kontrollerat fel. Genom att hämta
-den här typen av referenser kan redan innan man laddar ner filerna se vilken status de har, och om det kommer att gå att ladda ner
-innehållet eller inte.
-<p>
-Det enda innehållet i denna klass är dess länk-lista, som kan innehålla en länk till filens data. Om länklistan INTE innehåller denna
-länk betyder det att innehållet inte kan laddas ned.]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Referens till en bilagas underliggande data som lagras i Fileservice. Eftersom en bilaga kan vara virussmittad måste man först hämta en säker referens till bilagans data för att vara säker på att man ska kunna ladda ner datat. Om man inte gör detta kommer man att kunna få ett exception vid nedladdning av byte-strömmen vilket klienterna inte betraktar som ett kontrollerat fel. Genom att hämta den här typen av referenser kan redan innan man laddar ner filerna se vilken status de har, och om det kommer att gå att ladda ner innehållet eller inte. <p> Det enda innehållet i denna klass är dess länk-lista, som kan innehålla en länk till filens data. Om länklistan INTE innehåller denna länk betyder det att innehållet inte kan laddas ned. ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="dap:Base">
@@ -172,7 +167,9 @@ länk betyder det att innehållet inte kan laddas ned.]]></xs:documentation>
         <xs:sequence>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="Resultat" type="ar:Arende">
             <xs:annotation>
-              <xs:documentation><![CDATA[Lista med poster som kan vara en delmängd av det totala resultatet, givet paginering]]></xs:documentation>
+              <xs:documentation>
+                <![CDATA[ Lista med poster som kan vara en delmängd av det totala resultatet, givet paginering ]]>
+              </xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>

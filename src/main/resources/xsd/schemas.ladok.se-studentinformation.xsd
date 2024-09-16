@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:base="http://schemas.ladok.se" xmlns:dap="http://schemas.ladok.se/dap" xmlns:events="http://schemas.ladok.se/events" xmlns:si="http://schemas.ladok.se/studentinformation" elementFormDefault="qualified" targetNamespace="http://schemas.ladok.se/studentinformation" version="1.0">
   <xs:import namespace="http://schemas.ladok.se/dap" schemaLocation="schemas.ladok.se-dap.xsd"/>
   <xs:import namespace="http://schemas.ladok.se/events" schemaLocation="schemas.ladok.se-events.xsd"/>
@@ -11,6 +10,7 @@
   <xs:element name="AvstangningEventPart" type="si:AvstangningEventPart"/>
   <xs:element name="Avstangningar" type="si:Avstangningar"/>
   <xs:element name="BerettUnderlagForEtableringAvStudent" type="si:BerettUnderlagForEtableringAvStudent"/>
+  <xs:element name="BorttagenStudenthistorikpostEvent" type="si:BorttagenStudenthistorikpostEvent"/>
   <xs:element name="ExternStudent" type="si:ExternStudent"/>
   <xs:element name="FolkbokforingsuppgifterNamnsokResultat" type="si:FolkbokforingsuppgifterNamnsokResultat"/>
   <xs:element name="FolkbokforingsuppgifterNamnsokResultatLista" type="si:FolkbokforingsuppgifterNamnsokResultatLista"/>
@@ -32,6 +32,7 @@
   <xs:element name="Postadress" type="si:Postadress"/>
   <xs:element name="Regelresultat" type="si:Regelresultat"/>
   <xs:element name="SkyddadePersonuppgifter" type="si:SkyddadePersonuppgifter"/>
+  <xs:element name="SkyddadePersonuppgifterEvent" type="si:SkyddadePersonuppgifterEvent"/>
   <xs:element name="Skyddsbeslut" type="si:Skyddsbeslut"/>
   <xs:element name="SokresultatExternStudentRepresentation" type="si:SokresultatExternStudentRepresentation"/>
   <xs:element name="SokresultatStudentinformationRepresentation" type="si:SokresultatStudentinformationRepresentation"/>
@@ -50,17 +51,22 @@
   <xs:element name="Studentkopplingar" type="si:Studentkopplingar"/>
   <xs:element name="StudentrestriktionEvent" type="si:StudentrestriktionEvent"/>
   <xs:element name="StudentrestriktionEventPart" type="si:StudentrestriktionEventPart"/>
+  <xs:element name="StudentursprungEvent" type="si:StudentursprungEvent"/>
   <xs:element name="Studieavgiftsskyldighet" type="si:Studieavgiftsskyldighet"/>
+  <xs:element name="StudieavgiftsskyldighetEvent" type="si:StudieavgiftsskyldighetEvent"/>
   <xs:element name="StudieavgiftsskyldighetEventPart" type="si:StudieavgiftsskyldighetEventPart"/>
   <xs:element name="StudieavgiftsskyldighetHistorik" type="si:StudieavgiftsskyldighetHistorik"/>
   <xs:element name="Studieavgiftsskyldigheter" type="si:Studieavgiftsskyldigheter"/>
+  <xs:element name="StudieavgiftsskyldigheterEvent" type="si:StudieavgiftsskyldigheterEvent"/>
   <xs:element name="StudieavgiftsskyldigheterHistorik" type="si:StudieavgiftsskyldigheterHistorik"/>
   <xs:element name="StudieavgiftsskyldigheterPaLarosateEvent" type="si:StudieavgiftsskyldigheterPaLarosateEvent"/>
   <xs:element name="UnikIdentifierare" type="si:UnikIdentifierare"/>
   <xs:element name="UnikaIdentifierare" type="si:UnikaIdentifierare"/>
   <xs:complexType name="AvskiljningEventPart">
     <xs:annotation>
-      <xs:documentation><![CDATA[Del av ett StudentrestriktionEvent avseende en students avskiljande]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Del av ett StudentrestriktionEvent avseende en students avskiljande ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="si:StudentrestriktionEventPart">
@@ -72,7 +78,9 @@
   </xs:complexType>
   <xs:complexType name="StudentrestriktionEventPart">
     <xs:annotation>
-      <xs:documentation><![CDATA[Basklass för alla typer av restriktioner]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Basklass för alla typer av restriktioner ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="dap:Base">
@@ -82,7 +90,9 @@
   </xs:complexType>
   <xs:complexType name="AvstangningEventPart">
     <xs:annotation>
-      <xs:documentation><![CDATA[Del av ett StudentrestriktionEvent avseende en students avstängning]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Del av ett StudentrestriktionEvent avseende en students avstängning ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="si:StudentrestriktionEventPart">
@@ -92,34 +102,16 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="KontaktuppgifterEvent">
-    <xs:annotation>
-      <xs:documentation><![CDATA[Händelse som publiceras avseende ändringar i en students kontaktuppgifter.
-<p>
-Händelsen publiceras när:
-<p>
-- Ändringar i en students kontaktuppgifter görs
-<p>
-Innehåller information om:
-<p>
-- Postadress, epost, SMS
-<p>
-Innehåller referenser till:
-<p>
-- ...
-<p>
-Konsekvenser för verksamheten:
-<p>
-- Avisering via epost kan påverkas, dvs. om kontaktuppgifterna innehåller en felaktig epostadress är det möjligt att aviseringar till
-studenten från Ladok slutar fungera. Man kan på lärosätet behöva kontrollera att ändrade epostadresser är korrekta.
-<p>
-Övrigt:
-<p>
-- Händelsen publiceras till de lärosäten som studenten är kopplad till.]]></xs:documentation>
-    </xs:annotation>
+  <xs:complexType name="BorttagenStudenthistorikpostEvent">
     <xs:complexContent>
-      <xs:extension base="si:KontaktuppgifterSysteminterntEvent">
-        <xs:sequence/>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Efternamn" type="xs:string"/>
+          <xs:element minOccurs="0" name="Fodelsedata" type="xs:string"/>
+          <xs:element minOccurs="0" name="Fornamn" type="xs:string"/>
+          <xs:element minOccurs="0" name="Personnummer" type="xs:string"/>
+          <xs:element minOccurs="0" name="StudentUID" type="xs:string"/>
+        </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -137,7 +129,9 @@ studenten från Ladok slutar fungera. Man kan på lärosätet behöva kontroller
   </xs:complexType>
   <xs:complexType name="PostadressEventPart">
     <xs:annotation>
-      <xs:documentation><![CDATA[Del av händelse för kontaktuppgifter]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Del av händelse för kontaktuppgifter ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="CareOf" type="xs:string"/>
@@ -148,29 +142,42 @@ studenten från Ladok slutar fungera. Man kan på lärosätet behöva kontroller
       <xs:element minOccurs="0" name="Utdelningsadress" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
+  <xs:complexType name="KontaktuppgifterEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Händelse som publiceras avseende ändringar i en students kontaktuppgifter. <p> Händelsen publiceras när: <p> - Ändringar i en students kontaktuppgifter görs <p> Innehåller information om: <p> - Postadress, epost, SMS <p> Innehåller referenser till: <p> - ... <p> Konsekvenser för verksamheten: <p> - Avisering via epost kan påverkas, dvs. om kontaktuppgifterna innehåller en felaktig epostadress är det möjligt att aviseringar till studenten från Ladok slutar fungera. Man kan på lärosätet behöva kontrollera att ändrade epostadresser är korrekta. <p> Övrigt: <p> - Händelsen publiceras till de lärosäten som studenten är kopplad till. ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="si:KontaktuppgifterSysteminterntEvent">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SkyddadePersonuppgifterEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ OBS! Denna händelse innehåller alltså den skyddade informationen. Eventuell alias-information skickas ut via ett separat StudentEvent. ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEventRepresentationMedHandelsetyp">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="SkyddadePersonuppgifterUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="SkyddatEfternamn" type="xs:string"/>
+          <xs:element minOccurs="0" name="SkyddatFornamn" type="xs:string"/>
+          <xs:element minOccurs="0" name="SkyddatKon" type="xs:int"/>
+          <xs:element minOccurs="0" name="SkyddatPersonnummer" type="xs:string"/>
+          <xs:element minOccurs="0" name="StudentUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="StudentAvlidenmarkeringEvent">
     <xs:annotation>
-      <xs:documentation><![CDATA[Händelsen publiceras när:
-<p>
-- Ändring sker på students avlidenstatus. Normalt sker detta när student registreras som avliden, men kan även avse en rättning av en
-felaktig avliden-markering.
-<p>
-Innehåller information om:
-<p>
-- Avliden-status
-<p>
-Innehåller referenser till:
-<p>
-- Student
-<p>
-Konsekvenser för verksamheten:
-<p>
-- Om en avlidenmarkering används för att t.ex. rensa data om studenten i andra system bör man ha i åtanke att det faktiskt förekommer
-att avlidenmarkeringen kan vara felaktig och rättas/återställas i ett senare läge.
-<p>
-Övrigt:
-<p>
--]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - Ändring sker på students avlidenstatus. Normalt sker detta när student registreras som avliden, men kan även avse en rättning av en felaktig avliden-markering. <p> Innehåller information om: <p> - Avliden-status <p> Innehåller referenser till: <p> - Student <p> Konsekvenser för verksamheten: <p> - Om en avlidenmarkering används för att t.ex. rensa data om studenten i andra system bör man ha i åtanke att det faktiskt förekommer att avlidenmarkeringen kan vara felaktig och rättas/återställas i ett senare läge. <p> Övrigt: <p> - ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="events:BaseEvent">
@@ -183,71 +190,30 @@ att avlidenmarkeringen kan vara felaktig och rättas/återställas i ett senare 
   </xs:complexType>
   <xs:complexType name="StudentBortkoppladFranLarosateEvent">
     <xs:annotation>
-      <xs:documentation><![CDATA[Händelsen publiceras när:
-<p>
-- En student kopplas bort från ett lärosäte. Detta sker normalt sett enbart om en nationell administratörkonstaterat att studenten
-fått en felaktig koppling till ett lärosäte utan att ha någon annan studierelaterad information kopplad till lärosätet.
-<p>
-Innehåller information om:
-<p>
-- Bortkopplad student
-<p>
-Innehåller referenser till:
-<p>
-- Student som "kopplats bort" från lärosätet
-<p>
-Konsekvenser för verksamheten:
-<p>
-- Överväg om studenten bör tas bort från andra system på lärosätet
-<p>
-Övrigt:
-<p>
-- Betrakta händelsen som en registervårdsfunktion]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - En student kopplas bort från ett lärosäte. Detta sker normalt sett enbart om en nationell administratörkonstaterat att studenten fått en felaktig koppling till ett lärosäte utan att ha någon annan studierelaterad information kopplad till lärosätet. <p> Innehåller information om: <p> - Bortkopplad student <p> Innehåller referenser till: <p> - Student som "kopplats bort" från lärosätet <p> Konsekvenser för verksamheten: <p> - Överväg om studenten bör tas bort från andra system på lärosätet <p> Övrigt: <p> - Betrakta händelsen som en registervårdsfunktion ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="events:BaseEvent">
         <xs:sequence>
           <xs:element minOccurs="0" name="StudentUID" type="xs:string">
             <xs:annotation>
-              <xs:documentation><![CDATA[StudentUID, unik identifierare för student]]></xs:documentation>
+              <xs:documentation>
+                <![CDATA[ StudentUID, unik identifierare för student ]]>
+              </xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="LokalStudentEvent">
-    <xs:annotation>
-      <xs:documentation><![CDATA[Händelsen publiceras när:
-<p>
-- En uppgifter om en student skapas eller uppdateras. Händelsen publiceras till alla lärosäten som studenten har en koppling till.
-<p>
-Innehåller information om:
-<p>
-- Skapad/redigerad student
-<p>
-Innehåller referenser till:
-<p>
--
-<p>
-Konsekvenser för verksamheten:
-<p>
-- Studieuppgifter som avser ny student kan komma som händelser från och med nu.
-<p>
-Övrigt:
-<p>
-- En händelse om skapad student kan även komma när studenten kopplas till lärosätet. Studenten kan ha funnits i systemet tidigare,
-men först nu har kopplingen till lärosätet som tar emot händelsen skapats.]]></xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="si:StudentEvent">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="TidigarePersonnummer" type="xs:string"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="StudentEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Ett ladokinternt event att en student har etablerats nationellt (i den nationella "studentdatabasen").@see "StudentKoppladTillLärosäteEvent" för externt event per lärosäte ]]>
+      </xs:documentation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="events:BaseEventRepresentationMedHandelsetyp">
         <xs:sequence>
@@ -264,29 +230,25 @@ men först nu har kopplingen till lärosätet som tar emot händelsen skapats.]]
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="LokalStudentEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - En uppgifter om en student skapas eller uppdateras. Händelsen publiceras till alla lärosäten som studenten har en koppling till. <p> Innehåller information om: <p> - Skapad/redigerad student <p> Innehåller referenser till: <p> - <p> Konsekvenser för verksamheten: <p> - Studieuppgifter som avser ny student kan komma som händelser från och med nu. <p> Övrigt: <p> - En händelse om skapad student kan även komma när studenten kopplas till lärosätet. Studenten kan ha funnits i systemet tidigare, men först nu har kopplingen till lärosätet som tar emot händelsen skapats. ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="si:StudentEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="TidigarePersonnummer" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="StudentrestriktionEvent">
     <xs:annotation>
-      <xs:documentation><![CDATA[Händelse som publiceras när det sker ändringar
-<p>
-Händelsen publiceras när:
-<p>
-- Det sker ändringar i en students studentrestriktioner, dvs. avskiljanden och avstängningar. Restriktioner kan skapas och ändras.
-<p>
-Innehåller information om:
-<p>
-- ...
-<p>
-Innehåller referenser till:
-<p>
-- ...
-<p>
-Konsekvenser för verksamheten:
-<p>
-- ...
-<p>
-Övrigt:
-<p>
-- ...]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Händelse som publiceras när det sker ändringar <p> Händelsen publiceras när: <p> - Det sker ändringar i en students studentrestriktioner, dvs. avskiljanden och avstängningar. Restriktioner kan skapas och ändras. <p> Innehåller information om: <p> - ... <p> Innehåller referenser till: <p> - ... <p> Konsekvenser för verksamheten: <p> - ... <p> Övrigt: <p> - ... ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="events:BaseEventRepresentationMedHandelsetyp">
@@ -301,9 +263,43 @@ Konsekvenser för verksamheten:
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="StudentursprungEvent">
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Personnummer" type="xs:string"/>
+          <xs:element minOccurs="0" name="StudentUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="StudieavgiftsskyldighetEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ (deprecated): Använd @see se.ladok.studentinformation.interfaces.events.StudieavgiftsskyldigheterEvent istället ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEventRepresentationMedHandelsetyp">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Anteckning" type="xs:string"/>
+          <xs:element minOccurs="0" name="Avgiftsskyldighetsvarde" type="si:Avgiftsskyldighetsvarde"/>
+          <xs:element minOccurs="0" name="Beslutsdatum" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="Beslutsordning" type="xs:int"/>
+          <xs:element minOccurs="0" name="Datumperiod" type="base:Datumperiod"/>
+          <xs:element minOccurs="0" name="OrsakEjAvgiftsskyldigID" type="xs:int"/>
+          <xs:element minOccurs="0" name="StudentUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="StudiesavgiftsskyldighetUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="Ursprung" type="si:Ursprung"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="StudieavgiftsskyldighetEventPart">
     <xs:annotation>
-      <xs:documentation><![CDATA[Representation för en studieavgiftsskyldighetspost i ett event.]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Representation för en studieavgiftsskyldighetspost i ett event. ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="Anteckning" type="xs:string"/>
@@ -318,27 +314,20 @@ Konsekvenser för verksamheten:
       <xs:element minOccurs="0" name="Ursprung" type="si:Ursprung"/>
     </xs:sequence>
   </xs:complexType>
+  <xs:complexType name="StudieavgiftsskyldigheterEvent">
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Studieavgiftsskyldigheter" type="si:StudieavgiftsskyldighetEventPart"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="StudieavgiftsskyldigheterPaLarosateEvent">
     <xs:annotation>
-      <xs:documentation><![CDATA[Händelsen publiceras när:
-<p>
-- Ändringar görs i students studieavgiftsskyldigheter på ett lärosäte.
-<p>
-Innehåller information om:
-<p>
-- Studieavgiftsskyldigheter
-<p>
-Innehåller referenser till:
-<p>
-- Student
-<p>
-Konsekvenser för verksamheten:
-<p>
-- Påverkar om student ska betala studieavgifter eller ej
-<p>
-Övrigt:
-<p>
--]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - Ändringar görs i students studieavgiftsskyldigheter på ett lärosäte. <p> Innehåller information om: <p> - Studieavgiftsskyldigheter <p> Innehåller referenser till: <p> - Student <p> Konsekvenser för verksamheten: <p> - Påverkar om student ska betala studieavgifter eller ej <p> Övrigt: <p> - ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="events:BaseEvent">
@@ -400,7 +389,9 @@ Konsekvenser för verksamheten:
   </xs:complexType>
   <xs:complexType name="ExternStudent">
     <xs:annotation>
-      <xs:documentation><![CDATA[REST-representation av en extern student i sökresultat från gemensamma studenttjänsten.]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ REST-representation av en extern student i sökresultat från gemensamma studenttjänsten. ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="Efternamn" type="xs:string"/>
@@ -425,7 +416,9 @@ Konsekvenser för verksamheten:
   </xs:complexType>
   <xs:complexType name="FolkbokforingsuppgifterNamnsokResultat">
     <xs:annotation>
-      <xs:documentation><![CDATA[REST-representation av folkbokföringsuppgifter.]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ REST-representation av folkbokföringsuppgifter. ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="Avregistreringsorsak" type="base:Benamningar"/>
@@ -442,7 +435,9 @@ Konsekvenser för verksamheten:
   </xs:complexType>
   <xs:complexType name="FolkbokforingsuppgifterPersonsokResultat">
     <xs:annotation>
-      <xs:documentation><![CDATA[REST-representation av folkbokföringsuppgifter.]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ REST-representation av folkbokföringsuppgifter. ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element name="AvgiftsbefriadBaseratPaMedborgarskap" type="xs:boolean"/>
@@ -464,7 +459,9 @@ Konsekvenser för verksamheten:
   </xs:complexType>
   <xs:complexType name="Kontaktuppgifter">
     <xs:annotation>
-      <xs:documentation><![CDATA[Representerar kontaktuppgifter för en student. Innehåller bl.a. Epostadress, Telefonnummer och Postadress.]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Representerar kontaktuppgifter för en student. Innehåller bl.a. Epostadress, Telefonnummer och Postadress. ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="base:BaseEntitet">
@@ -492,7 +489,9 @@ Konsekvenser för verksamheten:
   </xs:complexType>
   <xs:complexType name="SkyddadePersonuppgifter">
     <xs:annotation>
-      <xs:documentation><![CDATA[REST-representation av en students skyddade personuppgifter.]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ REST-representation av en students skyddade personuppgifter. ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="base:BaseEntitet">
@@ -525,9 +524,9 @@ Konsekvenser för verksamheten:
   </xs:complexType>
   <xs:complexType name="StudentISokresultat">
     <xs:annotation>
-      <xs:documentation><![CDATA[En lättviktig representation för att minska ner databasslagningar vid sökningar.
-<p>
-För att få en mer komplett bild av studenten kan klienten följa self-länken.]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ En lättviktig representation för att minska ner databasslagningar vid sökningar. <p> För att få en mer komplett bild av studenten kan klienten följa self-länken. ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="base:BaseEntitet">
@@ -551,7 +550,9 @@ För att få en mer komplett bild av studenten kan klienten följa self-länken.
   </xs:complexType>
   <xs:complexType name="Studentkoppling">
     <xs:annotation>
-      <xs:documentation><![CDATA[REST-representation av en studentkoppling till ett lärosäte.]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ REST-representation av en studentkoppling till ett lärosäte. ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="dap:Base">
@@ -572,7 +573,9 @@ För att få en mer komplett bild av studenten kan klienten följa self-länken.
   </xs:complexType>
   <xs:complexType name="Student">
     <xs:annotation>
-      <xs:documentation><![CDATA[REST-representation av en student.]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ REST-representation av en student. ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="base:BaseEntitet">
@@ -592,7 +595,9 @@ För att få en mer komplett bild av studenten kan klienten följa self-länken.
   </xs:complexType>
   <xs:complexType name="StudentMedAnteckning">
     <xs:annotation>
-      <xs:documentation><![CDATA[Representation för att skicka med uppgifter vid registrering av ursprung i studenthistoriken.]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Representation för att skicka med uppgifter vid registrering av ursprung i studenthistoriken. ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="si:Student">
@@ -618,7 +623,9 @@ För att få en mer komplett bild av studenten kan klienten följa self-länken.
   </xs:complexType>
   <xs:complexType name="StudenthistorikpostNy">
     <xs:annotation>
-      <xs:documentation><![CDATA[Studenthistorikpostrepresentation]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Studenthistorikpostrepresentation ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="base:BaseEntitet">
@@ -640,8 +647,9 @@ För att få en mer komplett bild av studenten kan klienten följa self-länken.
   </xs:complexType>
   <xs:complexType name="Studenthistorikpost">
     <xs:annotation>
-      <xs:documentation><![CDATA[Studenthistorikpostrepresentation
-(deprecated): Använd StudenthistorikpostRepresentation istället]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Studenthistorikpostrepresentation (deprecated): Använd StudenthistorikpostRepresentation istället ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="si:Student">
@@ -711,7 +719,9 @@ För att få en mer komplett bild av studenten kan klienten följa self-länken.
         <xs:sequence>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="Resultat" type="si:StudentISokresultat">
             <xs:annotation>
-              <xs:documentation><![CDATA[Lista med poster som kan vara en delmängd av det totala resultatet, givet paginering]]></xs:documentation>
+              <xs:documentation>
+                <![CDATA[ Lista med poster som kan vara en delmängd av det totala resultatet, givet paginering ]]>
+              </xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -787,7 +797,9 @@ För att få en mer komplett bild av studenten kan klienten följa self-länken.
   </xs:complexType>
   <xs:complexType name="LISAdapterStudent">
     <xs:annotation>
-      <xs:documentation><![CDATA[Enkel representation som används av LIS-adaptern för att på ett så enkelt sätt som möjligt kunna etablera en ny student]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Enkel representation som används av LIS-adaptern för att på ett så enkelt sätt som möjligt kunna etablera en ny student ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element name="Efternamn" type="xs:string"/>
@@ -809,7 +821,9 @@ För att få en mer komplett bild av studenten kan klienten följa self-länken.
   </xs:complexType>
   <xs:complexType abstract="true" name="Studentrestriktion">
     <xs:annotation>
-      <xs:documentation><![CDATA[Basklass för studentrestriktioners representationer]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Basklass för studentrestriktioners representationer ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="base:BaseEntitet">
@@ -856,7 +870,9 @@ För att få en mer komplett bild av studenten kan klienten följa self-länken.
   </xs:simpleType>
   <xs:simpleType name="RestriktionstypEventPart">
     <xs:annotation>
-      <xs:documentation><![CDATA[Del av händelse för studentrestriktioner. Särskiljer studentrestriktioner i typerna AVSTÄNGNING och AVSKILJANDE.]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Del av händelse för studentrestriktioner. Särskiljer studentrestriktioner i typerna AVSTÄNGNING och AVSKILJANDE. ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:enumeration value="AVSTANGNING"/>
@@ -865,9 +881,9 @@ För att få en mer komplett bild av studenten kan klienten följa self-länken.
   </xs:simpleType>
   <xs:simpleType name="Avgiftsskyldighetsvarde">
     <xs:annotation>
-      <xs:documentation><![CDATA[Definierar möjliga värden rörande en students avgiftsskyldighet för studieavgifter. Möjliga värden är 1 (Avgiftsskyldig), 2 (Ej
-avgiftsskyldig) och 3 (Ej prövad). Avsaknad av dokumenterad avgiftsskyldighet innebär per automatik att studenten är Ej Prövad. Det
-explicita värdet EJ_PRÖVAD behövs alltså inte och kommer fasas ut.]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Definierar möjliga värden rörande en students avgiftsskyldighet för studieavgifter. Möjliga värden är 1 (Avgiftsskyldig), 2 (Ej avgiftsskyldig) och 3 (Ej prövad). Avsaknad av dokumenterad avgiftsskyldighet innebär per automatik att studenten är Ej Prövad. Det explicita värdet EJ_PRÖVAD behövs alltså inte och kommer fasas ut. ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:enumeration value="1"/>
@@ -877,7 +893,9 @@ explicita värdet EJ_PRÖVAD behövs alltså inte och kommer fasas ut.]]></xs:do
   </xs:simpleType>
   <xs:simpleType name="Ursprung">
     <xs:annotation>
-      <xs:documentation><![CDATA[Definierar möjliga värden rörande en students avgiftsskyldighets ursprung.]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Definierar möjliga värden rörande en students avgiftsskyldighets ursprung. ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:enumeration value="NYA_MASKINELLT"/>
@@ -889,7 +907,9 @@ explicita värdet EJ_PRÖVAD behövs alltså inte och kommer fasas ut.]]></xs:do
   </xs:simpleType>
   <xs:simpleType name="IdentitetsuppgifterFalt">
     <xs:annotation>
-      <xs:documentation><![CDATA[Representerar den felkälla som ett hinder eller en varning kan ha.]]></xs:documentation>
+      <xs:documentation>
+        <![CDATA[ Representerar den felkälla som ett hinder eller en varning kan ha. ]]>
+      </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:enumeration value="identitetsuppgifter.falt.personnummer"/>
