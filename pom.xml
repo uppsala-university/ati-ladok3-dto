@@ -26,14 +26,16 @@
   </scm>
 
   <properties>
-    <cxf-xjc.version>3.1.0</cxf-xjc.version>
+    <cxf-xjc.version>3.3.4</cxf-xjc.version>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.7</version>
+      <version>3.17.0</version>
     </dependency>
   </dependencies>
 

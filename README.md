@@ -3,6 +3,10 @@
 Java värdeobjekt (Data Transfer Objects - DTO) för Ladok 3 finns i denna
 produkt. DTO:er för marshalling/unmarshalling genereras från Ladok 3:s XSD:er. 
 
+## Javaversion
+
+Denna produkt kräver minst Java 8.
+
 ## Lägga till som ett beroende
 
 För att använda denna produkt som ett beroende i ett Maven-bygge behöver du
@@ -42,7 +46,7 @@ XSD:er projektet använder.
 
 ### Använda releaser
 
-Om du vill använda en relase av denna produkt behöver du inte lägga till något
+Om du vill använda en release av denna produkt behöver du inte lägga till något
 speciellt repository, då alla releaser publiceras i Maven Central Repository.
 
 ### Använda SNAPSHOTs
