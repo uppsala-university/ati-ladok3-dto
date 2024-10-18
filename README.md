@@ -3,9 +3,9 @@
 Java värdeobjekt (Data Transfer Objects - DTO) för Ladok 3 finns i denna
 produkt. DTO:er för marshalling/unmarshalling genereras från Ladok 3:s XSD:er. 
 
-## Javaversion
+## Krav
 
-Denna produkt kräver minst Java 8.
+Från och med version 2.52.4 kräver denna produkt minst Java 8.
 
 ## Lägga till som ett beroende
 
@@ -41,7 +41,7 @@ normalt inte stöds av Maven. Detta stöd tillhandahålls istället av ```maven-
 
 ## Policy för versionsnummer 
 
-Detta projekt använder versionsnummer som motsvarar den version av Ladok3 vars
+Denna produkt använder versionsnummer som motsvarar den version av Ladok3 vars
 XSD:er projektet använder.
 
 ### Använda releaser
@@ -114,8 +114,8 @@ För att göra releasen använder du dig av Maven Release Plugin:
 
 ## Publicera releasen externt via OSSRH
 Slutligen behöver du gå till OSSRH för att avsluta jobbet genom att följa
-[deras instrutioner](http://central.sonatype.org/pages/releasing-the-deployment.html).
+[deras instruktioner](http://central.sonatype.org/pages/releasing-the-deployment.html).
 
-I korthet, logga in på [OSSRH] (https://oss.sonatype.org/#welcome), gå till ```Staging Repositories``` (i vänstermenyn),
-markera artifakten i listan (kolla att det är rätt artefakt) och klicka på ```Close``` (då sker en kvalitetskontroll av OSSRH)
+I korthet, logga in på [OSSRH](https://oss.sonatype.org/#welcome), gå till ```Staging Repositories``` (i vänstermenyn),
+markera artefakten i listan (kolla att det är rätt artefakt) och klicka på ```Close``` (då sker en kvalitetskontroll av OSSRH)
 och klicka sedan på ```Release```.
