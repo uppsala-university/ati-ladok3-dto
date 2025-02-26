@@ -15,7 +15,7 @@
                       name="java.time.LocalDateTime" xmlType="xs:dateTime"/>
     </jaxb:globalBindings>
 
-    <jaxb:bindings schemaLocation="../resources/xsd/schemas.ladok.se.xsd" node="/xs:schema/xs:complexType[@name='Benamningar']">
+    <jaxb:bindings schemaLocation="../resources/schemas.ladok.se.xsd" node="/xs:schema/xs:complexType[@name='Benamningar']">
         <!-- Convenience method for getting the text representation of Benamning through a map, with language code as key -->
         <ci:code>
             public String getText(final String sprakkod) {
