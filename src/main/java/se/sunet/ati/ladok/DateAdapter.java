@@ -12,6 +12,7 @@ import javax.xml.bind.DatatypeConverter;
  * <a href="https://jaxb.java.net/guide/Using_different_datatypes.html">https://jaxb.java.net/guide/Using_different_datatypes.html</a>
  *
  * @author Dennis Lundberg
+ * @deprecated This class will be removed in an upcoming version. Use LocalDateAdapter/LocalDateTimeAdapter instead.
  */
 public class DateAdapter {
   // The use of SimpleDateFormat is because L3 expects the date to be passed without any timezone reference (black box tested)

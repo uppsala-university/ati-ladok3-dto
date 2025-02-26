@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jaxb:bindings
-        xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
-        xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
-        xmlns:xs="http://www.w3.org/2001/XMLSchema"
-        xmlns:ci="http://jaxb.dev.java.net/plugin/code-injector"
-        jaxb:version="2.1">
+<jaxb:bindings jaxb:extensionBindingPrefixes="xjc"
+               jaxb:version="2.1"
+               xmlns:ci="http://jaxb.dev.java.net/plugin/code-injector"
+               xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <jaxb:globalBindings>
-        <!-- We want the generated Java code to use Date objects for xs:date, instead of XMLGregorianCalendar objects -->
-        <jaxb:javaType name="java.util.Date" xmlType="xs:date"
-                       parseMethod="se.sunet.ati.ladok.DateAdapter.parseDate"
-                       printMethod="se.sunet.ati.ladok.DateAdapter.printDate"/>
-        <!-- We want the generated Java code to use Date objects for xs:dateTime, instead of XMLGregorianCalendar objects -->
-        <jaxb:javaType name="java.util.Date" xmlType="xs:dateTime"
-                       parseMethod="se.sunet.ati.ladok.DateAdapter.parseDateTime"
-                       printMethod="se.sunet.ati.ladok.DateAdapter.printDateTime"/>
-        <xjc:serializable uid="-1"/>
+        <jaxb:serializable uid="-1"/>
+        <!-- Den genererade Java-koden ska använda LocalDate-objekt för xs:date -->
+        <xjc:javaType adapter="se.sunet.ati.ladok.LocalDateAdapter"
+                      name="java.time.LocalDate" xmlType="xs:date"/>
+        <!-- Den genererade Java-koden ska använda LocalDateTime-objekt för xs:dateTime -->
+        <xjc:javaType adapter="se.sunet.ati.ladok.LocalDateTimeAdapter"
+                      name="java.time.LocalDateTime" xmlType="xs:dateTime"/>
     </jaxb:globalBindings>
 
     <jaxb:bindings schemaLocation="xsd/schemas.ladok.se.xsd" node="/xs:schema/xs:complexType[@name='Benamningar']">
