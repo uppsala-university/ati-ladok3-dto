@@ -62,7 +62,7 @@
             <xsdOption>
               <!-- Schemas and doc found @ https://www.mit.ladok.se/restdoc/ -->
               <xsdDir>${basedir}/src/main/resources/xsd/</xsdDir>
-              <bindingFile>${basedir}/src/main/resources/bindings.xml</bindingFile>
+              <bindingFile>${basedir}/src/main/xjb/bindings.xml</bindingFile>
               <extension>true</extension>
               <extensionArgs>
                 <!-- Use the correct encoding -->
