@@ -1,37 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <parent>
     <groupId>se.sunet.ati</groupId>
     <artifactId>ati-parent</artifactId>
     <version>6</version>
     <relativePath>../ati-parent/pom.xml</relativePath>
   </parent>
-
   <groupId>se.sunet.ati.ladok</groupId>
   <artifactId>ati-ladok3-dto</artifactId>
-  <version>2.65.3-SNAPSHOT</version>
+  <version>2.65.2-SNAPSHOT</version>
   <packaging>bundle</packaging>
-
   <name>ATI Ladok 3 Data Transfer Objects</name>
   <description>Ladok 3 Data Transfer Objects as an OSGi-bundle. Generated from schemas provided by the Ladok 3 project.</description>
   <url>https://github.com/uppsala-university/ati-ladok3-dto</url>
-
   <scm>
     <connection>scm:git:https://github.com/uppsala-university/ati-ladok3-dto.git</connection>
     <developerConnection>scm:git:https://github.com/uppsala-university/ati-ladok3-dto.git</developerConnection>
-    <url>https://github.com/uppsala-university/ati-ladok3-dto</url>
     <tag>HEAD</tag>
+    <url>https://github.com/uppsala-university/ati-ladok3-dto</url>
   </scm>
-
   <properties>
     <cxf-xjc.version>3.3.4</cxf-xjc.version>
     <maven.compiler.release>8</maven.compiler.release>
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>8</maven.compiler.target>
   </properties>
-
   <dependencies>
     <dependency>
       <groupId>jakarta.xml.bind</groupId>
@@ -51,7 +45,6 @@
       <scope>runtime</scope>
     </dependency>
   </dependencies>
-
   <build>
     <pluginManagement>
       <plugins>
@@ -67,6 +60,28 @@
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-xjc-plugin</artifactId>
         <version>${cxf-xjc.version}</version>
+        <executions>
+          <execution>
+            <id>generate-sources</id>
+            <goals>
+              <goal>xsdtojava</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <!-- Getters with default values if given in schema -->
+          <dependency>
+            <groupId>org.apache.cxf.xjcplugins</groupId>
+            <artifactId>cxf-xjc-dv</artifactId>
+            <version>${cxf-xjc.version}</version>
+          </dependency>
+          <!-- Insert toString method for DTOs -->
+          <dependency>
+            <groupId>org.apache.cxf.xjcplugins</groupId>
+            <artifactId>cxf-xjc-ts</artifactId>
+            <version>${cxf-xjc.version}</version>
+          </dependency>
+        </dependencies>
         <configuration>
           <xsdOptions>
             <xsdOption>
@@ -90,28 +105,6 @@
             </xsdOption>
           </xsdOptions>
         </configuration>
-        <dependencies>
-          <!-- Getters with default values if given in schema -->
-          <dependency>
-            <groupId>org.apache.cxf.xjcplugins</groupId>
-            <artifactId>cxf-xjc-dv</artifactId>
-            <version>${cxf-xjc.version}</version>
-          </dependency>
-          <!-- Insert toString method for DTOs -->
-          <dependency>
-            <groupId>org.apache.cxf.xjcplugins</groupId>
-            <artifactId>cxf-xjc-ts</artifactId>
-            <version>${cxf-xjc.version}</version>
-          </dependency>
-        </dependencies>
-        <executions>
-          <execution>
-            <id>generate-sources</id>
-            <goals>
-              <goal>xsdtojava</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.felix</groupId>
@@ -121,6 +114,13 @@
           <instructions>
             <Export-package>se.ladok.schemas.*</Export-package>
           </instructions>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <failOnError>false</failOnError>
         </configuration>
       </plugin>
     </plugins>
