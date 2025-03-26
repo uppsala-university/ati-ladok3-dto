@@ -5,9 +5,7 @@
   <xs:import namespace="http://www.w3.org/2005/Atom" schemaLocation="schemas.ladok.se-atom.xsd"/>
   <xs:import namespace="http://schemas.ladok.se/dap" schemaLocation="schemas.ladok.se-dap.xsd"/>
   <xs:import namespace="http://schemas.ladok.se/avisering" schemaLocation="schemas.ladok.se-av.xsd"/>
-  <xs:element name="AktivitetSomKraverAutentisering" type="ki:AktivitetSomKraverAutentisering"/>
   <xs:element name="AktivitetSomKraverAutentiseringEvent" type="ki:AktivitetSomKraverAutentiseringEvent"/>
-  <xs:element name="AktiviteterSomKraverAutentisering" type="ki:AktiviteterSomKraverAutentisering"/>
   <xs:element name="Aktivitetstillfallestyp" type="ki:Aktivitetstillfallestyp"/>
   <xs:element name="AktivitetstillfallestypEvent" type="ki:AktivitetstillfallestypEvent"/>
   <xs:element name="Aktivitetstillfallestyper" type="ki:Aktivitetstillfallestyper"/>
@@ -36,9 +34,12 @@
   <xs:element name="AnvandarbehorighetsstatusI18n" type="ki:AnvandarbehorighetsstatusI18n"/>
   <xs:element name="AnvandarbehorighetsstatusLista" type="ki:AnvandarbehorighetsstatusLista"/>
   <xs:element name="Anvandare" type="ki:Anvandare"/>
+  <xs:element name="AnvandareAktiveradEvent" type="ki:AnvandareAktiveradEvent"/>
   <xs:element name="AnvandareAndradEvent" type="ki:AnvandareAndradEvent"/>
   <xs:element name="AnvandareAndradEventV0" type="ki:AnvandareAndradEventV0"/>
   <xs:element name="AnvandareBaseEvent" type="ki:AnvandareBaseEvent"/>
+  <xs:element name="AnvandareBorttagenEvent" type="ki:AnvandareBorttagenEvent"/>
+  <xs:element name="AnvandareInaktiveradEvent" type="ki:AnvandareInaktiveradEvent"/>
   <xs:element name="AnvandareLista" type="ki:AnvandareLista"/>
   <xs:element name="AnvandareRESTRef" type="ki:AnvandareRESTRef"/>
   <xs:element name="AnvandareSkapadEvent" type="ki:AnvandareSkapadEvent"/>
@@ -48,7 +49,6 @@
   <xs:element name="ArendekorgKoppladAnvandare" type="ki:ArendekorgKoppladAnvandare"/>
   <xs:element name="ArendekorgKoppladeAnvandare" type="ki:ArendekorgKoppladeAnvandare"/>
   <xs:element name="Arendekorgar" type="ki:Arendekorgar"/>
-  <xs:element name="Autentiseringsinformation" type="ki:Autentiseringsinformation"/>
   <xs:element name="Autentiseringstyp" type="ki:Autentiseringstyp"/>
   <xs:element name="Autentiseringsunderlag" type="ki:Autentiseringsunderlag"/>
   <xs:element name="AviseringstextEvent" type="ki:AviseringstextEvent"/>
@@ -108,16 +108,13 @@
   <xs:element name="Kommun" type="ki:Kommun"/>
   <xs:element name="KommunEvent" type="ki:KommunEvent"/>
   <xs:element name="Kommuner" type="ki:Kommuner"/>
-  <xs:element name="KonfigurationAvAterautentisering" type="ki:KonfigurationAvAterautentisering"/>
-  <xs:element name="KonfigurationAvAutentisering" type="ki:KonfigurationAvAutentisering"/>
   <xs:element name="KonfigurationAvAutentiseringEvent" type="ki:KonfigurationAvAutentiseringEvent"/>
-  <xs:element name="KonfigurationerAvAterautentisering" type="ki:KonfigurationerAvAterautentisering"/>
-  <xs:element name="KonfigurationerAvAutentisering" type="ki:KonfigurationerAvAutentisering"/>
   <xs:element name="Konfigurationsobjekt" type="ki:Konfigurationsobjekt"/>
   <xs:element name="KonfigurationsobjektEvent" type="ki:KonfigurationsobjektEvent"/>
   <xs:element name="KravPaTidigareStudier" type="ki:KravPaTidigareStudier"/>
   <xs:element name="KravPaTidigareStudierEvent" type="ki:KravPaTidigareStudierEvent"/>
   <xs:element name="KravPaTidigareStudierLista" type="ki:KravPaTidigareStudierLista"/>
+  <xs:element name="LadokOAuth2User" type="ki:LadokOAuth2User"/>
   <xs:element name="LadokOTP" type="ki:LadokOTP"/>
   <xs:element name="Lan" type="ki:Lan"/>
   <xs:element name="LanEvent" type="ki:LanEvent"/>
@@ -209,10 +206,13 @@
   <xs:element name="SakerhetsnivaForAutentisering" type="ki:SakerhetsnivaForAutentisering"/>
   <xs:element name="SakerhetsnivaForAutentiseringEvent" type="ki:SakerhetsnivaForAutentiseringEvent"/>
   <xs:element name="SakerhetsnivaerForAutentisering" type="ki:SakerhetsnivaerForAutentisering"/>
+  <xs:element name="SamarbeteInomLarosateEvent" type="ki:SamarbeteInomLarosateEvent"/>
   <xs:element name="SokresultatAnvBehorighetKataloginformation" type="ki:SokresultatAnvBehorighetKataloginformation"/>
   <xs:element name="SokresultatAnvandareKataloginformation" type="ki:SokresultatAnvandareKataloginformation"/>
   <xs:element name="SokresultatOrganisationKataloginformation" type="ki:SokresultatOrganisationKataloginformation"/>
+  <xs:element name="StipendiumForStudieavgift" type="ki:StipendiumForStudieavgift"/>
   <xs:element name="StipendiumForStudieavgiftEvent" type="ki:StipendiumForStudieavgiftEvent"/>
+  <xs:element name="StipendiumForStudieavgifter" type="ki:StipendiumForStudieavgifter"/>
   <xs:element name="Studiefinansiering" type="ki:Studiefinansiering"/>
   <xs:element name="StudiefinansieringEvent" type="ki:StudiefinansieringEvent"/>
   <xs:element name="Studiefinansieringar" type="ki:Studiefinansieringar"/>
@@ -377,10 +377,23 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="AnvandareAktiveradEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - En användare aktiverats <p> Innehåller information om: <p> - Den aktiverad användaren <p> Konsekvenser för verksamheten: <p> - Användaren kan logga in och har behörighet. ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ki:AnvandareBaseEvent">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType abstract="true" name="AnvandareBaseEvent">
     <xs:complexContent>
       <xs:extension base="events:BaseEvent">
         <xs:sequence>
+          <xs:element minOccurs="0" name="AnvandareStatus" type="xs:string"/>
           <xs:element minOccurs="0" name="AnvandareUID" type="xs:string"/>
           <xs:element minOccurs="0" name="Anvandarnamnet" type="xs:string"/>
           <xs:element minOccurs="0" name="Efternamn" type="xs:string"/>
@@ -388,6 +401,30 @@
           <xs:element minOccurs="0" name="Fornamn" type="xs:string"/>
           <xs:element minOccurs="0" name="SMS" type="xs:string"/>
         </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AnvandareBorttagenEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - En användare borttagen <p> Innehåller information om: <p> - Den borttagna användaren <p> Konsekvenser för verksamheten: <p> - Användaren kan inte logga in och har behörighet. ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ki:AnvandareBaseEvent">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AnvandareInaktiveradEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - En användare inaktiveras <p> Innehåller information om: <p> - Den inaktiverad användaren <p> Konsekvenser för verksamheten: <p> - Användaren kan inte logga in och saknar behörighet. ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ki:AnvandareBaseEvent">
+        <xs:sequence/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -1091,6 +1128,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="SamarbeteInomLarosateEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - Ett samarbete inom et lärosäte skapas eller ändras <p> Innehåller information om: <p> - Redigerat sammarbete <p> Innehåller referenser till: <p> - <p> Konsekvenser för verksamheten: <p> - <p> Övrigt: <p> - Grunddatakategorin kan enbart innehålla lärosätesspecifika/lokala värden ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:grunddataBaseEvent">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="StipendiumForStudieavgiftEvent">
     <xs:annotation>
       <xs:documentation>
@@ -1412,6 +1461,8 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element name="AdministrerandeLarosate" type="xs:boolean"/>
+      <xs:element name="HanterarAntagning" type="xs:boolean"/>
+      <xs:element name="HanterarExamen" type="xs:boolean"/>
       <xs:element minOccurs="0" name="IngaendeExternPartID" type="xs:int"/>
       <xs:element minOccurs="0" name="IngaendeLarosateID" type="xs:int"/>
     </xs:sequence>
@@ -1578,25 +1629,6 @@
           <xs:element minOccurs="0" name="Epost" type="xs:string"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="Leveranspreferenser" type="av:Leveranspreferens"/>
           <xs:element minOccurs="0" name="Sms" type="xs:string"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="Autentiseringsinformation">
-    <xs:annotation>
-      <xs:documentation>
-        <![CDATA[ Information om användarens autentisering, t.ex. vilken IdP som användaren ]]>
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="dap:Base">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Assurance" type="xs:string"/>
-          <xs:element minOccurs="0" name="Host" type="xs:string"/>
-          <xs:element minOccurs="0" name="Idp" type="xs:string"/>
-          <xs:element minOccurs="0" name="IdpTimestamp" type="xs:string"/>
-          <xs:element minOccurs="0" name="MetaAssuranceCertification" type="xs:string"/>
-          <xs:element minOccurs="0" name="ShibAuthContextClass" type="xs:string"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1918,30 +1950,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="AktiviteterSomKraverAutentisering">
-    <xs:complexContent>
-      <xs:extension base="base:Grunddatavardelista">
-        <xs:sequence>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="AktivitetSomKraverAterautentisering" type="ki:AktivitetSomKraverAutentisering"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="AktivitetSomKraverAutentisering">
-    <xs:complexContent>
-      <xs:extension base="base:EnkeltGrunddatavarde">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="KompatiblaSakerhetsnivaer">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" name="SakerhetsnivaID" type="xs:int"/>
-              </xs:sequence>
-            </xs:complexType>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="Aktivitetstillfallestyper">
     <xs:complexContent>
       <xs:extension base="base:Grunddatavardelista">
@@ -2254,46 +2262,6 @@
       <xs:extension base="base:EnkeltGrunddatavarde">
         <xs:sequence>
           <xs:element name="LanID" type="xs:int"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="KonfigurationerAvAutentisering">
-    <xs:complexContent>
-      <xs:extension base="base:Grunddatavardelista">
-        <xs:sequence>
-          <xs:element maxOccurs="unbounded" minOccurs="0" ref="ki:KonfigurationAvAutentisering"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="KonfigurationAvAutentisering">
-    <xs:complexContent>
-      <xs:extension base="base:EnkeltGrunddatavarde">
-        <xs:sequence>
-          <xs:element name="AktivitetSomKraverAutentiseringID" type="xs:int"/>
-          <xs:element minOccurs="0" ref="ki:Autentiseringstyp"/>
-          <xs:element minOccurs="0" name="MaxSekunderSedanAutentisering" type="xs:int"/>
-          <xs:element name="SakerhetsnivaForAutentiseringID" type="xs:int"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="KonfigurationerAvAterautentisering">
-    <xs:complexContent>
-      <xs:extension base="base:Grunddatavardelista">
-        <xs:sequence>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="KonfigurationAvAterautentisering" type="ki:KonfigurationAvAutentisering"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="KonfigurationAvAterautentisering">
-    <xs:complexContent>
-      <xs:extension base="base:EnkeltGrunddatavarde">
-        <xs:sequence>
-          <xs:element name="AktivitetSomKraverAterautentiseringID" type="xs:int"/>
-          <xs:element name="SakerhetsnivaForAterautentiseringID" type="xs:int"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -2693,6 +2661,22 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="Processaktor">
+    <xs:complexContent>
+      <xs:extension base="base:EnkeltGrunddatavarde">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="StipendiumForStudieavgifter">
+    <xs:complexContent>
+      <xs:extension base="base:Grunddatavardelista">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="StipendiumForStudieavgifter" type="ki:StipendiumForStudieavgift"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="StipendiumForStudieavgift">
     <xs:complexContent>
       <xs:extension base="base:EnkeltGrunddatavarde">
         <xs:sequence/>
@@ -3290,6 +3274,22 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="LadokOAuth2User">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ En användare för oauth2 (just nu bara eduapi). ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="base:BaseEntitet">
+        <xs:sequence>
+          <xs:element name="ClientId" type="xs:string"/>
+          <xs:element name="Name" type="xs:string"/>
+          <xs:element name="Secret" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="NyLinjeorganisationsenhet">
     <xs:annotation>
       <xs:documentation>
@@ -3366,6 +3366,7 @@
       <xs:enumeration value="rattighetsniva.lokal"/>
       <xs:enumeration value="rattighetsniva.las"/>
       <xs:enumeration value="rattighetsniva.student"/>
+      <xs:enumeration value="rattighetsniva.eduapi"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="LarosatesinformationAttributtyp">

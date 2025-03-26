@@ -25,6 +25,8 @@
       <xs:enumeration value="BEVISINFORMATION_RATTNING_ANDRING"/>
       <xs:enumeration value="TILLGODORAKNANDE_BESLUT"/>
       <xs:enumeration value="ARENDEMEDDELANDE_TILLGODORAKNANDE"/>
+      <xs:enumeration value="ANSOKAN_PEDAGOGISKT_STOD"/>
+      <xs:enumeration value="ANSOKAN_STUDENT_PEDAGOGISKT_STOD"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="Leveransalternativ">

@@ -101,11 +101,6 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType abstract="true" name="BaseEntitet">
-    <xs:annotation>
-      <xs:documentation>
-        <![CDATA[ (param): <T> Typ som ärver {@link BaseEntitetRepresentation} ]]>
-      </xs:documentation>
-    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="dap:Base">
         <xs:sequence>

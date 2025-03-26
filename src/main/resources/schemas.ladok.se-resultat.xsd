@@ -17,6 +17,7 @@
   <xs:element name="Aktivitetstillfallen" type="rr:Aktivitetstillfallen"/>
   <xs:element name="Aktivitetstillfallesalternativ" type="rr:Aktivitetstillfallesalternativ"/>
   <xs:element name="Aktivitetstillfallesalternativlista" type="rr:Aktivitetstillfallesalternativlista"/>
+  <xs:element name="AktivitetstillfallesdeltagandeDoltEvent" type="rr:AktivitetstillfallesdeltagandeDoltEvent"/>
   <xs:element name="Aktivitetstillfalleskoppling" type="rr:Aktivitetstillfalleskoppling"/>
   <xs:element name="AktivitetstillfalleskopplingLattvikt" type="rr:AktivitetstillfalleskopplingLattvikt"/>
   <xs:element name="Aktivitetstillfallesmojlighet" type="rr:Aktivitetstillfallesmojlighet"/>
@@ -426,6 +427,23 @@
     <xs:complexContent>
       <xs:extension base="rr:AktivitetstillfalleStatusEvent">
         <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AktivitetstillfallesdeltagandeDoltEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Ett internt event för att kunna hålla reda på en flytt mellan olika alternativ i en och samma transaktion ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element name="AktivitetstillfalleUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="BorttagenFranAktivitetstillfallesalternativUID" type="xs:string"/>
+          <xs:element name="StudentUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="TillagdTillAktivitetstillfallesalternativUID" type="xs:string"/>
+        </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -1862,26 +1880,16 @@
           <xs:element minOccurs="0" name="Anonymt" type="xs:boolean"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="Ansvariga" type="xs:string"/>
           <xs:element minOccurs="0" name="AntalAnmalda" type="xs:int"/>
-          <xs:element minOccurs="0" name="Aviseringsgrans" type="xs:int"/>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="Aviseringsmottagare" type="xs:string"/>
           <xs:element name="Benamningar" type="base:Benamningar"/>
           <xs:element minOccurs="0" name="Borttagen" type="xs:boolean"/>
-          <xs:element minOccurs="0" name="Datumperiod" type="base:Datumperiod"/>
-          <xs:element minOccurs="0" name="Harttak" type="xs:boolean"/>
-          <xs:element minOccurs="0" name="Information" type="xs:string"/>
           <xs:element minOccurs="0" name="Installd" type="xs:boolean"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="Kopplingar" type="rr:Aktivitetstillfalleskoppling"/>
           <xs:element maxOccurs="unbounded" name="KurstillfalleUIDer" type="xs:string"/>
           <xs:element minOccurs="0" name="Lank" type="xs:string"/>
           <xs:element minOccurs="0" name="Lopnummer" type="xs:boolean"/>
-          <xs:element minOccurs="0" name="Maxantal" type="xs:int"/>
-          <xs:element minOccurs="0" name="Ort" type="xs:string"/>
-          <xs:element minOccurs="0" name="Plats" type="xs:string"/>
           <xs:element minOccurs="0" name="Prefix" type="xs:string"/>
           <xs:element minOccurs="0" name="SkapadAv" type="xs:string"/>
           <xs:element minOccurs="0" name="SkapadTidpunkt" type="xs:string"/>
-          <xs:element minOccurs="0" name="Sluttid" type="xs:time"/>
-          <xs:element minOccurs="0" name="Starttid" type="xs:time"/>
           <xs:element name="Status" type="rr:AktivitetstillfalleStatus"/>
           <xs:element minOccurs="0" name="TillatAnmalanForStudentMedGodkantResultat" type="xs:boolean"/>
           <xs:element minOccurs="0" name="VisaInteAnonymkodForStudentenForeAktivitetsTillfalletArGenomfort" type="xs:boolean"/>
@@ -1964,23 +1972,13 @@
           <xs:element minOccurs="0" name="Anonymt" type="xs:boolean"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="Ansvariga" type="xs:string"/>
           <xs:element minOccurs="0" name="AntalAnmalda" type="xs:int"/>
-          <xs:element minOccurs="0" name="Aviseringsgrans" type="xs:int"/>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="Aviseringsmottagare" type="xs:string"/>
           <xs:element name="Benamningar" type="base:Benamningar"/>
-          <xs:element minOccurs="0" name="Datumperiod" type="base:Datumperiod"/>
-          <xs:element minOccurs="0" name="Harttak" type="xs:boolean"/>
-          <xs:element minOccurs="0" name="Information" type="xs:string"/>
           <xs:element minOccurs="0" name="Installd" type="xs:boolean"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="Kopplingar" type="rr:AktivitetstillfalleskopplingLattvikt"/>
           <xs:element maxOccurs="unbounded" name="KurstillfalleUIDer" type="xs:string"/>
           <xs:element minOccurs="0" name="Lank" type="xs:string"/>
-          <xs:element minOccurs="0" name="Maxantal" type="xs:int"/>
-          <xs:element minOccurs="0" name="Ort" type="xs:string"/>
-          <xs:element minOccurs="0" name="Plats" type="xs:string"/>
           <xs:element minOccurs="0" name="SkapadAv" type="xs:string"/>
           <xs:element minOccurs="0" name="SkapadTidpunkt" type="xs:string"/>
-          <xs:element minOccurs="0" name="Sluttid" type="xs:time"/>
-          <xs:element minOccurs="0" name="Starttid" type="xs:time"/>
           <xs:element name="Status" type="rr:AktivitetstillfalleStatus"/>
           <xs:element minOccurs="0" name="OvrigInformation" type="xs:string"/>
         </xs:sequence>
@@ -2096,14 +2094,8 @@
           <xs:element minOccurs="0" name="Anmalningsperiod" type="base:Datumperiod"/>
           <xs:element minOccurs="0" name="Anonymt" type="xs:boolean"/>
           <xs:element name="Benamningar" type="base:Benamningar"/>
-          <xs:element minOccurs="0" name="Datumperiod" type="base:Datumperiod"/>
-          <xs:element minOccurs="0" name="Harttak" type="xs:boolean"/>
           <xs:element minOccurs="0" name="Installd" type="xs:boolean"/>
           <xs:element minOccurs="0" name="Lank" type="xs:string"/>
-          <xs:element minOccurs="0" name="Ort" type="xs:string"/>
-          <xs:element minOccurs="0" name="Plats" type="xs:string"/>
-          <xs:element minOccurs="0" name="Sluttid" type="xs:time"/>
-          <xs:element minOccurs="0" name="Starttid" type="xs:time"/>
           <xs:element minOccurs="0" name="OvrigInformation" type="xs:string"/>
         </xs:sequence>
       </xs:extension>
@@ -2113,6 +2105,7 @@
     <xs:complexContent>
       <xs:extension base="base:BaseEntitet">
         <xs:sequence>
+          <xs:element minOccurs="0" name="AktivitetstillfallesalternativUID" type="xs:string"/>
           <xs:element minOccurs="0" ref="rr:Anmalan"/>
           <xs:element minOccurs="0" name="Anonymiseringskod" type="xs:string"/>
         </xs:sequence>

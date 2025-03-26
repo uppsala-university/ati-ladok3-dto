@@ -7,7 +7,7 @@
   <xs:complexType abstract="true" name="Base">
     <xs:annotation>
       <xs:documentation>
-        <![CDATA[ Basklass för REST-representationer. Innehåller generell funktionalitet för att serialisera och deserialisera instanser av representationerna samt stöd för länkar. Alla properties sorteras i bokstavsordning vid serialisering. Detta för att underlätta vid diff av de utdumpade json-filerna som innehåller grunddata. (param): <T> Typ som ärver {@link BaseRepresentation} ]]>
+        <![CDATA[ Basklass för REST-representationer. Innehåller generell funktionalitet för att serialisera och deserialisera instanser av representationerna samt stöd för länkar. Alla properties sorteras i bokstavsordning vid serialisering. Detta för att underlätta vid diff av de utdumpade json-filerna som innehåller grunddata. ]]>
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>

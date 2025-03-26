@@ -94,6 +94,8 @@
   <xs:element name="KurstillfalleUppdateratEvent" type="ui:KurstillfalleUppdateratEvent"/>
   <xs:element name="Land" type="ui:Land"/>
   <xs:element name="Lander" type="ui:Lander"/>
+  <xs:element name="Lasperiodsfordelning" type="ui:Lasperiodsfordelning"/>
+  <xs:element name="Lasperiodsfordelningspost" type="ui:Lasperiodsfordelningspost"/>
   <xs:element name="Litteraturlista" type="ui:Litteraturlista"/>
   <xs:element name="LitteraturlistaBeslutadEvent" type="ui:LitteraturlistaBeslutadEvent"/>
   <xs:element name="LitteraturlistaEvent" type="ui:LitteraturlistaEvent"/>
@@ -147,6 +149,7 @@
   <xs:element name="ROFritext" type="ui:ROFritext"/>
   <xs:element name="ROGrupperatvarde" type="ui:ROGrupperatvarde"/>
   <xs:element name="ROIngaendeDelForPlan" type="ui:ROIngaendeDelForPlan"/>
+  <xs:element name="ROLasperiodsfordelningspost" type="ui:ROLasperiodsfordelningspost"/>
   <xs:element name="ROOrganisation" type="ui:ROOrganisation"/>
   <xs:element name="ROOvergripandeBeslutForPlan" type="ui:ROOvergripandeBeslutForPlan"/>
   <xs:element name="ROPlanForUtbildning" type="ui:ROPlanForUtbildning"/>
@@ -164,6 +167,8 @@
   <xs:element name="RegistreringsperiodAndradForTillfallesperioder" type="ui:RegistreringsperiodAndradForTillfallesperioder"/>
   <xs:element name="RegistreringsperiodUnderlag" type="ui:RegistreringsperiodUnderlag"/>
   <xs:element name="Regler" type="ui:Regler"/>
+  <xs:element name="SamarbeteInomLarosate" type="ui:SamarbeteInomLarosate"/>
+  <xs:element name="SamarbetenInomLarosate" type="ui:SamarbetenInomLarosate"/>
   <xs:element name="SokresultatTillfallesperiodProjektion" type="ui:SokresultatTillfallesperiodProjektion"/>
   <xs:element name="SokresultatUtbildningsinstans" type="ui:SokresultatUtbildningsinstans"/>
   <xs:element name="SokresultatUtbildningstillfalleProjektion" type="ui:SokresultatUtbildningstillfalleProjektion"/>
@@ -1050,6 +1055,7 @@
         <xs:sequence>
           <xs:element minOccurs="0" name="ForstaRegistreringsdatum" type="xs:date"/>
           <xs:element name="ForstaUndervisningsdatum" type="xs:date"/>
+          <xs:element minOccurs="0" ref="ui:Lasperiodsfordelning"/>
           <xs:element minOccurs="0" name="Omfattningsvarde" type="xs:decimal">
             <xs:annotation>
               <xs:documentation>
@@ -1060,6 +1066,35 @@
           <xs:element minOccurs="0" name="SistaRegistreringsdatum" type="xs:date"/>
           <xs:element name="SistaUndervisningsdatum" type="xs:date"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" ref="ui:UtbildningsomradePerOrganisation"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Lasperiodsfordelning">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Läsperiodsfördelning kan användas för att inom en tillfällesperiod i detalj beskriva hur omfattningen fördelas på olika läsperioder. <p> För att hålla detta så enkelt som möjligt används i periodfördelningen endast en lista av fördelningsposter som består av läsperiodskod och omfattningsvärde. <p> Regler: - En läsperiodskod endast får förekomma en gång i listan. ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Fordelningsposter" type="ui:Lasperiodsfordelningspost"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Lasperiodsfordelningspost">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Representerar en post i en läsperiodsfördelning. Posten innehåller en läsperiodskod och ett omfattningsvärde. Båda måste anges. ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="base:BaseEntitet">
+        <xs:sequence>
+          <xs:element name="Lasperiodskod" type="xs:string"/>
+          <xs:element name="Omfattningsvarde" type="xs:string"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1763,12 +1798,18 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="AngeNyttAttributvardeUnderlag">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ (deprecated): Denna typ är under avveckling från det externa API:t. Behovet av att uppdatera enskilda värden är uttalat från lärosätena, men den rekommenderade lösningen är tills vidare att använda GET för att hämta ett föllödigt objekt/aggregat, därefter ändra de egenskaper man vill ändra, och därefter anropa PUT med den ändrade payloaden. Arkitekt utreder hur behovet av delta-uppdateringar ska fungera/tillåtas i det externa API:t på ett övergripande gemensamt sätt i Ladok i framtiden. Klassen representerar ett "ändringsobjekt" för att kunna ange ett enskilt nytt värde på ett utbildningstillfälle utan att behöva PUT:a in hela utbildningstillfället. ]]>
+      </xs:documentation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="dap:Base">
         <xs:sequence>
           <xs:element name="AppliceraSpecialregel" type="xs:boolean"/>
           <xs:element minOccurs="0" name="AttributdefinitionUID" type="xs:string"/>
           <xs:element minOccurs="0" name="NyttVarde" type="xs:string"/>
+          <xs:element minOccurs="0" name="Sprakkod" type="xs:string"/>
           <xs:element minOccurs="0" name="UtbildningstillfalleUID" type="xs:string"/>
         </xs:sequence>
       </xs:extension>
@@ -2329,6 +2370,22 @@
       <xs:element name="Versionshanteras" type="xs:boolean"/>
     </xs:sequence>
   </xs:complexType>
+  <xs:complexType name="SamarbetenInomLarosate">
+    <xs:complexContent>
+      <xs:extension base="base:Grunddatavardelista">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" ref="ui:SamarbeteInomLarosate"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SamarbeteInomLarosate">
+    <xs:complexContent>
+      <xs:extension base="base:EnkeltGrunddatavarde">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="Studielokaliseringar">
     <xs:complexContent>
       <xs:extension base="dap:Base">
@@ -2886,13 +2943,12 @@
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="dap:Base">
+      <xs:extension base="base:BaseEntitet">
         <xs:sequence>
           <xs:element minOccurs="0" name="Anteckning" type="xs:string"/>
           <xs:element minOccurs="0" name="Beslutsdatum" type="xs:string"/>
           <xs:element minOccurs="0" name="Beslutsfattare" type="xs:string"/>
           <xs:element name="Typ" type="ui:ROBeslutLoggpostTyp"/>
-          <xs:element name="Uid" type="xs:string"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -2920,6 +2976,16 @@
           <xs:element minOccurs="0" name="UtbildningsinstansUID" type="xs:string"/>
           <xs:element minOccurs="0" name="Utbildningskod" type="xs:string"/>
           <xs:element minOccurs="0" name="Valbar" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ROLasperiodsfordelningspost">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Lasperiodskod" type="xs:string"/>
+          <xs:element minOccurs="0" name="Omfattningsvarde" type="xs:decimal"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -3053,6 +3119,13 @@
         <xs:sequence>
           <xs:element minOccurs="0" name="ForstaRegistreringsdatum" type="xs:string"/>
           <xs:element minOccurs="0" name="ForstaUndervisningsdatum" type="xs:string"/>
+          <xs:element minOccurs="0" name="Lasperiodsfordelning">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="Lasperiodsfordelningspost" type="ui:ROLasperiodsfordelningspost"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
           <xs:element minOccurs="0" name="Omfattningsvarde" type="xs:decimal"/>
           <xs:element minOccurs="0" name="SistaRegistreringsdatum" type="xs:string"/>
           <xs:element minOccurs="0" name="SistaUndervisningsdatum" type="xs:string"/>
@@ -3908,6 +3981,7 @@
       <xs:enumeration value="UTBILDNINGSINSTANS"/>
       <xs:enumeration value="VERKSAMHETSROLL"/>
       <xs:enumeration value="MEDARBETARE"/>
+      <xs:enumeration value="SAMARBETE_INOM_LAROSATE"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="BeslutLoggpostTyp">

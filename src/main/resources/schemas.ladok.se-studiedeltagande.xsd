@@ -3116,6 +3116,7 @@
       <xs:enumeration value="EJ_PAGAENDE_TILLFALLESBYTE"/>
       <xs:enumeration value="UPPEHALL"/>
       <xs:enumeration value="ATERBUD"/>
+      <xs:enumeration value="EJ_PAGAENDE_INAKTIVITET"/>
       <xs:enumeration value="PABORJAD"/>
       <xs:enumeration value="FORVANTAD_DELTAGARE"/>
     </xs:restriction>
@@ -3150,6 +3151,7 @@
       <xs:enumeration value="EJ_PAGAENDE_TILLFALLESBYTE"/>
       <xs:enumeration value="UPPEHALL"/>
       <xs:enumeration value="AVKLARAD"/>
+      <xs:enumeration value="EJ_PAGAENDE_INAKTIVITET"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="Aktorsroll">

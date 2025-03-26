@@ -43,6 +43,7 @@
   <xs:element name="BevistextLista" type="ex:BevistextLista"/>
   <xs:element name="Bevisunderlag" type="ex:Bevisunderlag"/>
   <xs:element name="BevisunderlagLista" type="ex:BevisunderlagLista"/>
+  <xs:element name="DokumenteraBevisKonvertering" type="ex:DokumenteraBevisKonvertering"/>
   <xs:element name="Dokumentkonfiguration" type="ex:Dokumentkonfiguration"/>
   <xs:element name="Dokumentkonfigurationer" type="ex:Dokumentkonfigurationer"/>
   <xs:element name="Dokumentmall" type="ex:Dokumentmall"/>
@@ -1995,6 +1996,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="DokumenteraBevisKonvertering">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Beslutsdatum" type="xs:string"/>
+          <xs:element minOccurs="0" name="Beslutsfattare" type="xs:string"/>
+          <xs:element minOccurs="0" name="DatumForAvslutadeStudier" type="xs:string"/>
+          <xs:element minOccurs="0" name="Omfattning" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="RattaUtfardatBevis">
     <xs:complexContent>
       <xs:extension base="base:BaseEntitet">
@@ -2068,8 +2081,13 @@
       <xs:enumeration value="BEVISBENAMNING_OCH_ELLER_PRECISERING"/>
       <xs:enumeration value="NAMN_ENDAST_I_BEVIS"/>
       <xs:enumeration value="OMFATTNINGSVARDE"/>
+      <xs:enumeration value="DATUM_FOR_AVSLUTADE_STUDIER"/>
       <xs:enumeration value="ANNAT_RESULTAT_RATTAT"/>
       <xs:enumeration value="ANNAN_MERIT_RATTAD"/>
+      <xs:enumeration value="TGMAL_ANNAN_MOTSV_UTBILDNING_RATTADE"/>
+      <xs:enumeration value="MERITER"/>
+      <xs:enumeration value="DISPOSITION"/>
+      <xs:enumeration value="KURSINSTANSBENAMNING"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="Bevistextagartyp">

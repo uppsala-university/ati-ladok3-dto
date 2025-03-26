@@ -18,6 +18,7 @@
   <xs:element name="FakturaOmfattningUppdateradEvent" type="ah:FakturaOmfattningUppdateradEvent"/>
   <xs:element name="FakturaReferensnummerUppdateratEvent" type="ah:FakturaReferensnummerUppdateratEvent"/>
   <xs:element name="FakturaRegleradEvent" type="ah:FakturaRegleradEvent"/>
+  <xs:element name="FakturaRegleradViaSamarbeteEvent" type="ah:FakturaRegleradViaSamarbeteEvent"/>
   <xs:element name="FakturaSistaBetalningsdagUppdateradEvent" type="ah:FakturaSistaBetalningsdagUppdateradEvent"/>
   <xs:element name="FakturaSkapadEvent" type="ah:FakturaSkapadEvent"/>
   <xs:element name="FakturaSkickadEvent" type="ah:FakturaSkickadEvent"/>
@@ -29,16 +30,31 @@
   <xs:element name="StudieavgifterViaAvgiftshanteringFromEvent" type="ah:StudieavgifterViaAvgiftshanteringFromEvent"/>
   <xs:element name="Transaktion" type="ah:Transaktion"/>
   <xs:element name="TransaktionAndring" type="ah:TransaktionAndring"/>
+  <xs:element name="UtbildningssamarbeteForFaktura" type="ah:UtbildningssamarbeteForFaktura"/>
   <xs:complexType name="FakturaBeslutEvent">
     <xs:annotation>
       <xs:documentation>
-        <![CDATA[ Händelse som publiceras när ett beslut tas på en faktura. Alla beslut leder till att en faktura regleras, och då kommer också ett FakturaRegleradEvent. - Händelsen kommer med en specificering om Händelsetyp: SKAPAD, UPPDATERAD, BORTTAGEN. - Beslutstyperna UNDANTAG och ENSKILT_UNDANTAG heter i det svenska administrationsgränsnittet "Undantag på utbildning" och "Undantag på faktura" ]]>
+        <![CDATA[ Händelse som publiceras när ett beslut tas på en faktura. Alla beslut leder till att en faktura regleras, och då kommer också ett FakturaRegleradEvent. - Händelsen kommer med en specificering om Händelsetyp: SKAPAD, BORTTAGEN. - Beslutstyperna UNDANTAG och ENSKILT_UNDANTAG heter i det svenska administrationsgränsnittet "Undantag på utbildning" och "Undantag på faktura" ]]>
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="events:BaseEventRepresentationMedHandelsetyp">
         <xs:sequence>
           <xs:element name="Beslutstyp" type="ah:FakturaBeslutstyp"/>
+          <xs:element name="FakturaUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FakturaRegleradViaSamarbeteEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Händelse som publiceras när en faktura betalas via ett samarbete. Innehåller en referens till fakturan och utbildningssamarbetets ID -- Även FakturaRegleradEvent kommer att publiceras med händelsetyp SKAPAD -- Händelsen kommer med en specificering om Händelsetyp: SKAPAD, BORTTAGEN. ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEventRepresentationMedHandelsetyp">
+        <xs:sequence>
           <xs:element name="FakturaUID" type="xs:string"/>
         </xs:sequence>
       </xs:extension>
@@ -124,7 +140,7 @@
   <xs:complexType name="FakturaRegleradEvent">
     <xs:annotation>
       <xs:documentation>
-        <![CDATA[ Händelse som publiceras när en faktura regleras. Innehåller information om vilken datum som fakturan reglerades, en referens till fakturan och studentens UID. Övrigt: Fakturan kan bli reglerad via antingen inbetalda transaktioner, se FakturaTransaktionEvent, eller genom olika beslut, se FakturaBeslutEvent. ]]>
+        <![CDATA[ Händelse som publiceras när en faktura regleras. Innehåller information om vilken datum som fakturan reglerades, en referens till fakturan och studentens UID. Övrigt: Fakturan kan bli reglerad via antingen inbetalda transaktioner, se FakturaTransaktionEvent, genom olika beslut, se FakturaBeslutEvent, eller genom ett samarbete, se FakturaRegleradViaSamarbeteEvent ]]>
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -332,6 +348,7 @@
           <xs:element name="Uid" type="xs:string"/>
           <xs:element name="UtbildningUID" type="xs:string"/>
           <xs:element name="UtbildningsinstansUID" type="xs:string"/>
+          <xs:element minOccurs="0" ref="ah:UtbildningssamarbeteForFaktura"/>
           <xs:element name="UtbildningstillfalleUID" type="xs:string"/>
           <xs:element name="OverskjutandeBelopp" type="xs:decimal"/>
         </xs:sequence>
@@ -367,6 +384,16 @@
           <xs:element minOccurs="0" name="Transaktionsdatum" type="xs:date"/>
           <xs:element name="Transaktionstyp" type="ah:Transaktionstyp"/>
           <xs:element name="Uid" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="UtbildningssamarbeteForFaktura">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="HandlaggareBetaldViaSamarbeteBeslut" type="xs:string"/>
+          <xs:element minOccurs="0" name="MotiveringBetaldViaSamarbeteBeslut" type="xs:string"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
