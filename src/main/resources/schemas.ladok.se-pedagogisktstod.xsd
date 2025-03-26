@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:base="http://schemas.ladok.se" xmlns:dap="http://schemas.ladok.se/dap" xmlns:events="http://schemas.ladok.se/events" xmlns:ps="http://schemas.ladok.se/pedagogisktstod" elementFormDefault="qualified" targetNamespace="http://schemas.ladok.se/pedagogisktstod" version="1.0">
+  <xs:import namespace="http://schemas.ladok.se" schemaLocation="schemas.ladok.se.xsd"/>
+  <xs:import namespace="http://schemas.ladok.se/events" schemaLocation="schemas.ladok.se-events.xsd"/>
+  <xs:import namespace="http://schemas.ladok.se/dap" schemaLocation="schemas.ladok.se-dap.xsd"/>
+  <xs:element name="Ansokan" type="ps:Ansokan"/>
+  <xs:element name="AnsokanAvbrutenEvent" type="ps:AnsokanAvbrutenEvent"/>
+  <xs:element name="AnsokanBeslutadEvent" type="ps:AnsokanBeslutadEvent"/>
+  <xs:element name="AnsokanEvent" type="ps:AnsokanEvent"/>
+  <xs:element name="AnsokanFlyttadEvent" type="ps:AnsokanFlyttadEvent"/>
+  <xs:element name="AnsokanInkommenEvent" type="ps:AnsokanInkommenEvent"/>
+  <xs:element name="AnsokanSlutfordEvent" type="ps:AnsokanSlutfordEvent"/>
+  <xs:element name="AnsoktaStod" type="ps:AnsoktaStod"/>
+  <xs:element name="BeslutadeStod" type="ps:BeslutadeStod"/>
+  <xs:element name="DokumenteradeStod" type="ps:DokumenteradeStod"/>
+  <xs:element name="DokumenteratStod" type="ps:DokumenteratStod"/>
+  <xs:element name="DokumenteratStodEvent" type="ps:DokumenteratStodEvent"/>
+  <xs:element name="KonfigurationForAktivitetstillfalle" type="ps:KonfigurationForAktivitetstillfalle"/>
+  <xs:element name="KonfigurationForAktivitetstillfalleEvent" type="ps:KonfigurationForAktivitetstillfalleEvent"/>
+  <xs:element name="PedagogisktStod" type="ps:PedagogisktStod"/>
+  <xs:element name="PedagogisktStodEvent" type="ps:PedagogisktStodEvent"/>
+  <xs:element name="PedagogisktStodLista" type="ps:PedagogisktStodLista"/>
+  <xs:element name="SlutfortBeslut" type="ps:SlutfortBeslut"/>
+  <xs:element name="SokresultatAnsokan" type="ps:SokresultatAnsokan"/>
+  <xs:element name="SokresultatPedagogisktStod" type="ps:SokresultatPedagogisktStod"/>
+  <xs:element name="Stod" type="ps:Stod"/>
+  <xs:element name="Utfall" type="ps:Utfall"/>
+  <xs:complexType name="DokumenteratStodEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - Dokumenterat stöd har skapats, uppdaterats eller raderats <p> Innehåller information om: <p> - giltigTom, inläggningsdatum, alternativBenämning <p> Innehåller referenser till: <p> - pedagogiskt stöd, dokumenterat stöd, student <p> Konsekvenser för verksamheten: <p> - ... <p> Övrigt: <p> - ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEventRepresentationMedHandelsetyp">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AlternativBenamning" type="base:Benamningar"/>
+          <xs:element name="DokumenteratStodUID" type="xs:string"/>
+          <xs:element name="GiltigTom" type="xs:string"/>
+          <xs:element name="Inlaggningsdatum" type="xs:string"/>
+          <xs:element name="PedagogisktStodUID" type="xs:string"/>
+          <xs:element name="StudentUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="KonfigurationForAktivitetstillfalleEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - Konfiguration för aktivitetstillfälle har skapats eller uppdaterats <p> Innehåller information om: <p> - ansökningsperiod. <p> Innehåller referenser till: <p> - aktivitetstillfälle, konfiguration för aktivitetstillfälle, beslutsfattare, administratörer <p> Konsekvenser för verksamheten: <p> - ... <p> Övrigt: <p> - ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEventRepresentationMedHandelsetyp">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Administratorer" type="xs:string"/>
+          <xs:element name="AktivitetstillfalleUid" type="xs:string"/>
+          <xs:element minOccurs="0" name="Ansokningsperiod" type="base:Datumperiod"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Beslutsfattare" type="xs:string"/>
+          <xs:element name="KonfigurationAvAktivitetstillfalleUid" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PedagogisktStodEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - Pedagogiskt stöd har skapats, uppdaterats eller raderats <p> Innehåller information om: <p> - benämningar i sv och eng, beskrivningar i sv och eng, stödtyp, giltighetsperiod, tillåterAlternativBenämning <p> Innehåller referenser till: <p> - pedagogiskt stöd <p> Konsekvenser för verksamheten: <p> - ... <p> Övrigt: <p> - ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEventRepresentationMedHandelsetyp">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Benamning" type="base:Benamningar"/>
+          <xs:element minOccurs="0" name="Beskrivning" type="base:Benamningar"/>
+          <xs:element minOccurs="0" name="Giltighetsperiod" type="base:Datumperiod"/>
+          <xs:element minOccurs="0" name="PedagogisktStodUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="Stodtyp" type="xs:string"/>
+          <xs:element minOccurs="0" name="TillaterAlternativBenamning" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AnsokanAvbrutenEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - En ansökan avbryts <p> Innehåller information om: <p> - <p> Innehåller referenser till: <p> - ansökan, aktivitetstillfälle, aktivitetstillfälleAlternativ, student <p> Konsekvenser för verksamheten: <p> - ... <p> Övrigt: <p> - ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ps:AnsokanEvent">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType abstract="true" name="AnsokanEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - BasEvent för andra ansökan Events <p> Innehåller information om: <p> - <p> Innehåller referenser till: <p> - ansökan, aktivitetstillfälle, aktivitetstillfälleAlternativ, student, ansökanNummer <p> Konsekvenser för verksamheten: <p> - ... <p> Övrigt: <p> - ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element name="AktivitetstillfalleUID" type="xs:string"/>
+          <xs:element name="AktivitetstillfallesalternativUID" type="xs:string"/>
+          <xs:element name="AnsokanUID" type="xs:string"/>
+          <xs:element name="AnsokanNummer" type="xs:string"/>
+          <xs:element name="StudentUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AnsokanBeslutadEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - En ansökan har beslutats <p> Innehåller information om: <p> - beslutadeStöd, <p> Innehåller referenser till: <p> - ansökan, aktivitetstillfälle, aktivitetstillfällesalternativ, student <p> Konsekvenser för verksamheten: <p> - ... <p> Övrigt: <p> - ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ps:AnsokanEvent">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" ref="ps:BeslutadeStod"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="BeslutadeStod">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ <p> - Event part för ansökningar som har beslutats eller slutförts <p> Innehåller information om: <p> - utfall <p> Innehåller referenser till: <p> - pedagogiskt stöd, dokumenterat stöd, användare <p> Konsekvenser för verksamheten: <p> - ... <p> Övrigt: <p> - ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AnvandarUID" type="xs:string"/>
+      <xs:element name="DokumenteratStodUID" type="xs:string"/>
+      <xs:element name="PedagogisktStodUID" type="xs:string"/>
+      <xs:element name="Utfall" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AnsokanFlyttadEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - En ansökan byter aktivitetstillfällesalternativ inom ett aktivitetstillfälle <p> Innehåller information om: <p> - Om det nya aktivitetstillfällesalternativet, det gamla alternativet skickas inte med. <p> Innehåller referenser till: <p> - ansökan, aktivitetstillfälle, det nya aktivitetstillfälleAlternativet, student, ansökanNummer <p> Konsekvenser för verksamheten: <p> - ... <p> Övrigt: <p> - ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ps:AnsokanEvent">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AnsokanInkommenEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - En ansökan är inkommen <p> Innehåller information om: <p> - ansöktaStöd <p> Innehåller referenser till: <p> - ansökan, aktivitetstillfälle, aktivitetstillfällesAlternativ, student <p> Konsekvenser för verksamheten: <p> - ... <p> Övrigt: <p> - ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ps:AnsokanEvent">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" ref="ps:AnsoktaStod"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AnsoktaStod">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ <p> - Event part för ansökta stöd <p> Innehåller information om: <p> - ... <p> Innehåller referenser till: <p> - pedagogiskt stöd, dokumenterat stöd <p> Konsekvenser för verksamheten: <p> - ... <p> Övrigt: <p> - ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DokumenteratStodUID" type="xs:string"/>
+      <xs:element name="PedagogisktStodUID" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AnsokanSlutfordEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - En ansökan är slutförd <p> Innehåller information om: <p> - beslutad, beslutadAv, meddelandeTillStudent, aviseringSkickad, beslutadeStöd <p> Innehåller referenser till: <p> - ansökan, aktivitetstillfälle, aktivitetstillfälleAlternativ, student <p> Konsekvenser för verksamheten: <p> - ... <p> Övrigt: <p> - ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ps:AnsokanEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AviseringSkickad" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" ref="ps:BeslutadeStod"/>
+          <xs:element minOccurs="0" name="MeddelandeTillStudent" type="xs:string"/>
+          <xs:element minOccurs="0" name="SlutfordAv" type="xs:string"/>
+          <xs:element minOccurs="0" name="Slutford" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Ansokan">
+    <xs:complexContent>
+      <xs:extension base="base:BaseEntitet">
+        <xs:sequence>
+          <xs:element name="AktivitetstillfalleUID" type="xs:string"/>
+          <xs:element name="AktivitetstillfallesalternativUID" type="xs:string"/>
+          <xs:element name="AnsokanNummer" type="xs:string"/>
+          <xs:element minOccurs="0" name="InternAnteckning" type="xs:string"/>
+          <xs:element minOccurs="0" ref="ps:SlutfortBeslut"/>
+          <xs:element name="StudentUID" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" ref="ps:Stod"/>
+          <xs:element name="Tillstand" type="ps:Tillstand"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SlutfortBeslut">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AviseringSkickad" type="xs:string"/>
+          <xs:element minOccurs="0" name="Beslutad" type="xs:string"/>
+          <xs:element minOccurs="0" name="BeslutadAv" type="xs:string"/>
+          <xs:element minOccurs="0" name="MeddelandeTillStudent" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Stod">
+    <xs:complexContent>
+      <xs:extension base="base:BaseEntitet">
+        <xs:sequence>
+          <xs:element name="Dokumenteratstod" type="ps:DokumenteratStod"/>
+          <xs:element minOccurs="0" ref="ps:Utfall"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DokumenteratStod">
+    <xs:complexContent>
+      <xs:extension base="base:BaseEntitet">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AlternativBenamning" type="base:Benamningar"/>
+          <xs:element minOccurs="0" name="BenamningEllerAlternativBenamning" type="base:Benamningar"/>
+          <xs:element minOccurs="0" name="GiltigTom" type="xs:string"/>
+          <xs:element minOccurs="0" name="Inlaggningsdatum" type="xs:string"/>
+          <xs:element minOccurs="0" name="Pedagogisktstod" type="ps:PedagogisktStod"/>
+          <xs:element minOccurs="0" name="StudentUID" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PedagogisktStod">
+    <xs:complexContent>
+      <xs:extension base="base:BaseEntitet">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Benamning" type="base:Benamningar"/>
+          <xs:element minOccurs="0" name="Beskrivning" type="base:Benamningar"/>
+          <xs:element minOccurs="0" name="Giltighetsperiod" type="base:Datumperiod"/>
+          <xs:element minOccurs="0" name="Stodtyp" type="ps:StodtypEnumRepresentation"/>
+          <xs:element minOccurs="0" name="TillaterAlternativBenamning" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Utfall">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Anteckning" type="xs:string"/>
+          <xs:element minOccurs="0" name="AnvandareUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="Beslutstidpunkt" type="xs:string"/>
+          <xs:element name="Beviljad" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="Motivering" type="xs:string"/>
+          <xs:element minOccurs="0" name="MotiveringEngelska" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DokumenteradeStod">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="Lista" type="ps:DokumenteratStod"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="KonfigurationForAktivitetstillfalle">
+    <xs:complexContent>
+      <xs:extension base="base:BaseEntitet">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Administratorer" type="xs:string"/>
+          <xs:element name="AktivitetstillfalleUID" type="xs:string"/>
+          <xs:element minOccurs="0" name="Ansokningsperiod" type="base:Datumperiod"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Beslutsfattare" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PedagogisktStodLista">
+    <xs:complexContent>
+      <xs:extension base="dap:Base">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="Lista" type="ps:PedagogisktStod"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SokresultatAnsokan">
+    <xs:complexContent>
+      <xs:extension base="base:Sokresultat">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Resultat" type="ps:Ansokan">
+            <xs:annotation>
+              <xs:documentation>
+                <![CDATA[ Lista med poster som kan vara en delmängd av det totala resultatet, givet paginering ]]>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SokresultatPedagogisktStod">
+    <xs:complexContent>
+      <xs:extension base="base:Sokresultat">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Resultat" type="ps:PedagogisktStod">
+            <xs:annotation>
+              <xs:documentation>
+                <![CDATA[ Lista med poster som kan vara en delmängd av det totala resultatet, givet paginering ]]>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="StodtypEnumRepresentation">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="REKOMMENDERAT_STOD"/>
+      <xs:enumeration value="BESLUTAT_STOD"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Tillstand">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INKOMMEN"/>
+      <xs:enumeration value="BESLUTAD"/>
+      <xs:enumeration value="SLUTFORD"/>
+      <xs:enumeration value="AVBRUTEN"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

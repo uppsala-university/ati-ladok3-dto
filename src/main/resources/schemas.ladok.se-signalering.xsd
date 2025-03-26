@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:base="http://schemas.ladok.se" xmlns:dap="http://schemas.ladok.se/dap" xmlns:events="http://schemas.ladok.se/events" xmlns:sl="http://schemas.ladok.se/signalering" elementFormDefault="qualified" targetNamespace="http://schemas.ladok.se/signalering" version="1.0">
+  <xs:import namespace="http://schemas.ladok.se/events" schemaLocation="schemas.ladok.se-events.xsd"/>
+  <xs:import namespace="http://schemas.ladok.se" schemaLocation="schemas.ladok.se.xsd"/>
+  <xs:element name="SignalEvent" type="sl:SignalEvent"/>
+  <xs:element name="Signaldefinition" type="sl:Signaldefinition"/>
+  <xs:element name="SignaldefinitionEvent" type="sl:SignaldefinitionEvent"/>
+  <xs:element name="SignaldefinitionLista" type="sl:SignaldefinitionLista"/>
+  <xs:complexType name="SignalEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - En av lärosätet definierad signal triggas i Ladok, t.ex. via processavslut eller när användare manuellt väljer att skicka signalen. - Signalen kan användas för att via lärosätets lokala integrationer agera på för verksamheten relevanta arbetssteg. <p> Innehåller information om: <p> - SignaUID -> Det unika UID:t för den signal som skickas - SignaldefinitionUID + signalkod -> kan användas för att förstå hur signalen ska tolkas. Dessa bör vara välkända i integrerande system. - Objektstyp = en enumeration som definierar vilken typ av objekt som signalen avser, t.ex. UTBILDNINGSINSTANS eller UTBILDNINGSTILLFÄLLE - ObjektUID = Det unika UID:t för det objekt som signalen avser, t.ex. en utbildningsinstans (t.ex. kursversion) eller utbildningstillfälle (t.ex. kurstillfälle) <p> Innehåller referenser till: <p> - Verksamhetsobjekt, t.ex. Utbildningsinstans eller Utbildningstillfälle eller annan typ av objekt. Egenskapen Objektstyp gör det möjligt att särskilja på olika typer av objekt. <p> Konsekvenser för verksamheten: <p> - Signalerna är till för att skapa bättre förutsättningar för lärosätets integrerande system att läsa interna behov när det händer saker i Ladok. Händelserna används inte av Ladoks interna tjänster. <p> Övrigt: <p> ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element name="ObjektUID" type="xs:string"/>
+          <xs:element name="Objektstyp" type="xs:string"/>
+          <xs:element minOccurs="0" name="SignalUID" type="xs:string"/>
+          <xs:element name="SignaldefinitionUID" type="xs:string"/>
+          <xs:element name="Signalkod" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SignaldefinitionEvent">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[ Händelsen publiceras när: <p> - En signaldefinition skapas, uppdateras eller tas bort <p> Innehåller information om: <p> - Händelsetyp, namn, kod och signaltyp (vilken typ av objekt som signalen avser) <p> Konsekvenser för verksamheten: <p> - Inget <p> Övrigt: <p> - <p> - ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="events:BaseEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="EngelskBenamning" type="xs:string"/>
+          <xs:element minOccurs="0" name="Handelsetyp" type="base:Handelsetyp"/>
+          <xs:element minOccurs="0" name="Signalkod" type="xs:string"/>
+          <xs:element minOccurs="0" name="Signaltyp" type="xs:string"/>
+          <xs:element minOccurs="0" name="SvenskBenamning" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SignaldefinitionLista">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Signaldefinitioner">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="Signaldefinitioner" type="sl:Signaldefinition"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Signaldefinition">
+    <xs:complexContent>
+      <xs:extension base="base:BaseEntitet">
+        <xs:sequence>
+          <xs:element name="Kod" type="xs:string"/>
+          <xs:element name="Namn" type="base:Benamningar"/>
+          <xs:element name="Signaltyp" type="sl:Signaltyp"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="Signaltyp">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="KURS"/>
+      <xs:enumeration value="KURSPAKETERING"/>
+      <xs:enumeration value="KURSTILLFALLE"/>
+      <xs:enumeration value="KURSPAKETERINGSTILLFALLE"/>
+      <xs:enumeration value="PLAN_FOR_UTBILDNING"/>
+      <xs:enumeration value="LITTERATURLISTA"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
