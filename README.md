@@ -7,10 +7,13 @@ produkt. DTO:er för marshalling/unmarshalling genereras från Ladok 3:s XSD:er.
 
 Från och med version 2.52.4 kräver denna produkt minst Java 8.
 
+Från och med version 3.0.0 är denna produkt inte längre paketerad som en
+OSGi-bundle, utan som en normal jar.
+
 ## Lägga till som ett beroende
 
 För att använda denna produkt som ett beroende i ett Maven-bygge behöver du
-lägga till två saker i ditt eget projekts ```pom.xml```
+lägga till den som en dependency i ditt eget projekts ```pom.xml```
 
 ```
   <dependencies>
@@ -18,26 +21,10 @@ lägga till två saker i ditt eget projekts ```pom.xml```
       <groupId>se.sunet.ati.ladok</groupId>
       <artifactId>ati-ladok3-dto</artifactId>
       <version>1.0.0-SNAPSHOT</version>
-      <type>bundle</type>
     </dependency>
     ...
   </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <version>2.3.7</version>
-      </plugin>
-      ...
-    </plugins>
-  </build>
 ```
-
-Anledningen till att du behöver lägga till ```maven-bundle-plugin``` är att
-denna produkt är av typen ```bundle``` (OSGi-bundle), vilket är en typ som
-normalt inte stöds av Maven. Detta stöd tillhandahålls istället av ```maven-bundle-plugin```.
 
 ## Policy för versionsnummer 
 
@@ -52,17 +39,18 @@ speciellt repository, då alla releaser publiceras i Maven Central Repository.
 ### Använda SNAPSHOTs
 
 Om du vill använda en SNAPSHOT-version av denna produkt så behöver du lägga till
-en konfiguration för detta. SHAPSHOTs publiceras i OSSRH. För Maven är det
+en konfiguration för detta. SHAPSHOTs publiceras till Maven Central Portal. För Maven är det
 enklast att lägga till en profil i ```settings.xml``` som ser ut så här:
 
 ```
-    <!-- For projects requiring SNAPSHOTs from OSSRH -->
+    <!-- For projects requiring SNAPSHOTs from Maven Central Portal  -->
     <profile>
-      <id>ossrh-snapshots</id>
+      <id>central-portal-snapshots</id>
       <repositories>
         <repository>
-          <id>ossrh-snapshots</id>
-          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+          <name>Central Portal Snapshots</name>
+          <id>central-portal-snapshots</id>
+          <url>https://central.sonatype.com/repository/maven-snapshots/</url>
           <releases>
             <enabled>false</enabled>
           </releases>
@@ -76,10 +64,11 @@ enklast att lägga till en profil i ```settings.xml``` som ser ut så här:
 
 När du sedan bygger din egen produkt med Maven så behöver du aktivera profilen:
 
-    mvn clean verify -Possrh-snapshots
+    mvn clean verify -Pcentral-portal-snapshots
 
 ## Att göra en release
 Man kan göra en release via Jenkins eller via sin egen dator (som i så fall behöver inställningar i ```settings.xml```, ```toolchains.xml``` samt ha stöd för gpg)
+
 ### Jenkins
 Gå till  projektet ```ati-ladok3-dto``` och kör ```Perform Maven Release```, ange versionsnummer för den release som ska göras och 
 den snapshot-versionen som ska användas efter att release är gjord (inga inloggningsuppgifter behöver anges)
@@ -94,8 +83,8 @@ För att göra en release behöver du lägga till nedanstående inställningar i
       <password>ditt-github-lösenord</password>
     </server>
     <server>
-      <id>ossrh</id>
-      <username>ATI:s användarnamn hos OSSRH</username>
+      <id>central</id>
+      <username>ATI:s användarnamn hos Maven Central Portal</username>
       <password>Tillhörande lösenord</password>
     </server>
     ...
@@ -109,13 +98,18 @@ För att göra en release behöver du lägga till nedanstående inställningar i
 
 För att göra releasen använder du dig av Maven Release Plugin:
 
-    mvn clean release:prepare
+    mvn clean verify
+    mvn release:prepare
     mvn release:perform
 
-## Publicera releasen externt via OSSRH
-Slutligen behöver du gå till OSSRH för att avsluta jobbet genom att följa
-[deras instruktioner](http://central.sonatype.org/pages/releasing-the-deployment.html).
+## Publicera releasen via Maven Central Portal
 
-I korthet, logga in på [OSSRH](https://oss.sonatype.org/#welcome), gå till ```Staging Repositories``` (i vänstermenyn),
-markera artefakten i listan (kolla att det är rätt artefakt) och klicka på ```Close``` (då sker en kvalitetskontroll av OSSRH)
-och klicka sedan på ```Release```.
+Slutligen behöver du gå till Maven Central Portal för att avsluta jobbet genom att följa
+[deras instruktioner](https://central.sonatype.org/publish/publish-portal-guide/).
+
+I korthet gör man så här:
+* logga in på [Maven Central Portal](https://central.sonatype.com/publishing/deployments)
+* välj vid behov rätt Deployment till vänster
+* kontrollera att innehållet under Component Files och Component Coordinates är korrekt
+* klicka på ```Publish```
+* vänta upp till 30 minuter på att filerna ska dyka upp på [Maven Central](https://repo1.maven.org/maven2/se/sunet/ati/ladok/ati-ladok3-dto/)
