@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jaxb:bindings jaxb:extensionBindingPrefixes="xjc"
-               jaxb:version="3.0"
-               xmlns:ci="http://jaxb.dev.java.net/plugin/code-injector"
-               xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
-               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
-               xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <jaxb:globalBindings>
-        <jaxb:serializable uid="-1"/>
+<bindings extensionBindingPrefixes="xjc"
+          xsi:schemaLocation="https://jakarta.ee/xml/ns/jaxb https://jakarta.ee/xml/ns/jaxb/bindingschema_3_0.xsd"
+          version="3.0"
+          xmlns="https://jakarta.ee/xml/ns/jaxb"
+          xmlns:ci="http://jaxb.dev.java.net/plugin/code-injector"
+          xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <globalBindings>
+        <serializable uid="-1"/>
         <!-- Den genererade Java-koden ska använda LocalDate-objekt för xs:date -->
         <xjc:javaType adapter="se.sunet.ati.ladok.LocalDateAdapter"
                       name="java.time.LocalDate" xmlType="xs:date"/>
         <!-- Den genererade Java-koden ska använda LocalDateTime-objekt för xs:dateTime -->
         <xjc:javaType adapter="se.sunet.ati.ladok.LocalDateTimeAdapter"
                       name="java.time.LocalDateTime" xmlType="xs:dateTime"/>
-    </jaxb:globalBindings>
+    </globalBindings>
 
-    <jaxb:bindings schemaLocation="../resources/schemas.ladok.se.xsd" node="/xs:schema/xs:complexType[@name='Benamningar']">
+    <bindings schemaLocation="../resources/schemas.ladok.se.xsd" node="/xs:schema/xs:complexType[@name='Benamningar']">
         <!-- Convenience method for getting the text representation of Benamning through a map, with language code as key -->
         <ci:code>
             public String getText(final String sprakkod) {
@@ -27,5 +29,5 @@
                 return null;
             }
         </ci:code>
-    </jaxb:bindings>
-</jaxb:bindings>
+    </bindings>
+</bindings>
