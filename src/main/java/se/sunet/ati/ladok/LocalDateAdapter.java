@@ -1,7 +1,7 @@
 package se.sunet.ati.ladok;
 
 import java.time.LocalDate;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * En adapter som konverterar mellan Java-datatypen <code>LocalDate</code> och

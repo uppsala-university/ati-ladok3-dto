@@ -12,6 +12,8 @@ OSGi-bundle, utan som en normal jar.
 
 Från och med version 3.0.0 är klassen DateAdapter borttagen.
 
+Från och med version 3.0.0 kräver denna produkt minst Java 17 och JAXB 4.
+
 ## Lägga till som ett beroende
 
 För att använda denna produkt som ett beroende i ett Maven-bygge behöver du
