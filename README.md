@@ -3,12 +3,14 @@
 Java värdeobjekt (Data Transfer Objects - DTO) för Ladok 3 finns i denna
 produkt. DTO:er för marshalling/unmarshalling genereras från Ladok 3:s XSD:er. 
 
-## Krav
+## Versionshistorik
 
 Från och med version 2.52.4 kräver denna produkt minst Java 8.
 
 Från och med version 3.0.0 är denna produkt inte längre paketerad som en
 OSGi-bundle, utan som en normal jar.
+
+Från och med version 3.0.0 är klassen DateAdapter borttagen.
 
 ## Lägga till som ett beroende
 
