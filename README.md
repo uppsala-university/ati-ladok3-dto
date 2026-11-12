@@ -5,14 +5,14 @@ produkt. DTO:er för marshalling/unmarshalling genereras från Ladok 3:s XSD:er.
 
 ## Versionshistorik
 
-Från och med version 2.52.4 kräver denna produkt minst Java 8.
+Från och med version 2.65.2 kräver denna produkt minst Java 8.
 
-Från och med version 3.0.0 är denna produkt inte längre paketerad som en
+Från och med version 2.65.3 är denna produkt inte längre paketerad som en
 OSGi-bundle, utan som en normal jar.
 
-Från och med version 3.0.0 är klassen DateAdapter borttagen.
+Från och med version 2.65.3 är klassen DateAdapter borttagen.
 
-Från och med version 3.0.0 kräver denna produkt minst Java 17 och JAXB 4.
+Från och med version 2.65.3 kräver denna produkt minst Java 17 och JAXB 4.
 
 ## Lägga till som ett beroende
 
